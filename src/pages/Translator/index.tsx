@@ -31,6 +31,13 @@ function TranslatorPage() {
     toLang: 'auto',
   });
 
+  const onExchangeLanguageBtnClick = () =>
+    setLastTranslateData((prev) => ({
+      ...prev,
+      fromLang: lastTranslateData.toLang,
+      toLang: lastTranslateData.fromLang,
+    }));
+
   const handleTranslate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -101,7 +108,7 @@ function TranslatorPage() {
             </select>
 
             <div className="flex justify-center w-2/12">
-              <button type="button" className="btn btn-circle btn-ghost">
+              <button type="button" className="btn btn-circle btn-ghost" onClick={onExchangeLanguageBtnClick}>
                 <CgArrowsExchange size={20} />
               </button>
             </div>

@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction, useContext, useMemo } from 'react';
+import { createContext, Dispatch, SetStateAction, useContext, useMemo, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useLocalStorage } from 'usehooks-ts';
 
@@ -11,6 +11,8 @@ type GlobalContextValue = {
   currentModel: OpenAIModel;
   setCurrentModel: Dispatch<SetStateAction<OpenAIModel>>;
   translator: {
+    translateText: string;
+    setTranslateText: Dispatch<SetStateAction<string>>;
     translatedText: string | undefined;
     mutateTanslateText: (data: Parameters<typeof fetchTranslation>[0]) => void;
     isTranslating: boolean;
@@ -24,6 +26,8 @@ const GlobalContext = createContext<GlobalContextValue>({
   currentModel: 'gpt-3.5-turbo',
   setCurrentModel: () => {},
   translator: {
+    translateText: '',
+    setTranslateText: () => {},
     translatedText: undefined,
     mutateTanslateText: () => {},
     isTranslating: false,
@@ -40,6 +44,7 @@ export const GlobalProvider = (props: Props) => {
 
   const [openaiApiKey, setOpenAiApiKey] = useLocalStorage('openai-api-key', '');
   const [currentModel, setCurrentModel] = useLocalStorage<OpenAIModel>('current-model', 'gpt-3.5-turbo');
+  const [translateText, setTranslateText] = useState('');
   const {
     data: translatedText,
     mutate: mutateTanslateText,
@@ -54,6 +59,8 @@ export const GlobalProvider = (props: Props) => {
       currentModel,
       setCurrentModel,
       translator: {
+        translateText,
+        setTranslateText,
         translatedText,
         mutateTanslateText,
         isTranslating,
@@ -65,6 +72,8 @@ export const GlobalProvider = (props: Props) => {
       setOpenAiApiKey,
       currentModel,
       setCurrentModel,
+      translateText,
+      setTranslateText,
       translatedText,
       mutateTanslateText,
       isTranslating,

@@ -1,6 +1,7 @@
 import OpenAIClient from '@/client';
 import { GPT_MODELS } from '@/constants';
 import { GPTModel, OpenAIModel } from '@/types';
+import { trimText } from '@/utils';
 
 export const fetchTranslation = async (params: {
   token: string;
@@ -24,7 +25,7 @@ export const fetchTranslation = async (params: {
       .map((choice) => choice.message.content.trim())
       .join('\n')
       .trim();
-    return text;
+    return trimText(text);
   }
 
   const resp = await OpenAIClient.completions(token, prompt, queryText, engine);
@@ -32,5 +33,5 @@ export const fetchTranslation = async (params: {
     .map((choice) => choice.text.trim())
     .join('\n')
     .trim();
-  return text;
+  return trimText(text);
 };

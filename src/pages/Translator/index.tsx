@@ -4,18 +4,32 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
 import TextareaAutosize from 'react-textarea-autosize';
+import { useLocalStorage } from 'usehooks-ts';
 
 import { useGlobalStore } from '@/components/GlobalStore';
 import { Language, LANGUAGES } from '@/constants';
+import { getTranslatePrompt } from '@/utils/prompt';
 
 function TranslatorPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const {
     openaiApiKey,
     currentModel,
-    translator: { translatedText, mutateTanslateText, isTranslating, isTranslateError },
+    translator: {
+      translateText,
+      setTranslateText,
+      translatedText,
+      mutateTanslateText,
+      isTranslating,
+      isTranslateError,
+    },
   } = useGlobalStore();
+
+  const [lastTranslateData, setLastTranslateData] = useLocalStorage('last-translat-data', {
+    fromLang: 'auto',
+    toLang: 'auto',
+  });
 
   const handleTranslate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,14 +40,36 @@ function TranslatorPage() {
     }
 
     const formData = new FormData(event.currentTarget);
-    const { translateText } = Object.fromEntries(formData.entries());
-    if (!translateText) {
+    const { translateText, fromLang, toLang } = Object.fromEntries(formData.entries());
+    if (!translateText || !fromLang || !toLang) {
       return;
     }
+
+    setTranslateText(translateText as string);
+
+    let prompt: string;
+
+    if (toLang === 'auto') {
+      if (i18n.language.startsWith('zh')) {
+        prompt = '翻译成简体白话文';
+      } else {
+        const _toLang = LANGUAGES[i18n.language as Language] || i18n.language;
+        prompt = `translate into ${_toLang}`;
+      }
+    } else {
+      prompt = getTranslatePrompt(fromLang as Language, toLang as Language);
+    }
+
+    setLastTranslateData((prev) => ({
+      ...prev,
+      fromLang: fromLang as Language,
+      toLang: toLang as Language,
+    }));
+
     mutateTanslateText({
       token: openaiApiKey,
       engine: currentModel,
-      prompt: '翻译成简体白话文',
+      prompt: prompt,
       queryText: translateText as string,
     });
   };
@@ -50,7 +86,13 @@ function TranslatorPage() {
       <div className="w-full max-w-full p-4 m-0 shadow-md top-16 bg-base-100">
         <form method="post" onSubmit={handleTranslate}>
           <div className="flex flex-row mb-2">
-            <select className="w-5/12 select" defaultValue="Auto">
+            <select
+              className="w-5/12 select"
+              value={lastTranslateData.fromLang}
+              onChange={(e) => setLastTranslateData((prev) => ({ ...prev, fromLang: e.target.value }))}
+              name="fromLang"
+              required
+            >
               {Object.keys(LANGUAGES).map((lang) => (
                 <option key={lang} value={lang}>
                   {LANGUAGES[lang as Language]}
@@ -64,7 +106,13 @@ function TranslatorPage() {
               </button>
             </div>
 
-            <select className="w-5/12 select" defaultValue="Auto">
+            <select
+              className="w-5/12 select"
+              value={lastTranslateData.toLang}
+              onChange={(e) => setLastTranslateData((prev) => ({ ...prev, toLang: e.target.value }))}
+              name="toLang"
+              required
+            >
               {Object.keys(LANGUAGES).map((lang) => (
                 <option key={lang} value={lang}>
                   {LANGUAGES[lang as Language]}
@@ -76,7 +124,7 @@ function TranslatorPage() {
           <div className="form-control">
             <TextareaAutosize
               name="translateText"
-              defaultValue={translatedText}
+              defaultValue={translateText}
               className="w-full mb-2 break-all rounded-2xl textarea textarea-md textarea-primary"
               placeholder="Please enter the text you want to translate here."
               required

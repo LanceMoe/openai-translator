@@ -2,9 +2,8 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IoChevronDownOutline, IoLanguage } from 'react-icons/io5';
-import { useOnClickOutside } from 'usehooks-ts';
+import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
 
-import { useLocalStorage } from '@/hooks/local-storage';
 import { ReactComponent as EnFlag } from '@/svg/flags/en.svg';
 import { ReactComponent as HkFlag } from '@/svg/flags/hk.svg';
 import { ReactComponent as JpFlag } from '@/svg/flags/jp.svg';

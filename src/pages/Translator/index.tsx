@@ -3,17 +3,18 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
-import { useMutation } from 'react-query';
 import TextareaAutosize from 'react-textarea-autosize';
 
-import { fetchTranslation } from '@/client/fetcher';
 import { useGlobalStore } from '@/components/GlobalStore';
 
 function TranslatorPage() {
   const { t } = useTranslation();
 
-  const { openaiApiKey, currentModel } = useGlobalStore();
-  const { data: translatedText, mutate, isLoading, isError } = useMutation('translator', fetchTranslation);
+  const {
+    openaiApiKey,
+    currentModel,
+    translator: { translatedText, mutateTanslateText, isTranslating, isTranslateError },
+  } = useGlobalStore();
 
   const handleTranslate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,7 +29,7 @@ function TranslatorPage() {
     if (!translateText) {
       return;
     }
-    mutate({
+    mutateTanslateText({
       token: openaiApiKey,
       engine: currentModel,
       prompt: '翻译成简体白话文',
@@ -37,11 +38,11 @@ function TranslatorPage() {
   };
 
   useEffect(() => {
-    if (!isError) {
+    if (!isTranslateError) {
       return;
     }
     toast.error('Something went wrong, please try again later.');
-  }, [isError]);
+  }, [isTranslateError]);
 
   return (
     <>
@@ -68,13 +69,18 @@ function TranslatorPage() {
           <div className="form-control">
             <TextareaAutosize
               name="translateText"
+              defaultValue={translatedText}
               className="w-full mb-2 break-all rounded-2xl textarea textarea-md textarea-primary"
               placeholder="Please enter the text you want to translate here."
               required
             ></TextareaAutosize>
 
-            <button type="submit" className={clsx('btn btn-primary', isLoading && 'loading')} disabled={isLoading}>
-              Translate
+            <button
+              type="submit"
+              className={clsx('btn btn-primary', isTranslating && 'loading')}
+              disabled={isTranslating}
+            >
+              {isTranslating ? 'Translating...' : 'Translate'}
             </button>
           </div>
         </form>
@@ -82,9 +88,9 @@ function TranslatorPage() {
       <div className="grid w-full max-w-full grid-cols-1 gap-4 p-4 m-0 mb-12">
         <TextareaAutosize
           name="translatedText"
-          value={translatedText}
+          value={isTranslating ? '' : translatedText}
           className="w-full mb-2 break-all rounded-2xl textarea textarea-md textarea-ghost"
-          placeholder="Translated text will appear here."
+          placeholder={isTranslating ? 'Please wait...' : 'Translated text will appear here.'}
           readOnly
           required
         ></TextareaAutosize>

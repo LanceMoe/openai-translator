@@ -6,6 +6,7 @@ import { CgArrowsExchange } from 'react-icons/cg';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import { useGlobalStore } from '@/components/GlobalStore';
+import { Language, LANGUAGES } from '@/constants';
 
 function TranslatorPage() {
   const { t } = useTranslation();
@@ -49,9 +50,12 @@ function TranslatorPage() {
       <div className="w-full max-w-full p-4 m-0 shadow-md top-16 bg-base-100">
         <form method="post" onSubmit={handleTranslate}>
           <div className="flex flex-row mb-2">
-            <select className="w-5/12 select" defaultValue={'自动检测'}>
-              <option value="自动检测">自动检测</option>
-              <option value="Lost">Lost</option>
+            <select className="w-5/12 select" defaultValue="Auto">
+              {Object.keys(LANGUAGES).map((lang) => (
+                <option key={lang} value={lang}>
+                  {LANGUAGES[lang as Language]}
+                </option>
+              ))}
             </select>
 
             <div className="flex justify-center w-2/12">
@@ -60,9 +64,12 @@ function TranslatorPage() {
               </button>
             </div>
 
-            <select className="w-5/12 select" defaultValue={'自动检测'}>
-              <option value="自动检测">自动检测</option>
-              <option value="Lost">Lost</option>
+            <select className="w-5/12 select" defaultValue="Auto">
+              {Object.keys(LANGUAGES).map((lang) => (
+                <option key={lang} value={lang}>
+                  {LANGUAGES[lang as Language]}
+                </option>
+              ))}
             </select>
           </div>
 

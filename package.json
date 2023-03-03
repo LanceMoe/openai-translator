@@ -32,6 +32,7 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.8.1",
     "react-string-replace": "^1.1.0",
+    "react-textarea-autosize": "^8.4.0",
     "usehooks-ts": "^2.9.1",
     "vite-plugin-svgr": "^2.4.0",
     "workbox-core": "^6.5.4",

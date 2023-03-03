@@ -132,7 +132,7 @@ function TranslatorPage() {
             <TextareaAutosize
               name="translateText"
               defaultValue={translateText}
-              className="w-full mb-2 break-all rounded-2xl textarea textarea-md textarea-primary"
+              className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-primary"
               placeholder={t('Please enter the text you want to translate here.')}
               required
             ></TextareaAutosize>
@@ -151,7 +151,7 @@ function TranslatorPage() {
         <TextareaAutosize
           name="translatedText"
           value={isTranslating ? '' : translatedText}
-          className="w-full mb-2 break-all rounded-2xl textarea textarea-md textarea-ghost"
+          className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-ghost"
           placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
           readOnly
           required

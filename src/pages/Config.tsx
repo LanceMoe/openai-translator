@@ -57,7 +57,7 @@ function ConfigPage() {
           </label>
           <textarea
             name="openaiApiKey"
-            className="h-24 break-all rounded-2xl textarea textarea-md textarea-primary"
+            className="h-24 break-all resize-none rounded-2xl textarea textarea-md textarea-primary"
             placeholder={t('Plsase paste your OpenAI API Key here.')}
             defaultValue={openaiApiKey}
             required

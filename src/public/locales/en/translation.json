@@ -1,0 +1,10 @@
+{
+  "topbar": {
+    "title": "OpenAI Translator",
+    "darkModeSwitcherTitle": "Switch Dark Mode"
+  },
+  "navbar": {
+    "Translator": "Translator",
+    "Config": "Config"
+  }
+}

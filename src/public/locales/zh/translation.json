@@ -1,0 +1,10 @@
+{
+  "topbar": {
+    "title": "OpenAI 翻译器",
+    "darkModeSwitcherTitle": "深色模式切换"
+  },
+  "navbar": {
+    "Translator": "翻译器",
+    "Config": "設定"
+  }
+}

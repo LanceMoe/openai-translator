@@ -1,0 +1,63 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "prettier",
+    "simple-import-sort",
+    "import"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "camelcase": "error",
+    "spaced-comment": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "no-duplicate-imports": "error",
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": "warn",
+    "sort-imports": "off",
+    "import/order": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "off",
+    "import/no-duplicates": "error",
+    "@next/next/no-img-element": "off",
+    "brace-style": [
+      "error",
+      "1tbs"
+    ],
+    "curly": [
+      "error",
+      "all"
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
+}

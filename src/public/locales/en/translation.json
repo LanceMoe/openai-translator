@@ -6,5 +6,20 @@
   "navbar": {
     "Translator": "Translator",
     "Config": "Config"
-  }
+  },
+  "Please enter your API Key in config page first!": "Please enter your API Key in config page first!",
+  "Something went wrong, please try again later.": "Something went wrong, please try again later.",
+  "Please enter the text you want to translate here.": "Please enter the text you want to translate here.",
+  "Translate": "Translate",
+  "Translating...": "Translating...",
+  "Please wait...": "Please wait...",
+  "Translated text will appear here.": "Translated text will appear here.",
+  "Model (engine)": "Model (engine)",
+  "OpenAI API Key": "OpenAI API Key",
+  "Please enter your API Key.": "Please enter your API Key.",
+  "Please select a model.": "Please select a model.",
+  "Config Saved!": "Config Saved!",
+  "Get your OpenAI API Key": "Get your OpenAI API Key",
+  "Plsase paste your OpenAI API Key here.": "Plsase paste your OpenAI API Key here.",
+  "Save": "Save"
 }

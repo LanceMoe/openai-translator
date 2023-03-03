@@ -6,5 +6,20 @@
   "navbar": {
     "Translator": "翻訳機",
     "Config": "設定"
-  }
+  },
+  "Please enter your API Key in config page first!": "最初に設定ページでAPIキーを入力してください！",
+  "Something went wrong, please try again later.": "何かが間違っているようです。後でもう一度お試しください。",
+  "Please enter the text you want to translate here.": "翻訳したいテキストをここに入力してください。",
+  "Translate": "翻訳する",
+  "Translating...": "翻訳中...",
+  "Please wait...": "お待ちください...",
+  "Translated text will appear here.": "翻訳されたテキストがここに表示されます。",
+  "Model (engine)": "モデル（エンジン）",
+  "OpenAI API Key": "OpenAI APIキー",
+  "Please enter your API Key.": "APIキーを入力してください。",
+  "Please select a model.": "モデルを選択してください。",
+  "Config Saved!": "設定が保存されました！",
+  "Get your OpenAI API Key": "OpenAI APIキーを取得する",
+  "Plsase paste your OpenAI API Key here.": "OpenAI APIキーをここに貼り付けてください。",
+  "Save": "保存"
 }

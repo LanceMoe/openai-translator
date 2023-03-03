@@ -35,7 +35,7 @@ function TranslatorPage() {
     event.preventDefault();
 
     if (!openaiApiKey) {
-      toast.error('Please enter your API Key in config page first!');
+      toast.error(t('Please enter your API Key in config page first!'));
       return;
     }
 
@@ -78,7 +78,7 @@ function TranslatorPage() {
     if (!isTranslateError) {
       return;
     }
-    toast.error('Something went wrong, please try again later.');
+    toast.error(t('Something went wrong, please try again later.'));
   }, [isTranslateError]);
 
   return (
@@ -126,7 +126,7 @@ function TranslatorPage() {
               name="translateText"
               defaultValue={translateText}
               className="w-full mb-2 break-all rounded-2xl textarea textarea-md textarea-primary"
-              placeholder="Please enter the text you want to translate here."
+              placeholder={t('Please enter the text you want to translate here.')}
               required
             ></TextareaAutosize>
 
@@ -135,7 +135,7 @@ function TranslatorPage() {
               className={clsx('btn btn-primary', isTranslating && 'loading')}
               disabled={isTranslating}
             >
-              {isTranslating ? 'Translating...' : 'Translate'}
+              {isTranslating ? t('Translating...') : t('Translate')}
             </button>
           </div>
         </form>
@@ -145,7 +145,7 @@ function TranslatorPage() {
           name="translatedText"
           value={isTranslating ? '' : translatedText}
           className="w-full mb-2 break-all rounded-2xl textarea textarea-md textarea-ghost"
-          placeholder={isTranslating ? 'Please wait...' : 'Translated text will appear here.'}
+          placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
           readOnly
           required
         ></TextareaAutosize>

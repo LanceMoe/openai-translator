@@ -14,16 +14,16 @@ function ConfigPage() {
     const formData = new FormData(event.currentTarget);
     const { openaiApiKey, selectedModel } = Object.fromEntries(formData.entries());
     if (!openaiApiKey) {
-      toast.error('Please enter your API Key.');
+      toast.error(t('Please enter your API Key.'));
       return;
     }
     if (!selectedModel) {
-      toast.error('Please select a model.');
+      toast.error(t('Please select a model.'));
       return;
     }
     setOpenAiApiKey(`${openaiApiKey}`);
     setCurrentModel(selectedModel as OpenAIModel);
-    toast.success('Config Saved!');
+    toast.success(t('Config Saved!'));
   };
 
   return (
@@ -31,7 +31,7 @@ function ConfigPage() {
       <form method="post" onSubmit={handleSave}>
         <div className="mb-2 form-control">
           <label className="label">
-            <span className="text-lg font-bold label-text">Model (engine)</span>
+            <span className="text-lg font-bold label-text">{t('Model (engine)')}</span>
           </label>
           <select className="w-full select select-primary" defaultValue={currentModel} name="selectedModel">
             {Object.keys(OPENAI_MODELS_TITLES).map((model) => (
@@ -43,31 +43,29 @@ function ConfigPage() {
         </div>
         <div className="mb-4 form-control">
           <label className="label">
-            <span className="text-lg font-bold label-text">OpenAI API Key</span>
+            <span className="text-lg font-bold label-text">{t('OpenAI API Key')}</span>
             <span className="label-text-alt">
-              Click&nbsp;
               <a
                 className="link link-primary"
                 href="https://platform.openai.com/account/api-keys"
                 target="_blank"
                 rel="noreferrer"
               >
-                here
+                {t('Get your OpenAI API Key')}
               </a>
-              &nbsp;to get your OpenAI API Key.
             </span>
           </label>
           <textarea
             name="openaiApiKey"
             className="h-24 break-all rounded-2xl textarea textarea-md textarea-primary"
-            placeholder="Plsase paste your OpenAI API Key here."
+            placeholder={t('Plsase paste your OpenAI API Key here.')}
             defaultValue={openaiApiKey}
             required
           ></textarea>
         </div>
         <div className="form-control">
           <button type="submit" className="btn btn-primary">
-            Save
+            {t('Save')}
           </button>
         </div>
       </form>

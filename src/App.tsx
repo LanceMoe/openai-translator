@@ -10,7 +10,9 @@ import { useDarkMode } from '@/hooks/theme';
 import TabLayout from '@/layouts/TabLayout';
 import NotFound from '@/pages/NotFound';
 
-const TranslatorPage = lazy(() => import('@/pages/Translator'));
+import { GlobalProvider } from './components/GlobalStore';
+
+const TranslatorPage = lazy(() => import('@/pages/Translator/index'));
 const ConfigPage = lazy(() => import('@/pages/Config'));
 
 function Router() {
@@ -18,16 +20,18 @@ function Router() {
 
   return (
     <ReactQueryProvider>
-      <GlobalToaster />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<TabLayout />}>
-            <Route index element={<TranslatorPage />} />
-            <Route path="config" element={<ConfigPage />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <GlobalProvider>
+        <GlobalToaster />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<TabLayout />}>
+              <Route index element={<TranslatorPage />} />
+              <Route path="config" element={<ConfigPage />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </GlobalProvider>
     </ReactQueryProvider>
   );
 }

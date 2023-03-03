@@ -3,18 +3,6 @@
 @tailwind utilities;
 @tailwind variants;
 
-@font-face {
-  font-family: GenYoGothic;
-  src: url('/fonts/GenYoGothicTW-R-01.woff2') format('woff2');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: GenYoGothic;
-  src: url('/fonts/GenYoGothicTW-B-01.woff2') format('woff2');
-  font-weight: 800;
-}
-
 html {
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
@@ -29,8 +17,8 @@ body {
   overflow-y: none;
   overflow-x: none;
   -webkit-tap-highlight-color: transparent;
-  font-family: GenYoGothic, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));

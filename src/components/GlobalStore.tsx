@@ -57,7 +57,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const GlobalProvider = (props: Props) => {
+export function GlobalProvider(props: Props) {
   const { children } = props;
 
   const [openaiApiKey, setOpenAiApiKey] = useLocalStorage<string>('openai-api-key', '');
@@ -131,8 +131,8 @@ export const GlobalProvider = (props: Props) => {
   );
 
   return <GlobalContext.Provider value={contextValue}>{children}</GlobalContext.Provider>;
-};
+}
 
-export const useGlobalStore = () => {
+export function useGlobalStore() {
   return useContext(GlobalContext);
-};
+}

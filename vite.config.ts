@@ -51,7 +51,7 @@ const pwaOptions: Partial<VitePWAOptions | ManifestOptions> = {
 // local mode: development | test
 // publishing mode: pre | prod
 
-export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
+export default async function ({ command, mode }: ConfigEnv): Promise<UserConfig> {
   const env = loadEnv(mode, __dirname);
 
   return {
@@ -73,4 +73,4 @@ export default async ({ command, mode }: ConfigEnv): Promise<UserConfig> => {
     },
     assetsInclude: ['favicon.png', 'openai-translator-apple-touch-icon.png', 'locales/**/*.json', 'icons/*.{png,svg}'],
   };
-};
+}

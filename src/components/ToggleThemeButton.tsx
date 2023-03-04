@@ -3,7 +3,7 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 
 import { useDarkMode } from '@/hooks/theme';
 
-function ToggleThemeButton() {
+export function ToggleThemeButton() {
   const { t } = useTranslation();
   const [darkMode, setDarkMode] = useDarkMode();
   return (
@@ -20,5 +20,3 @@ function ToggleThemeButton() {
     </label>
   );
 }
-
-export default ToggleThemeButton;

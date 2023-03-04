@@ -4,8 +4,8 @@ import '@/index.css';
 import { lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import GlobalToaster from '@/components/GlobalToaster';
-import ReactQueryProvider from '@/components/ReactQueryProvider';
+import { GlobalToaster } from '@/components/GlobalToaster';
+import { ReactQueryProvider } from '@/components/ReactQueryProvider';
 import { useDarkMode } from '@/hooks/theme';
 import TabLayout from '@/layouts/TabLayout';
 import NotFound from '@/pages/NotFound';
@@ -15,7 +15,7 @@ import { GlobalProvider } from './components/GlobalStore';
 const TranslatorPage = lazy(() => import('@/pages/Translator'));
 const ConfigPage = lazy(() => import('@/pages/Config'));
 
-function Router() {
+function App() {
   useDarkMode();
 
   return (
@@ -36,4 +36,4 @@ function Router() {
   );
 }
 
-export default Router;
+export default App;

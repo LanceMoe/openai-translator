@@ -10,7 +10,7 @@ const toastStyle = {
   blank: '',
 };
 
-function GlobalToaster() {
+export function GlobalToaster() {
   return (
     <Toaster>
       {(t) => (
@@ -39,5 +39,3 @@ function GlobalToaster() {
     </Toaster>
   );
 }
-
-export default GlobalToaster;

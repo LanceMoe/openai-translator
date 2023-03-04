@@ -16,7 +16,7 @@ const LANGUAGES = [
 
 type LanguageCode = (typeof LANGUAGES)[number]['code'];
 
-function SwitchLanguageButton() {
+export function SwitchLanguageButton() {
   const { i18n } = useTranslation();
   const ref = useRef(null);
   const [lang, setLang] = useLocalStorage<LanguageCode>('langCode', 'zh');
@@ -69,5 +69,3 @@ function SwitchLanguageButton() {
     </div>
   );
 }
-
-export default SwitchLanguageButton;

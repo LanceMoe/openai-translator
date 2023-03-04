@@ -1,10 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { BsGithub, BsTwitter } from 'react-icons/bs';
 
-import SwitchLanguageButton from '@/components/SwitchLanguageButton';
-import ToggleThemeButton from '@/components/ToggleThemeButton';
-
-import { HistoryRecordButton } from './HistoryRecordDrawer';
+import { HistoryRecordButton } from '@/components/HistoryRecordButton';
+import { SwitchLanguageButton } from '@/components/SwitchLanguageButton';
+import { ToggleThemeButton } from '@/components/ToggleThemeButton';
 
 function AboutModal() {
   return (

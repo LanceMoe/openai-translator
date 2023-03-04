@@ -26,7 +26,7 @@ function TranslatorPage() {
     },
   } = useGlobalStore();
 
-  const [lastTranslateData, setLastTranslateData] = useLocalStorage('last-translat-data', {
+  const [lastTranslateData, setLastTranslateData] = useLocalStorage('last-translate-data', {
     fromLang: 'auto',
     toLang: 'auto',
   });
@@ -89,10 +89,10 @@ function TranslatorPage() {
   }, [isTranslateError]);
 
   return (
-    <>
-      <div className="w-full max-w-full p-4 m-0 shadow-md top-16 bg-base-100">
-        <form method="post" onSubmit={handleTranslate}>
-          <div className="flex flex-row mb-2">
+    <form method="post" onSubmit={handleTranslate}>
+      <div className="container max-w-screen-2xl xl:mx-auto md:grid md:grid-cols-2 md:gap-4">
+        <div className="w-full md:min-h-[calc(100vh_-_112px)] max-w-full p-4 m-0 shadow-md top-16 bg-base-100">
+          <div className="flex flex-row mb-4">
             <select
               className="w-5/12 select"
               value={lastTranslateData.fromLang}
@@ -139,32 +139,39 @@ function TranslatorPage() {
             <TextareaAutosize
               name="translateText"
               defaultValue={translateText}
-              className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-primary"
+              className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px]"
               placeholder={t('Please enter the text you want to translate here.')}
               required
             ></TextareaAutosize>
 
             <button
               type="submit"
-              className={clsx('btn btn-primary', isTranslating && 'loading')}
+              className={clsx('btn btn-primary md:hidden', isTranslating && 'loading')}
               disabled={isTranslating}
             >
               {isTranslating ? t('Translating...') : t('Translate')}
             </button>
           </div>
-        </form>
+        </div>
+        <div className="p-4 m-0 form-control">
+          <button
+            type="submit"
+            className={clsx('btn btn-primary hidden md:inline-flex mb-4', isTranslating && 'loading')}
+            disabled={isTranslating}
+          >
+            {isTranslating ? t('Translating...') : t('Translate')}
+          </button>
+          <TextareaAutosize
+            name="translatedText"
+            value={isTranslating ? '' : translatedText}
+            className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]"
+            placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
+            readOnly
+            required
+          ></TextareaAutosize>
+        </div>
       </div>
-      <div className="grid w-full max-w-full grid-cols-1 gap-4 p-4 m-0 mb-12">
-        <TextareaAutosize
-          name="translatedText"
-          value={isTranslating ? '' : translatedText}
-          className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-ghost"
-          placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
-          readOnly
-          required
-        ></TextareaAutosize>
-      </div>
-    </>
+    </form>
   );
 }
 

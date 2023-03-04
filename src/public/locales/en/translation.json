@@ -21,5 +21,19 @@
   "Config Saved!": "Config Saved!",
   "Get your OpenAI API Key": "Get your OpenAI API Key",
   "Plsase paste your OpenAI API Key here.": "Plsase paste your OpenAI API Key here.",
-  "Save": "Save"
+  "Save": "Save",
+  "Cancel": "Cancel",
+  "Yes": "Yes",
+  "Copy original text": "Copy original text",
+  "Copy translation": "Copy translation",
+  "No history record.": "No history record.",
+  "Delete this record": "Delete this record",
+  "Do you really want to clear all history?": "Do you really want to clear all history?",
+  "Notice!": "Notice!",
+  "Clear All": "Clear All",
+  "History Record": "History Record",
+  "Delete history record successfully.": "Delete history record successfully.",
+  "Clear history records successfully.": "Clear history records successfully.",
+  "Copy original text successfully.": "Copy original text successfully.",
+  "Copy translation successfully.": "Copy translation successfully."
 }

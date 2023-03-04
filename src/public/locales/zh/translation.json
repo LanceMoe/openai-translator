@@ -21,5 +21,19 @@
   "Config Saved!": "设置已保存！",
   "Get your OpenAI API Key": "获取您的 OpenAI API Key",
   "Plsase paste your OpenAI API Key here.": "请将您的 OpenAI API Key 粘贴到这里。",
-  "Save": "保存"
+  "Save": "保存",
+  "Cancel": "取消",
+  "Yes": "是",
+  "Copy original text": "复制原文",
+  "Copy translation": "复制翻译",
+  "No history record.": "没有历史记录。",
+  "Delete this record": "删除这条记录",
+  "Do you really want to clear all history?": "您真的想要清空所有历史记录吗？",
+  "Notice!": "注意！",
+  "Clear All": "清空所有",
+  "History Record": "历史记录",
+  "Delete history record successfully.": "删除历史记录成功。",
+  "Clear history records successfully.": "清空历史记录成功。",
+  "Copy original text successfully.": "复制原文成功。",
+  "Copy translation successfully.": "复制翻译成功。"
 }

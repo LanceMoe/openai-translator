@@ -71,28 +71,28 @@ export function HistoryRecordDrawerLayout(props: Props) {
         <div className="p-4 w-[28.75rem] max-w-[100vw] bg-base-100">
           <h1 className="sticky top-0 z-50 flex justify-between w-full text-2xl font-bold align-middle bg-base-100">
             <span className="leading-[48px]">
-              History Record
+              {t('History Record')}
               <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="ml-6 btn-outline btn btn-error btn-xs">
                   <FaTrashAlt size={12} className="mr-2" />
-                  Clear All
+                  {t('Clear All')}
                 </label>
                 <div
                   tabIndex={0}
                   className="w-64 p-2 shadow dropdown-content card card-compact bg-warning text-warning-content"
                 >
                   <div className="card-body">
-                    <h3 className="card-title">Notice!</h3>
-                    <p>Do you really want to clear all history?</p>
+                    <h3 className="card-title">{t('Notice!')}</h3>
+                    <p>{t('Do you really want to clear all history?')}</p>
                     <div className="flex justify-end">
                       <button
                         className="btn btn-ghost btn-sm"
                         onClick={() => (document.activeElement as HTMLElement).blur()}
                       >
-                        Cancel
+                        {t('Cancel')}
                       </button>
                       <button className="ml-2 btn btn-error btn-sm" onClick={handleClearHistoryRecords}>
-                        Yes
+                        {t('Yes')}
                       </button>
                     </div>
                   </div>
@@ -111,7 +111,7 @@ export function HistoryRecordDrawerLayout(props: Props) {
             {!!historyRecords &&
               !!historyRecords.length &&
               historyRecords.map((record) => (
-                <li key={record.id} className="my-6">
+                <li key={record.id} className="my-2">
                   <div className="chat chat-end">
                     <div className="chat-header">
                       <span>
@@ -129,14 +129,14 @@ export function HistoryRecordDrawerLayout(props: Props) {
                           <ul tabIndex={0} className="p-2 shadow dropdown-content menu bg-base-100 rounded-box w-52">
                             <li>
                               <a onClick={() => handleDeleteHistoryRecord(record.id)} className="font-bold text-error">
-                                Delete this record
+                                {t('Delete this record')}
                               </a>
                             </li>
                             <li>
-                              <a onClick={() => handleCopyOriginalText(record.id)}>Copy original text</a>
+                              <a onClick={() => handleCopyOriginalText(record.id)}>{t('Copy original text')}</a>
                             </li>
                             <li>
-                              <a onClick={() => handleCopyTranslation(record.id)}>Copy translation</a>
+                              <a onClick={() => handleCopyTranslation(record.id)}>{t('Copy translation')}</a>
                             </li>
                           </ul>
                         </div>
@@ -152,7 +152,7 @@ export function HistoryRecordDrawerLayout(props: Props) {
                   </div>
                 </li>
               ))}
-            {(!historyRecords || !historyRecords.length) && <p className="">No history record.</p>}
+            {(!historyRecords || !historyRecords.length) && <p className="">{t('No history record.')}</p>}
           </ul>
         </div>
       </div>

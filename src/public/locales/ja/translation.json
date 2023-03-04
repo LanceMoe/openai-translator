@@ -21,5 +21,19 @@
   "Config Saved!": "設定が保存されました！",
   "Get your OpenAI API Key": "OpenAI APIキーを取得する",
   "Plsase paste your OpenAI API Key here.": "OpenAI APIキーをここに貼り付けてください。",
-  "Save": "保存"
+  "Save": "保存",
+  "Cancel": "キャンセル",
+  "Yes": "はい",
+  "Copy original text": "元のテキストをコピー",
+  "Copy translation": "翻訳をコピー",
+  "No history record.": "履歴記録はありません。",
+  "Delete this record": "この記録を削除する",
+  "Do you really want to clear all history?": "本当にすべての履歴を消去しますか？",
+  "Notice!": "注意！",
+  "Clear All": "すべて消去",
+  "History Record": "履歴記録",
+  "Delete history record successfully.": "履歴記録を削除しました。",
+  "Clear history records successfully.": "履歴記録を消去しました。",
+  "Copy original text successfully.": "元のテキストをコピーしました。",
+  "Copy translation successfully.": "翻訳をコピーしました。"
 }

@@ -38,3 +38,9 @@ export type ChatCompletionsResponse = {
     index: number;
   }[];
 };
+
+export type HistoryRecord = {
+  text: string;
+  translation: string;
+  createdAt: number;
+};

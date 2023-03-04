@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IoChevronDownOutline, IoLanguage } from 'react-icons/io5';
+import { FaLanguage, FaSortDown } from 'react-icons/fa';
 import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
 
 import { ReactComponent as EnFlag } from '@/svg/flags/en.svg';
@@ -45,8 +45,8 @@ function SwitchLanguageButton() {
         className="gap-1 normal-case btn btn-ghost"
         onClick={() => setIsMenuOpen((prev) => !prev)}
       >
-        <IoLanguage size={20} />
-        <IoChevronDownOutline size={12} />
+        <FaLanguage size={20} />
+        <FaSortDown size={12} />
       </button>
       <div className="w-56 mt-16 overflow-y-auto shadow-2xl dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box top-px">
         <ul className="gap-1 p-3 menu menu-compact" tabIndex={0}>

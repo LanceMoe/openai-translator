@@ -12,7 +12,7 @@ import NotFound from '@/pages/NotFound';
 
 import { GlobalProvider } from './components/GlobalStore';
 
-const TranslatorPage = lazy(() => import('@/pages/Translator/index'));
+const TranslatorPage = lazy(() => import('@/pages/Translator'));
 const ConfigPage = lazy(() => import('@/pages/Config'));
 
 function Router() {

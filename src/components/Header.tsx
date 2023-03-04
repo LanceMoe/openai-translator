@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import SwitchLanguageButton from '@/components/SwitchLanguageButton';
 import ToggleThemeButton from '@/components/ToggleThemeButton';
 
+import { HistoryRecordButton } from './HistoryRecordDrawer';
+
 function AboutModal() {
   return (
     <>
@@ -29,6 +31,7 @@ function Header() {
           </label>
         </div>
         <div className="flex-none">
+          <HistoryRecordButton />
           <ToggleThemeButton />
           <SwitchLanguageButton />
         </div>

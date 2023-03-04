@@ -72,32 +72,34 @@ export function HistoryRecordDrawerLayout(props: Props) {
           <h1 className="sticky top-0 z-50 flex justify-between w-full text-2xl font-bold align-middle bg-base-100">
             <span className="leading-[48px]">
               {t('History Record')}
-              <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="ml-6 btn-outline btn btn-error btn-xs">
-                  <FaTrashAlt size={12} className="mr-2" />
-                  {t('Clear All')}
-                </label>
-                <div
-                  tabIndex={0}
-                  className="w-64 p-2 shadow dropdown-content card card-compact bg-warning text-warning-content"
-                >
-                  <div className="card-body">
-                    <h3 className="card-title">{t('Notice!')}</h3>
-                    <p>{t('Do you really want to clear all history?')}</p>
-                    <div className="flex justify-end">
-                      <button
-                        className="btn btn-ghost btn-sm"
-                        onClick={() => (document.activeElement as HTMLElement).blur()}
-                      >
-                        {t('Cancel')}
-                      </button>
-                      <button className="ml-2 btn btn-error btn-sm" onClick={handleClearHistoryRecords}>
-                        {t('Yes')}
-                      </button>
+              {!!historyRecords && !!historyRecords.length && (
+                <div className="dropdown dropdown-end">
+                  <label tabIndex={0} className="ml-6 btn-outline btn btn-error btn-xs">
+                    <FaTrashAlt size={12} className="mr-2" />
+                    {t('Clear All')}
+                  </label>
+                  <div
+                    tabIndex={0}
+                    className="w-64 p-2 shadow dropdown-content card card-compact bg-warning text-warning-content"
+                  >
+                    <div className="card-body">
+                      <h3 className="card-title">{t('Notice!')}</h3>
+                      <p>{t('Do you really want to clear all history?')}</p>
+                      <div className="flex justify-end">
+                        <button
+                          className="btn btn-ghost btn-sm"
+                          onClick={() => (document.activeElement as HTMLElement).blur()}
+                        >
+                          {t('Cancel')}
+                        </button>
+                        <button className="ml-2 btn btn-error btn-sm" onClick={handleClearHistoryRecords}>
+                          {t('Yes')}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
             </span>
             <label
               htmlFor="history-record-drawer"

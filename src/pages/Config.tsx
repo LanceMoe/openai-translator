@@ -33,7 +33,12 @@ function ConfigPage() {
           <label className="label">
             <span className="text-lg font-bold label-text">{t('Model (engine)')}</span>
           </label>
-          <select className="w-full select select-primary" defaultValue={currentModel} name="selectedModel">
+          <select
+            className="w-full select select-primary"
+            defaultValue={currentModel}
+            name="selectedModel"
+            title="Selected model"
+          >
             {Object.keys(OPENAI_MODELS_TITLES).map((model) => (
               <option key={model} value={model}>
                 {OPENAI_MODELS_TITLES[model as OpenAIModel]}

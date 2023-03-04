@@ -1,4 +1,5 @@
 import { Transition } from '@headlessui/react';
+import clsx from 'clsx';
 import toast, { resolveValue, Toaster, ToastIcon } from 'react-hot-toast';
 
 const toastStyle = {
@@ -16,7 +17,7 @@ function GlobalToaster() {
         <Transition
           appear
           show={t.visible}
-          className={`flex transform shadow-lg alert ${toastStyle[t.type] || toastStyle['blank']}`}
+          className={clsx('flex transform shadow-lg alert', toastStyle[t.type] || toastStyle['blank'])}
           enter="transition-all duration-150"
           enterFrom="opacity-0 scale-50"
           enterTo="opacity-100 scale-100"

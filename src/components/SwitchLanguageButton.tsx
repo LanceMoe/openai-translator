@@ -53,7 +53,7 @@ function SwitchLanguageButton() {
           {LANGUAGES.map((language) => (
             <li key={language.code}>
               <button
-                className={`flex ${i18n.language === language.code ? 'active' : ''}`}
+                className={clsx('flex', i18n.language === language.code && 'active')}
                 onClick={() => {
                   setLang(language.code);
                   setIsMenuOpen(false);

@@ -98,6 +98,7 @@ function TranslatorPage() {
               value={lastTranslateData.fromLang}
               onChange={(e) => setLastTranslateData((prev) => ({ ...prev, fromLang: e.target.value }))}
               name="fromLang"
+              title="From Language"
               required
             >
               {Object.keys(LANGUAGES).map((lang) => (
@@ -108,7 +109,12 @@ function TranslatorPage() {
             </select>
 
             <div className="flex justify-center w-2/12">
-              <button type="button" className="btn btn-circle btn-ghost" onClick={onExchangeLanguageBtnClick}>
+              <button
+                type="button"
+                className="btn btn-circle btn-ghost"
+                onClick={onExchangeLanguageBtnClick}
+                title="Exchange"
+              >
                 <CgArrowsExchange size={20} />
               </button>
             </div>
@@ -118,6 +124,7 @@ function TranslatorPage() {
               value={lastTranslateData.toLang}
               onChange={(e) => setLastTranslateData((prev) => ({ ...prev, toLang: e.target.value }))}
               name="toLang"
+              title="To language"
               required
             >
               {Object.keys(LANGUAGES).map((lang) => (

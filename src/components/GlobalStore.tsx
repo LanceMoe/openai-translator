@@ -1,5 +1,5 @@
+import { useMutation } from '@tanstack/react-query';
 import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
-import { useMutation } from 'react-query';
 import { useLocalStorage } from 'usehooks-ts';
 
 import { fetchTranslation } from '@/client/fetcher';
@@ -74,7 +74,7 @@ export function GlobalProvider(props: Props) {
     mutate: mutateTanslateText,
     isLoading: isTranslating,
     isError: isTranslateError,
-  } = useMutation('translator', fetchTranslation);
+  } = useMutation(fetchTranslation);
 
   useEffect(() => {
     if (!translatedText) {

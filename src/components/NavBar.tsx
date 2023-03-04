@@ -22,7 +22,7 @@ function NavBar() {
       id="bottom-navigation"
       className="fixed inset-x-0 bottom-0 z-50 items-center block h-[calc(48px+env(safe-area-inset-bottom))] rounded-tabs glass"
     >
-      <ul id="tabs" className="flex justify-around p-0 m-0">
+      <ul id="tabs" className="flex justify-around max-w-screen-md p-0 m-0 mx-auto">
         {NAV_ITEMS.map(({ key, label, to, icon }) => (
           <li
             key={key}

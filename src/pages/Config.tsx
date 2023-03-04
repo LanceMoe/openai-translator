@@ -27,7 +27,7 @@ function ConfigPage() {
   };
 
   return (
-    <div className="w-full max-w-full p-4 m-0 mb-12">
+    <div className="container max-w-screen-md p-4 m-0 mb-12 md:mx-auto">
       <form method="post" onSubmit={handleSave}>
         <div className="mb-2 form-control">
           <label className="label">

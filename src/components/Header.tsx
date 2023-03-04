@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { BsGithub, BsTwitter } from 'react-icons/bs';
 
 import SwitchLanguageButton from '@/components/SwitchLanguageButton';
 import ToggleThemeButton from '@/components/ToggleThemeButton';
@@ -13,6 +14,27 @@ function AboutModal() {
         <label className="relative modal-box" htmlFor="">
           <h3 className="text-lg font-bold">About OpenAI Translator</h3>
           <p className="py-4">Author: Lance.Moe</p>
+          <p className="grid grid-cols-2 gap-2 py-4">
+            <a
+              href="https://github.com/LanceMoe/openai-translator"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-outline"
+            >
+              <BsGithub size={20} className="mr-2" />
+              GitHub
+            </a>
+
+            <a
+              href="https://twitter.com/lance_moe"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-outline btn-primary"
+            >
+              <BsTwitter size={20} className="mr-2" />
+              Twitter
+            </a>
+          </p>
         </label>
       </label>
     </>

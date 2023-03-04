@@ -9,3 +9,5 @@ Support ChatGPT engine (GPT 3.5).
 Inspired by https://github.com/yetone/bob-plugin-openai-translator
 
 <img width="970" alt="image" src="https://user-images.githubusercontent.com/18505474/222828200-948eef23-bf59-43af-ac27-1484c2bcd406.png">
+
+<img width="1336" alt="image" src="https://user-images.githubusercontent.com/18505474/222924658-012a1089-11f1-474a-99c1-c799aa73d793.png">

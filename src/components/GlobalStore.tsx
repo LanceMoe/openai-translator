@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction, useContext, useMemo, useState } from 'react';
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useLocalStorage } from 'usehooks-ts';
 
@@ -11,6 +11,11 @@ type GlobalContextValue = {
   currentModel: OpenAIModel;
   setCurrentModel: Dispatch<SetStateAction<OpenAIModel>>;
   translator: {
+    lastTranslateData: {
+      fromLang: string;
+      toLang: string;
+    };
+    setLastTranslateData: Dispatch<SetStateAction<{ fromLang: string; toLang: string }>>;
     translateText: string;
     setTranslateText: Dispatch<SetStateAction<string>>;
     translatedText: string | undefined;
@@ -30,6 +35,11 @@ const GlobalContext = createContext<GlobalContextValue>({
   currentModel: 'gpt-3.5-turbo',
   setCurrentModel: () => {},
   translator: {
+    lastTranslateData: {
+      fromLang: 'auto',
+      toLang: 'auto',
+    },
+    setLastTranslateData: () => {},
     translateText: '',
     setTranslateText: () => {},
     translatedText: undefined,
@@ -54,6 +64,10 @@ export const GlobalProvider = (props: Props) => {
   const [currentModel, setCurrentModel] = useLocalStorage<OpenAIModel>('current-model', 'gpt-3.5-turbo');
   const [translateText, setTranslateText] = useState('');
   const [historyRecords, setHistoryRecords] = useLocalStorage<HistoryRecord[]>('history-record', []);
+  const [lastTranslateData, setLastTranslateData] = useLocalStorage('last-translate-data', {
+    fromLang: 'auto',
+    toLang: 'auto',
+  });
 
   const {
     data: translatedText,
@@ -62,6 +76,23 @@ export const GlobalProvider = (props: Props) => {
     isError: isTranslateError,
   } = useMutation('translator', fetchTranslation);
 
+  useEffect(() => {
+    if (!translatedText) {
+      return;
+    }
+    setHistoryRecords((prev) => [
+      {
+        id: self.crypto.randomUUID(),
+        fromLanguage: lastTranslateData.fromLang,
+        toLanguage: lastTranslateData.toLang,
+        text: translateText,
+        translation: translatedText,
+        createdAt: Date.now(),
+      },
+      ...prev,
+    ]);
+  }, [translatedText]);
+
   const contextValue = useMemo(
     () => ({
       openaiApiKey,
@@ -69,6 +100,8 @@ export const GlobalProvider = (props: Props) => {
       currentModel,
       setCurrentModel,
       translator: {
+        lastTranslateData,
+        setLastTranslateData,
         translateText,
         setTranslateText,
         translatedText,

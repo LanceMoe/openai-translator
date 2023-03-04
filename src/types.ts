@@ -40,7 +40,10 @@ export type ChatCompletionsResponse = {
 };
 
 export type HistoryRecord = {
+  id: string;
   text: string;
   translation: string;
   createdAt: number;
+  fromLanguage: string;
+  toLanguage: string;
 };

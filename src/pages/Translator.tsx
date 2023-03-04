@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
 import TextareaAutosize from 'react-textarea-autosize';
-import { useLocalStorage } from 'usehooks-ts';
 
 import { useGlobalStore } from '@/components/GlobalStore';
 import { Language, LANGUAGES } from '@/constants';
@@ -17,6 +16,8 @@ function TranslatorPage() {
     openaiApiKey,
     currentModel,
     translator: {
+      lastTranslateData,
+      setLastTranslateData,
       translateText,
       setTranslateText,
       translatedText,
@@ -26,10 +27,14 @@ function TranslatorPage() {
     },
   } = useGlobalStore();
 
-  const [lastTranslateData, setLastTranslateData] = useLocalStorage('last-translate-data', {
-    fromLang: 'auto',
-    toLang: 'auto',
-  });
+  useEffect(() => {
+    if (!isTranslateError) {
+      return;
+    }
+    toast.error(t('Something went wrong, please try again later.'));
+  }, [isTranslateError]);
+
+  // ↑ Hooks before, keep hooks order
 
   const onExchangeLanguageBtnClick = () =>
     setLastTranslateData((prev) => ({
@@ -80,13 +85,6 @@ function TranslatorPage() {
       queryText: translateText as string,
     });
   };
-
-  useEffect(() => {
-    if (!isTranslateError) {
-      return;
-    }
-    toast.error(t('Something went wrong, please try again later.'));
-  }, [isTranslateError]);
 
   return (
     <form method="post" onSubmit={handleTranslate}>

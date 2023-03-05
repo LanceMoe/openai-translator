@@ -35,5 +35,7 @@
   "Delete history record successfully.": "履歴記録を削除しました。",
   "Clear history records successfully.": "履歴記録を消去しました。",
   "Copy original text successfully.": "元のテキストをコピーしました。",
-  "Copy translation successfully.": "翻訳をコピーしました。"
+  "Copy translation successfully.": "翻訳をコピーしました。",
+  "Tempreture": "臨機応変",
+  "Higher tempreture will be more creative.": "高い臨機応変值はより創造的になります。"
 }

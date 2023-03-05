@@ -15,6 +15,7 @@ function TranslatorPage() {
   const {
     openaiApiKey,
     currentModel,
+    extraConfig,
     translator: {
       lastTranslateData,
       setLastTranslateData,
@@ -82,6 +83,7 @@ function TranslatorPage() {
       token: openaiApiKey,
       engine: currentModel,
       prompt: prompt,
+      tempretureParam: extraConfig.tempretureParam,
       queryText: translateText as string,
     });
   };

@@ -47,3 +47,12 @@ export type HistoryRecord = {
   fromLanguage: string;
   toLanguage: string;
 };
+
+export type LastTranslateData = {
+  fromLang: string;
+  toLang: string;
+};
+
+export type ConfigValues = {
+  tempretureParam: number;
+};

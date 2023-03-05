@@ -7,9 +7,10 @@ export const fetchTranslation = async (params: {
   token: string;
   engine: OpenAIModel;
   prompt: string;
+  tempretureParam: number;
   queryText: string;
 }) => {
-  const { token, engine, prompt, queryText } = params;
+  const { token, engine, prompt, queryText, tempretureParam } = params;
   if (!token) {
     throw new Error('No API Key found!');
   }
@@ -17,10 +18,16 @@ export const fetchTranslation = async (params: {
     throw new Error('No prompt found!');
   }
 
+  const getRadomNumber = (min: number, max: number) => {
+    return Math.random() * (max - min) + min;
+  };
+
   const isGptModel = (GPT_MODELS as unknown as string[]).includes(engine);
 
+  const tmpParam = +tempretureParam >= 1 && +tempretureParam <= 1.5 ? +tempretureParam : getRadomNumber(1, 1.5);
+
   if (isGptModel) {
-    const resp = await OpenAIClient.chatCompletions(token, prompt, queryText, engine as GPTModel);
+    const resp = await OpenAIClient.chatCompletions(token, prompt, queryText, engine as GPTModel, tmpParam);
     const text = resp.data.choices
       .map((choice) => choice.message.content.trim())
       .join('\n')
@@ -28,7 +35,7 @@ export const fetchTranslation = async (params: {
     return trimText(text);
   }
 
-  const resp = await OpenAIClient.completions(token, prompt, queryText, engine);
+  const resp = await OpenAIClient.completions(token, prompt, queryText, engine, tmpParam);
   const text = resp.data.choices
     .map((choice) => choice.text.trim())
     .join('\n')

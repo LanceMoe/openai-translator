@@ -13,6 +13,18 @@ export const getTranslatePrompt = (fromLang: Language, toLang: Language) => {
   if (toLang === 'wyw' || toLang === 'yue') {
     return `翻译成${LANGUAGES[toLang] || toLang}`;
   }
+  if (fromLang === 'auto') {
+    if (toLang === 'zh-Hant') {
+      return '翻译成繁体';
+    }
+    if (toLang === 'zh-Hans') {
+      return '翻譯為繁體';
+    }
+    if (toLang === 'ja') {
+      return '日本語に翻訳';
+    }
+    return `translate into ${LANGUAGES[toLang] || toLang}`;
+  }
   if (fromLang === toLang) {
     if (toLang === 'zh-Hant' || toLang === 'zh-Hans') {
       return '润色此句';

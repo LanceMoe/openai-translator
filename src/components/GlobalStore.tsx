@@ -3,19 +3,18 @@ import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo
 import { useLocalStorage } from 'usehooks-ts';
 
 import { fetchTranslation } from '@/client/fetcher';
-import { HistoryRecord, OpenAIModel } from '@/types';
+import { ConfigValues, HistoryRecord, LastTranslateData, OpenAIModel } from '@/types';
 
 type GlobalContextValue = {
   openaiApiKey: string;
   setOpenAiApiKey: Dispatch<SetStateAction<string>>;
   currentModel: OpenAIModel;
   setCurrentModel: Dispatch<SetStateAction<OpenAIModel>>;
+  extraConfig: ConfigValues;
+  setExtraConfig: Dispatch<SetStateAction<ConfigValues>>;
   translator: {
-    lastTranslateData: {
-      fromLang: string;
-      toLang: string;
-    };
-    setLastTranslateData: Dispatch<SetStateAction<{ fromLang: string; toLang: string }>>;
+    lastTranslateData: LastTranslateData;
+    setLastTranslateData: Dispatch<SetStateAction<LastTranslateData>>;
     translateText: string;
     setTranslateText: Dispatch<SetStateAction<string>>;
     translatedText: string | undefined;
@@ -34,6 +33,10 @@ const GlobalContext = createContext<GlobalContextValue>({
   setOpenAiApiKey: () => {},
   currentModel: 'gpt-3.5-turbo',
   setCurrentModel: () => {},
+  extraConfig: {
+    tempretureParam: 1,
+  },
+  setExtraConfig: () => {},
   translator: {
     lastTranslateData: {
       fromLang: 'auto',
@@ -64,9 +67,12 @@ export function GlobalProvider(props: Props) {
   const [currentModel, setCurrentModel] = useLocalStorage<OpenAIModel>('current-model', 'gpt-3.5-turbo');
   const [translateText, setTranslateText] = useState('');
   const [historyRecords, setHistoryRecords] = useLocalStorage<HistoryRecord[]>('history-record', []);
-  const [lastTranslateData, setLastTranslateData] = useLocalStorage('last-translate-data', {
+  const [lastTranslateData, setLastTranslateData] = useLocalStorage<LastTranslateData>('last-translate-data', {
     fromLang: 'auto',
     toLang: 'auto',
+  });
+  const [extraConfig, setExtraConfig] = useLocalStorage<ConfigValues>('extra-config', {
+    tempretureParam: 1,
   });
 
   const {
@@ -99,6 +105,8 @@ export function GlobalProvider(props: Props) {
       setOpenAiApiKey,
       currentModel,
       setCurrentModel,
+      extraConfig,
+      setExtraConfig,
       translator: {
         lastTranslateData,
         setLastTranslateData,
@@ -127,6 +135,8 @@ export function GlobalProvider(props: Props) {
       isTranslateError,
       historyRecords,
       setHistoryRecords,
+      extraConfig,
+      setExtraConfig,
     ],
   );
 

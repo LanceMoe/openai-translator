@@ -35,5 +35,7 @@
   "Delete history record successfully.": "Delete history record successfully.",
   "Clear history records successfully.": "Clear history records successfully.",
   "Copy original text successfully.": "Copy original text successfully.",
-  "Copy translation successfully.": "Copy translation successfully."
+  "Copy translation successfully.": "Copy translation successfully.",
+  "Tempreture": "Tempreture",
+  "Higher tempreture will be more creative.": "Higher tempreture will be more creative."
 }

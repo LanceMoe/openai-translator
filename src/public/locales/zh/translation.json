@@ -35,5 +35,7 @@
   "Delete history record successfully.": "删除历史记录成功。",
   "Clear history records successfully.": "清空历史记录成功。",
   "Copy original text successfully.": "复制原文成功。",
-  "Copy translation successfully.": "复制翻译成功。"
+  "Copy translation successfully.": "复制翻译成功。",
+  "Tempreture": "随机应变",
+  "Higher tempreture will be more creative.": "随机应变值越高，结果越有创意。"
 }

@@ -1,0 +1,7 @@
+version: '3'
+services:
+  openai-translator:
+    build: .
+    ports:
+      - "8080:80"
+    restart: always

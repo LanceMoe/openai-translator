@@ -1,5 +1,5 @@
 export default {
-  baseUrl: 'https://api.openai.com/',
+  baseUrl: 'https://openai-api-node.lance.moe/',
   endpoints: {
     v1: {
       completions: {

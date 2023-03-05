@@ -15,10 +15,10 @@ export const getTranslatePrompt = (fromLang: Language, toLang: Language) => {
   }
   if (fromLang === 'auto') {
     if (toLang === 'zh-Hant') {
-      return '翻译成繁体';
+      return '翻譯為繁體';
     }
     if (toLang === 'zh-Hans') {
-      return '翻譯為繁體';
+      return '翻译成简体';
     }
     if (toLang === 'ja') {
       return '日本語に翻訳';

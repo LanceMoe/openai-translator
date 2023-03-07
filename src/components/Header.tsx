@@ -17,7 +17,7 @@ function AboutModal() {
             <a
               href="https://github.com/LanceMoe/openai-translator"
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               className="btn btn-outline"
             >
               <BsGithub size={20} className="mr-2" />
@@ -27,7 +27,7 @@ function AboutModal() {
             <a
               href="https://twitter.com/lance_moe"
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               className="btn btn-outline btn-primary"
             >
               <BsTwitter size={20} className="mr-2" />

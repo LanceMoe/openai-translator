@@ -42,7 +42,7 @@ function ConfigPage() {
                 className="link link-primary"
                 href="https://platform.openai.com/account/api-keys"
                 target="_blank"
-                rel="noreferrer"
+                rel="noreferrer noopener"
               >
                 {t('Get your OpenAI API Key')}
               </a>

@@ -1,3 +1,11 @@
+![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
+
 # OpenAI Translator
 
 A translator app that uses OpenAI GPT-3 to translate between languages. It is a PWA that can be installed on your phone or desktop.
@@ -18,10 +26,14 @@ Support ChatGPT engine (GPT 3.5).
 - Tailwind CSS 3
 - DaisyUI 2
 - Axios
+- React Router 6
 - React Query 4
 - PWA
+- Cloudflare Pages
 
 I think this project will help you learn these techniques.
+
+If you like this project, please don't forget to give this project a star, thanks.
 
 ## Build the Project
 

@@ -35,6 +35,34 @@ I think this project will help you learn these techniques.
 
 If you like this project, please don't forget to give this project a star, thanks.
 
+## Local Development
+
+### 1. Install pnpm
+
+Make sure that pnpm is installed on your computer. If it's not already installed, you can install it:
+
+https://pnpm.io/installation
+
+### 2. Download project dependencies
+
+Navigate to the root directory of your project and run the following command to download project dependencies:
+
+```bash
+pnpm install
+```
+
+### 3. Start the local server
+
+Run the following command to start the local development server:
+
+```bash
+pnpm dev
+```
+
+### 4. Open the application
+
+Vite should automatically open your browser.
+
 ## Build the Project
 
 ### Docker Build
@@ -94,34 +122,6 @@ The compiled files will be placed in the `dist` folder.
 #### 4. Deploy
 
 Now you can treat the files in the `dist` folder as a static website and deploy it on the server.
-
-## Local Development
-
-#### 1. Install pnpm
-
-Make sure that pnpm is installed on your computer. If it's not already installed, you can install it:
-
-https://pnpm.io/installation
-
-#### 2. Download project dependencies
-
-Navigate to the root directory of your project and run the following command to download project dependencies:
-
-```bash
-pnpm install
-```
-
-#### 3. Start the local server
-
-Run the following command to start the local development server:
-
-```bash
-pnpm dev
-```
-
-#### 4. Open the application
-
-Vite should automatically open your browser.
 
 ## Credit
 

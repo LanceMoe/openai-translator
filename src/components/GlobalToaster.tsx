@@ -18,7 +18,7 @@ export function GlobalToaster() {
         <Transition
           appear
           show={t.visible}
-          className={clsx('flex transform shadow-lg alert', toastStyle[t.type] || toastStyle['blank'])}
+          className={clsx('alert', 'shadow-lg', toastStyle[t.type] || toastStyle['blank'])}
           enter="transition-all duration-150"
           enterFrom="opacity-0 scale-50"
           enterTo="opacity-100 scale-100"
@@ -26,13 +26,11 @@ export function GlobalToaster() {
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-75"
         >
-          <div>
+          <div className="flex-row justify-between w-full gap-2">
             <ToastIcon toast={t} />
-            <span>{resolveValue(t.message, t)}</span>
-          </div>
-          <div className="flex-none">
-            <Button size="sm" color="ghost" onClick={() => toast.dismiss(t.id)}>
-              OK
+            <h4>{resolveValue(t.message, t)}</h4>
+            <Button size="sm" color="ghost" shape="circle" onClick={() => toast.dismiss(t.id)}>
+              ✕
             </Button>
           </div>
         </Transition>

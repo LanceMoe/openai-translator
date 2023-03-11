@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
+import { Button } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { FaLanguage, FaSortDown } from 'react-icons/fa';
 import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
@@ -38,21 +39,22 @@ export function SwitchLanguageButton() {
 
   return (
     <div title="Change Language" className={clsx('dropdown', 'dropdown-end', isMenuOpen && 'dropdown-open')} ref={ref}>
-      <button
+      <Button
         type="button"
         title="Change Language"
         tabIndex={0}
-        className="gap-1 normal-case btn btn-ghost"
+        color="ghost"
+        className="gap-1 normal-case"
         onClick={() => setIsMenuOpen((prev) => !prev)}
       >
         <FaLanguage size={20} />
         <FaSortDown size={12} />
-      </button>
+      </Button>
       <div className="w-56 mt-16 overflow-y-auto shadow-2xl dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box top-px">
         <ul className="gap-1 p-3 menu menu-compact" tabIndex={0}>
           {LANGUAGES.map((language) => (
             <li key={language.code}>
-              <button
+              <a
                 className={clsx('flex', i18n.language === language.code && 'active')}
                 onClick={() => {
                   setLang(language.code);
@@ -61,7 +63,7 @@ export function SwitchLanguageButton() {
               >
                 {language.icon}
                 <span className="flex justify-between flex-1">{language.name}</span>
-              </button>
+              </a>
             </li>
           ))}
         </ul>

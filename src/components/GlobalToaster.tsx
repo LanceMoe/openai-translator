@@ -1,5 +1,6 @@
 import { Transition } from '@headlessui/react';
 import clsx from 'clsx';
+import { Button } from 'react-daisyui';
 import toast, { resolveValue, Toaster, ToastIcon } from 'react-hot-toast';
 
 const toastStyle = {
@@ -30,9 +31,9 @@ export function GlobalToaster() {
             <span>{resolveValue(t.message, t)}</span>
           </div>
           <div className="flex-none">
-            <button className="btn btn-sm btn-ghost" onClick={() => toast.dismiss(t.id)}>
+            <Button size="sm" color="ghost" onClick={() => toast.dismiss(t.id)}>
               OK
-            </button>
+            </Button>
           </div>
         </Transition>
       )}

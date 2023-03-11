@@ -1,3 +1,4 @@
+import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
@@ -98,9 +99,9 @@ function ConfigPage() {
           </div>
         </div>
         <div className="form-control">
-          <button type="submit" className="btn btn-primary">
+          <Button type="submit" color="primary">
             {t('Save')}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

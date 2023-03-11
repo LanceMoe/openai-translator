@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useEffect } from 'react';
+import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
@@ -109,14 +110,9 @@ function TranslatorPage() {
             </select>
 
             <div className="flex justify-center w-2/12">
-              <button
-                type="button"
-                className="btn btn-circle btn-ghost"
-                onClick={onExchangeLanguageBtnClick}
-                title="Exchange"
-              >
+              <Button type="button" color="ghost" shape="circle" onClick={onExchangeLanguageBtnClick} title="Exchange">
                 <CgArrowsExchange size={20} />
-              </button>
+              </Button>
             </div>
 
             <select
@@ -144,23 +140,27 @@ function TranslatorPage() {
               required
             ></TextareaAutosize>
 
-            <button
+            <Button
               type="submit"
-              className={clsx('btn btn-primary md:hidden', isTranslating && 'loading')}
+              color="primary"
+              className="md:hidden"
+              loading={isTranslating}
               disabled={isTranslating}
             >
               {isTranslating ? t('Translating...') : t('Translate')}
-            </button>
+            </Button>
           </div>
         </div>
         <div className="p-4 m-0 form-control">
-          <button
+          <Button
             type="submit"
-            className={clsx('btn btn-primary hidden md:inline-flex mb-4', isTranslating && 'loading')}
+            color="primary"
+            className="hidden mb-4 md:inline-flex"
+            loading={isTranslating}
             disabled={isTranslating}
           >
             {isTranslating ? t('Translating...') : t('Translate')}
-          </button>
+          </Button>
           <TextareaAutosize
             name="translatedText"
             value={isTranslating ? '' : translatedText}

@@ -4,6 +4,7 @@
     "esbenp.prettier-vscode",
     "steoates.autoimport",
     "stylelint.vscode-stylelint",
-    "ms-playwright.playwright"
+    "ms-playwright.playwright",
+    "ambar.bundle-size"
   ]
 }

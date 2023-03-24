@@ -26,16 +26,13 @@ function NavBar() {
         {NAV_ITEMS.map(({ key, label, to, icon }) => (
           <li
             key={key}
-            className={clsx(
-              'flex-col w-24 duration-300',
-              selectedKey === key ? 'text-sky-600 dark:text-sky-300' : 'text-slate-900 dark:text-slate-300',
-            )}
+            className={clsx('flex-col w-24 duration-300', selectedKey === key ? 'text-primary' : 'text-base-content')}
           >
             <Link to={to} title={t(`navbar.${label}`)} draggable="false" className="flex flex-col items-center">
               <div
                 className={clsx(
                   'w-10 h-1 mb-2 duration-300 rounded-full',
-                  selectedKey === key ? 'bg-sky-600 dark:bg-sky-300' : 'bg-transparent',
+                  selectedKey === key ? 'bg-primary' : 'bg-transparent',
                 )}
               ></div>
               {icon}

@@ -28,7 +28,7 @@ export function useDarkMode() {
       const className = 'dark';
       const element = window.document.documentElement;
       setDaisyUiTheme(enabledState ? 'mcpdark' : 'mcplight');
-      setThemeColor(enabledState ? '#1C4E80' : '#047AFF');
+      setThemeColor(enabledState ? '#487ce2' : '#047AFF');
       if (enabledState) {
         element.classList.add(className);
       } else {

@@ -1,4 +1,5 @@
-import { Button } from 'react-daisyui';
+import { useRef } from 'react';
+import { Button, Input } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
@@ -9,14 +10,19 @@ import { OpenAIModel } from '@/types';
 function ConfigPage() {
   const { t } = useTranslation();
   const {
-    configValues: { openaiApiKey, currentModel, tempretureParam },
+    configValues: { openaiApiUrl, openaiApiKey, currentModel, tempretureParam },
     setConfigValues,
   } = useGlobalStore();
+  const openaiApiInputRef = useRef<HTMLInputElement>(null);
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const { openaiApiKey, selectedModel, tempretureParam } = Object.fromEntries(formData.entries());
+    const { openaiApiUrl, openaiApiKey, selectedModel, tempretureParam } = Object.fromEntries(formData.entries());
+    if (!openaiApiUrl) {
+      toast.error(t('Please enter API Url.'));
+      return;
+    }
     if (!openaiApiKey) {
       toast.error(t('Please enter your API Key.'));
       return;
@@ -27,6 +33,7 @@ function ConfigPage() {
     }
     setConfigValues((prev) => ({
       ...prev,
+      openaiApiUrl: `${openaiApiUrl}`,
       openaiApiKey: `${openaiApiKey}`,
       currentModel: selectedModel as OpenAIModel,
       tempretureParam: +tempretureParam,
@@ -34,9 +41,40 @@ function ConfigPage() {
     toast.success(t('Config Saved!'));
   };
 
+  const handleResetOpenaiApiUrl = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    event.preventDefault();
+    const inputRef = openaiApiInputRef.current;
+    if (!inputRef) {
+      return;
+    }
+    inputRef.value = 'https://api.openai.com';
+    inputRef.focus();
+    // eslint-disable-next-line quotes
+    toast(t("Don't forget to click the save button for the settings to take effect!"));
+  };
+
   return (
     <div className="container max-w-screen-md p-4 m-0 mb-12 md:mx-auto">
       <form method="post" onSubmit={handleSave}>
+        <div className="mb-2 form-control">
+          <label className="label">
+            <span className="text-lg font-bold label-text">{t('OpenAI API Url')}</span>
+            <span className="label-text-alt">
+              <a className="link link-primary" href="#" onClick={handleResetOpenaiApiUrl}>
+                {t('Reset')}
+              </a>
+            </span>
+          </label>
+          <Input
+            ref={openaiApiInputRef}
+            name="openaiApiUrl"
+            color="primary"
+            className="break-all"
+            placeholder={t('Plsase input OpenAI API Url here.')}
+            defaultValue={openaiApiUrl}
+            required
+          />
+        </div>
         <div className="mb-2 form-control">
           <label className="label">
             <span className="text-lg font-bold label-text">{t('OpenAI API Key')}</span>

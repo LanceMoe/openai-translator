@@ -37,7 +37,7 @@ export function useChatGPTStream() {
       return Math.random() * (max - min) + min;
     };
 
-    const tmpParam = +tempretureParam >= 1 && +tempretureParam <= 1.5 ? +tempretureParam : getRadomNumber(1, 1.5);
+    const tmpParam = +tempretureParam > 0.4 && +tempretureParam <= 1.0 ? +tempretureParam : getRadomNumber(0.5, 1.0);
 
     OpenAIClient.chatCompletionsStream(
       {

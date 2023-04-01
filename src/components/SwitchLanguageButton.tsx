@@ -18,7 +18,7 @@ const LANGUAGES = [
 type LanguageCode = (typeof LANGUAGES)[number]['code'];
 
 export function SwitchLanguageButton() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const ref = useRef(null);
   const [lang, setLang] = useLocalStorage<LanguageCode>('langCode', 'zh');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,7 +41,7 @@ export function SwitchLanguageButton() {
     <div title="Change Language" className={clsx('dropdown', 'dropdown-end', isMenuOpen && 'dropdown-open')} ref={ref}>
       <Button
         type="button"
-        title="Change Language"
+        title={t('Change Language')}
         tabIndex={0}
         color="ghost"
         className="gap-1 normal-case"

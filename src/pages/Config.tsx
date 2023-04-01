@@ -64,7 +64,7 @@ function ConfigPage() {
         <label
           htmlFor="history-record-drawer"
           className="drawer-button btn btn-primary btn-ghost btn-circle"
-          title="Close"
+          title={t('Close')}
         >
           <FaTimes size={20} />
         </label>
@@ -81,7 +81,7 @@ function ConfigPage() {
             <span className="text-lg font-bold label-text">{t('OpenAI API Url')}</span>
             <span className="label-text-alt">
               <a className="link link-primary" href="#" onClick={handleResetOpenaiApiUrl}>
-                {t('Reset')}
+                {t('Reset to default')}
               </a>
             </span>
           </label>

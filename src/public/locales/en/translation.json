@@ -5,7 +5,7 @@
   },
   "navbar": {
     "Translator": "Translator",
-    "Config": "Config"
+    "History records": "History records"
   },
   "Please enter your API Key in config page first!": "Please enter your API Key in config page first!",
   "Something went wrong, please try again later.": "Something went wrong, please try again later.",
@@ -16,8 +16,10 @@
   "Translated text will appear here.": "Translated text will appear here.",
   "Model (engine)": "Model (engine)",
   "OpenAI API Key": "OpenAI API Key",
+  "Please enter API Url.": "Please enter API Url.",
   "Please enter your API Key.": "Please enter your API Key.",
   "Please select a model.": "Please select a model.",
+  "Config": "Config",
   "Config Saved!": "Config Saved!",
   "Get your OpenAI API Key": "Get your OpenAI API Key",
   "Plsase paste your OpenAI API Key here.": "Plsase paste your OpenAI API Key here.",
@@ -37,5 +39,10 @@
   "Copy original text successfully.": "Copy original text successfully.",
   "Copy translation successfully.": "Copy translation successfully.",
   "Tempreture": "Tempreture",
-  "Higher tempreture will be more creative.": "Higher tempreture will be more creative."
+  "Higher tempreture will be more creative.": "Higher tempreture will be more creative.",
+  "Use stream (typing effect)": "Use stream (typing effect)",
+  "Reset to default": "Reset to default",
+  "Don't forget to click the save button for the settings to take effect!": "Don't forget to click the save button for the settings to take effect!",
+  "Close": "Close",
+  "Change Language": "Change Language"
 }

@@ -2,13 +2,13 @@ import { lazy, Suspense } from 'react';
 
 import { Loading } from '@/components/Loading';
 
-const HistoryRecordPage = lazy(() => import('@/pages/HistoryRecord'));
+const ConfigPage = lazy(() => import('@/pages/Config'));
 
 type Props = {
   children: React.ReactNode;
 };
 
-function HistoryRecordDrawerLayout(props: Props) {
+function ConfigDrawerLayout(props: Props) {
   const { children } = props;
 
   return (
@@ -18,11 +18,11 @@ function HistoryRecordDrawerLayout(props: Props) {
       <div className="drawer-side">
         <label htmlFor="history-record-drawer" className="drawer-overlay"></label>
         <Suspense fallback={<Loading />}>
-          <HistoryRecordPage />
+          <ConfigPage />
         </Suspense>
       </div>
     </>
   );
 }
 
-export default HistoryRecordDrawerLayout;
+export default ConfigDrawerLayout;

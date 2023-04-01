@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { FaEllipsisV, FaTimes, FaTrashAlt } from 'react-icons/fa';
+import { FaEllipsisV, FaTrashAlt } from 'react-icons/fa';
 
 import { useGlobalStore } from '@/components/GlobalStore';
 import { Language, LANGUAGES } from '@/constants';
@@ -46,43 +46,34 @@ function HistoryRecord() {
     toast.success(t('Copy translation successfully.'));
   };
   return (
-    <div className="p-4 w-[28.75rem] max-w-[100vw] bg-base-100 overflow-y-auto overflow-x-hidden">
-      <h1 className="sticky top-0 z-50 flex justify-between w-full text-2xl font-bold align-middle bg-base-100">
-        <span className="leading-[48px]">
-          {t('History Record')}
-          {!!historyRecords && !!historyRecords.length && (
-            <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="ml-6 btn-outline btn btn-error btn-xs">
-                <FaTrashAlt size={12} className="mr-2" />
-                {t('Clear All')}
-              </label>
-              <div
-                tabIndex={0}
-                className="w-64 p-2 shadow dropdown-content card card-compact bg-warning text-warning-content"
-              >
-                <div className="card-body">
-                  <h3 className="card-title">{t('Notice!')}</h3>
-                  <p>{t('Do you really want to clear all history?')}</p>
-                  <div className="flex justify-end">
-                    <Button size="sm" color="ghost" onClick={() => (document.activeElement as HTMLElement).blur()}>
-                      {t('Cancel')}
-                    </Button>
-                    <Button size="sm" color="error" className="ml-2" onClick={handleClearHistoryRecords}>
-                      {t('Yes')}
-                    </Button>
-                  </div>
+    <div className="container max-w-screen-md p-4 m-0 mb-12 md:mx-auto">
+      <h1 className="flex justify-between w-full text-2xl font-bold align-middle bg-base-100">
+        <span className="leading-[48px]">{t('History Record')}</span>
+        {!!historyRecords && !!historyRecords.length && (
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="ml-6 btn-outline btn btn-error btn-xs">
+              <FaTrashAlt size={12} className="mr-2" />
+              {t('Clear All')}
+            </label>
+            <div
+              tabIndex={0}
+              className="w-64 p-2 shadow dropdown-content card card-compact bg-warning text-warning-content"
+            >
+              <div className="card-body">
+                <h3 className="card-title">{t('Notice!')}</h3>
+                <p>{t('Do you really want to clear all history?')}</p>
+                <div className="flex justify-end">
+                  <Button size="sm" color="ghost" onClick={() => (document.activeElement as HTMLElement).blur()}>
+                    {t('Cancel')}
+                  </Button>
+                  <Button size="sm" color="error" className="ml-2" onClick={handleClearHistoryRecords}>
+                    {t('Yes')}
+                  </Button>
                 </div>
               </div>
             </div>
-          )}
-        </span>
-        <label
-          htmlFor="history-record-drawer"
-          className="drawer-button btn btn-primary btn-ghost btn-circle"
-          title="Close History Record Drawer"
-        >
-          <FaTimes size={20} />
-        </label>
+          </div>
+        )}
       </h1>
       <ul className="text-base-content">
         {!!historyRecords &&

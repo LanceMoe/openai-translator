@@ -2,7 +2,7 @@ import { Navbar } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { BsGithub, BsTwitter } from 'react-icons/bs';
 
-import { HistoryRecordButton } from '@/components/HistoryRecordButton';
+import { ConfigButton } from '@/components/ConfigButton';
 import { SwitchLanguageButton } from '@/components/SwitchLanguageButton';
 import { ToggleThemeButton } from '@/components/ToggleThemeButton';
 
@@ -53,7 +53,7 @@ function Header() {
           </label>
         </div>
         <div className="flex-none">
-          <HistoryRecordButton />
+          <ConfigButton />
           <ToggleThemeButton />
           <SwitchLanguageButton />
         </div>

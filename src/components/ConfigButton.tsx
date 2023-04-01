@@ -1,13 +1,13 @@
-import { FaHistory } from 'react-icons/fa';
+import { BsGearWideConnected } from 'react-icons/bs';
 
-export function HistoryRecordButton() {
+export function ConfigButton() {
   return (
     <label
       htmlFor="history-record-drawer"
       className="drawer-button btn btn-primary btn-ghost btn-circle"
-      title="History Record"
+      title="Config"
     >
-      <FaHistory size={20} />
+      <BsGearWideConnected size={20} />
     </label>
   );
 }

@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Button, Input } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { FaTimes } from 'react-icons/fa';
 
 import { useGlobalStore } from '@/components/GlobalStore';
 import { OPENAI_MODELS_TITLES } from '@/constants';
@@ -54,7 +55,17 @@ function ConfigPage() {
   };
 
   return (
-    <div className="container max-w-screen-md p-4 m-0 mb-12 md:mx-auto">
+    <div className="p-4 w-[28.75rem] max-w-[100vw] bg-base-100 overflow-y-auto overflow-x-hidden">
+      <h1 className="sticky top-0 z-50 flex justify-between w-full text-2xl font-bold align-middle bg-base-100">
+        <span className="leading-[48px]">{t('Config')}</span>
+        <label
+          htmlFor="history-record-drawer"
+          className="drawer-button btn btn-primary btn-ghost btn-circle"
+          title="Close"
+        >
+          <FaTimes size={20} />
+        </label>
+      </h1>
       <form method="post" onSubmit={handleSave}>
         <div className="mb-2 form-control">
           <label className="label">

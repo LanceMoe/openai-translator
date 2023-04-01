@@ -13,7 +13,7 @@ import NotFound from '@/pages/NotFound';
 import { GlobalProvider } from './components/GlobalStore';
 
 const TranslatorPage = lazy(() => import('@/pages/Translator'));
-const ConfigPage = lazy(() => import('@/pages/Config'));
+const HistoryRecordPage = lazy(() => import('@/pages/HistoryRecord'));
 
 function App() {
   useDarkMode();
@@ -26,7 +26,7 @@ function App() {
           <Routes>
             <Route path="/" element={<TabLayout />}>
               <Route index element={<TranslatorPage />} />
-              <Route path="config" element={<ConfigPage />} />
+              <Route path="history" element={<HistoryRecordPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

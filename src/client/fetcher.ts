@@ -24,7 +24,7 @@ export const fetchTranslation = async (params: {
 
   const isGptModel = (GPT_MODELS as unknown as string[]).includes(engine);
 
-  const tmpParam = +tempretureParam >= 1 && +tempretureParam <= 1.5 ? +tempretureParam : getRadomNumber(1, 1.5);
+  const tmpParam = +tempretureParam > 0.4 && +tempretureParam <= 1.0 ? +tempretureParam : getRadomNumber(0.5, 1.0);
 
   if (isGptModel) {
     const resp = await OpenAIClient.chatCompletions(token, prompt, queryText, engine as GPTModel, tmpParam);

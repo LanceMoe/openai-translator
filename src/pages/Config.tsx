@@ -133,20 +133,20 @@ function ConfigPage() {
           <input
             type="range"
             name="tempretureParam"
-            min="0.9"
-            max="1.5"
+            min="0.4"
+            max="1.0"
             defaultValue={tempretureParam}
             className="range range-primary"
             step="0.1"
           />
           <div className="flex justify-between w-full pl-0 pr-1 text-xs">
             <span>rad</span>
+            <span>0.5</span>
+            <span>0.6</span>
+            <span>0.7</span>
+            <span>0.8</span>
+            <span>0.9</span>
             <span>1.0</span>
-            <span>1.1</span>
-            <span>1.2</span>
-            <span>1.3</span>
-            <span>1.4</span>
-            <span>1.5</span>
           </div>
         </div>
         <div className="form-control">

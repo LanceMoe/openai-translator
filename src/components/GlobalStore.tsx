@@ -30,7 +30,7 @@ const GlobalContext = createContext<GlobalContextValue>({
     openaiApiUrl: 'https://api.openai.com',
     openaiApiKey: '',
     currentModel: 'gpt-3.5-turbo',
-    tempretureParam: 1,
+    tempretureParam: 0.7,
   },
   setConfigValues: () => {},
   translator: {
@@ -68,13 +68,13 @@ export function GlobalProvider(props: Props) {
     openaiApiUrl: 'https://api.openai.com',
     openaiApiKey: '',
     currentModel: 'gpt-3.5-turbo',
-    tempretureParam: 1,
+    tempretureParam: 0.7,
   });
   const {
     openaiApiUrl = 'https://api.openai.com',
     openaiApiKey = '',
     currentModel = 'gpt-3.5-turbo',
-    tempretureParam = 1,
+    tempretureParam = 0.7,
   } = configValues;
 
   const {

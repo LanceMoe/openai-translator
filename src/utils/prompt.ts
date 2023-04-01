@@ -21,7 +21,7 @@ export const getTranslatePrompt = (fromLang: Language, toLang: Language) => {
       return '翻译成简体';
     }
     if (toLang === 'ja') {
-      return '日本語に翻訳';
+      return '日本語に翻訳しろ';
     }
     return `translate into ${LANGUAGES[toLang] || toLang}`;
   }
@@ -29,7 +29,7 @@ export const getTranslatePrompt = (fromLang: Language, toLang: Language) => {
     if (toLang === 'zh-Hant' || toLang === 'zh-Hans') {
       return '润色此句';
     } else if (toLang === 'ja') {
-      return 'この文章を綺麗にする';
+      return 'この文を磨く';
     } else if (toLang === 'ko') {
       return '이 문장을 예쁘게 만들어주세요';
     } else {

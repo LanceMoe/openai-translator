@@ -119,7 +119,9 @@ export async function chatCompletions(
   const response = await client.post<ChatCompletionsResponse>(url, body, config);
   return response;
 }
+
 export default {
+  setApiBaseUrl,
   useAxios,
   completions,
   chatCompletions,

@@ -1,5 +1,6 @@
-export type GPTModel = 'gpt-3.5-turbo-0301' | 'gpt-3.5-turbo' | 'gpt-4' | 'gpt-4-0314' | 'gpt-4-32k' | 'gpt-4-32k-0314';
-export type OpenAIModel = GPTModel | 'text-davinci-003' | 'text-davinci-002';
+import type { GPTModel, OpenAIModel } from '@/constants';
+
+export type { GPTModel, OpenAIModel };
 
 export type CompletionsResponse = {
   id: string;

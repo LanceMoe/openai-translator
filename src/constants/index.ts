@@ -8,13 +8,21 @@ export const OPENAI_MODELS_TITLES = {
   'gpt-3.5-turbo': 'gpt-3.5-turbo (recommended)',
   'text-davinci-003': 'text-davinci-003',
   'text-davinci-002': 'text-davinci-002',
+  'gpt-4': 'gpt-4 (testing)',
+  'gpt-4-0314': 'gpt-4-0314 (testing)',
+  'gpt-4-32k': 'gpt-4-32k (testing)',
+  'gpt-4-32k-0314': 'gpt-4-32k-0314 (testing)',
 } as const;
 
 export const OPENAI_MODELS_DESCRIPTION = {
-  'gpt-3.5-turbo-0301': 'GPT-3.5 Turbo (30.1B)',
+  'gpt-3.5-turbo-0301': 'GPT-3.5 Turbo 0301 (30.1B)',
   'gpt-3.5-turbo': 'GPT-3.5 Turbo (30.1B)',
   'text-davinci-003': 'Text Davinci (3.3B)',
   'text-davinci-002': 'Text Davinci (3.3B)',
+  'gpt-4': 'GPT-4',
+  'gpt-4-0314': 'GPT-4 0314',
+  'gpt-4-32k': 'GPT-4 32K',
+  'gpt-4-32k-0314': 'GPT-4 32K 0314',
 } as const;
 
 export const LANGUAGES = {

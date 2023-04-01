@@ -14,9 +14,7 @@ function TranslatorPage() {
   const { t, i18n } = useTranslation();
 
   const {
-    openaiApiKey,
-    currentModel,
-    extraConfig,
+    configValues: { openaiApiKey, currentModel, tempretureParam },
     translator: {
       lastTranslateData,
       setLastTranslateData,
@@ -84,7 +82,7 @@ function TranslatorPage() {
       token: openaiApiKey,
       engine: currentModel,
       prompt: prompt,
-      tempretureParam: extraConfig.tempretureParam,
+      tempretureParam: tempretureParam,
       queryText: translateText as string,
     });
   };

@@ -54,5 +54,7 @@ export type LastTranslateData = {
 };
 
 export type ConfigValues = {
+  openaiApiKey: string;
+  currentModel: OpenAIModel;
   tempretureParam: number;
 };

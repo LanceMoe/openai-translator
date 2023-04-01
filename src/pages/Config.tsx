@@ -8,8 +8,10 @@ import { OpenAIModel } from '@/types';
 
 function ConfigPage() {
   const { t } = useTranslation();
-  const { openaiApiKey, setOpenAiApiKey, currentModel, setCurrentModel, extraConfig, setExtraConfig } =
-    useGlobalStore();
+  const {
+    configValues: { openaiApiKey, currentModel, tempretureParam },
+    setConfigValues,
+  } = useGlobalStore();
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,10 +25,10 @@ function ConfigPage() {
       toast.error(t('Please select a model.'));
       return;
     }
-    setOpenAiApiKey(`${openaiApiKey}`);
-    setCurrentModel(selectedModel as OpenAIModel);
-    setExtraConfig((prev) => ({
+    setConfigValues((prev) => ({
       ...prev,
+      openaiApiKey: `${openaiApiKey}`,
+      currentModel: selectedModel as OpenAIModel,
       tempretureParam: +tempretureParam,
     }));
     toast.success(t('Config Saved!'));
@@ -84,7 +86,7 @@ function ConfigPage() {
             name="tempretureParam"
             min="0.9"
             max="1.5"
-            defaultValue={extraConfig.tempretureParam}
+            defaultValue={tempretureParam}
             className="range range-primary"
             step="0.1"
           />

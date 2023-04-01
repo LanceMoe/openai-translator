@@ -29,7 +29,7 @@ export const fetchTranslation = async (params: {
   if (isGptModel) {
     const resp = await OpenAIClient.chatCompletions(token, prompt, queryText, engine as GPTModel, tmpParam);
     const text = resp.data.choices
-      .map((choice) => choice.message.content.trim())
+      .map((choice) => choice.message!.content.trim())
       .join('\n')
       .trim();
     return trimText(text);

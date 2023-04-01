@@ -1,9 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
 import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
 import { setApiBaseUrl } from '@/client';
 import { fetchTranslation } from '@/client/fetcher';
+import { useQueryApi } from '@/hooks/useQueryApi';
 import { ConfigValues, HistoryRecord, LastTranslateData } from '@/types';
 
 type GlobalContextValue = {
@@ -29,6 +29,7 @@ const GlobalContext = createContext<GlobalContextValue>({
   configValues: {
     openaiApiUrl: 'https://api.openai.com',
     openaiApiKey: '',
+    streamEnabled: true,
     currentModel: 'gpt-3.5-turbo',
     tempretureParam: 0.7,
   },
@@ -67,12 +68,14 @@ export function GlobalProvider(props: Props) {
   const [configValues, setConfigValues] = useLocalStorage<ConfigValues>('extra-config', {
     openaiApiUrl: 'https://api.openai.com',
     openaiApiKey: '',
+    streamEnabled: true,
     currentModel: 'gpt-3.5-turbo',
     tempretureParam: 0.7,
   });
   const {
     openaiApiUrl = 'https://api.openai.com',
     openaiApiKey = '',
+    streamEnabled = true,
     currentModel = 'gpt-3.5-turbo',
     tempretureParam = 0.7,
   } = configValues;
@@ -82,12 +85,12 @@ export function GlobalProvider(props: Props) {
     mutate: mutateTanslateText,
     isLoading: isTranslating,
     isError: isTranslateError,
-  } = useMutation(fetchTranslation);
+  } = useQueryApi(streamEnabled);
 
   useEffect(() => setApiBaseUrl(configValues.openaiApiUrl), [configValues.openaiApiUrl]);
 
   useEffect(() => {
-    if (!translatedText) {
+    if (!translatedText || isTranslating) {
       return;
     }
     setHistoryRecords((prev) => [
@@ -101,11 +104,11 @@ export function GlobalProvider(props: Props) {
       },
       ...prev,
     ]);
-  }, [translatedText]);
+  }, [translatedText, isTranslating]);
 
   const contextValue = useMemo(
     () => ({
-      configValues: { openaiApiUrl, openaiApiKey, currentModel, tempretureParam },
+      configValues: { openaiApiUrl, openaiApiKey, streamEnabled, currentModel, tempretureParam },
       setConfigValues,
       translator: {
         lastTranslateData,
@@ -133,6 +136,7 @@ export function GlobalProvider(props: Props) {
       setHistoryRecords,
       openaiApiUrl,
       openaiApiKey,
+      streamEnabled,
       currentModel,
       tempretureParam,
       setConfigValues,

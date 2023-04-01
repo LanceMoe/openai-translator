@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Button, Input } from 'react-daisyui';
+import { Button, Form, Input, Toggle } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
@@ -11,7 +11,7 @@ import { OpenAIModel } from '@/types';
 function ConfigPage() {
   const { t } = useTranslation();
   const {
-    configValues: { openaiApiUrl, openaiApiKey, currentModel, tempretureParam },
+    configValues: { openaiApiUrl, openaiApiKey, streamEnabled, currentModel, tempretureParam },
     setConfigValues,
   } = useGlobalStore();
   const openaiApiInputRef = useRef<HTMLInputElement>(null);
@@ -19,7 +19,9 @@ function ConfigPage() {
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const { openaiApiUrl, openaiApiKey, selectedModel, tempretureParam } = Object.fromEntries(formData.entries());
+    const { openaiApiUrl, openaiApiKey, streamEnabled, selectedModel, tempretureParam } = Object.fromEntries(
+      formData.entries(),
+    );
     if (!openaiApiUrl) {
       toast.error(t('Please enter API Url.'));
       return;
@@ -36,6 +38,7 @@ function ConfigPage() {
       ...prev,
       openaiApiUrl: `${openaiApiUrl}`,
       openaiApiKey: `${openaiApiKey}`,
+      streamEnabled: streamEnabled === 'on',
       currentModel: selectedModel as OpenAIModel,
       tempretureParam: +tempretureParam,
     }));
@@ -67,6 +70,12 @@ function ConfigPage() {
         </label>
       </h1>
       <form method="post" onSubmit={handleSave}>
+        <div className="mb-2 form-control">
+          <label className="label">
+            <span className="text-lg font-bold label-text">{t('Use stream (typing effect)')}</span>
+            <Toggle color="primary" name="streamEnabled" defaultChecked={streamEnabled} />
+          </label>
+        </div>
         <div className="mb-2 form-control">
           <label className="label">
             <span className="text-lg font-bold label-text">{t('OpenAI API Url')}</span>

@@ -31,7 +31,10 @@ export type ChatCompletionsResponse = {
     total_tokens: number;
   };
   choices: {
-    message: {
+    delta?: {
+      content: string;
+    };
+    message?: {
       role: string;
       content: string;
     };
@@ -57,6 +60,7 @@ export type LastTranslateData = {
 export type ConfigValues = {
   openaiApiUrl: string;
   openaiApiKey: string;
+  streamEnabled: boolean;
   currentModel: OpenAIModel;
   tempretureParam: number;
 };

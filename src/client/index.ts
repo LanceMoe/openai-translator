@@ -1,3 +1,4 @@
+import { fetchEventSource, FetchEventSourceInit } from '@microsoft/fetch-event-source';
 import axios, { AxiosRequestConfig } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
@@ -120,9 +121,68 @@ export async function chatCompletions(
   return response;
 }
 
+export async function chatCompletionsStream(
+  params: {
+    token: string;
+    prompt: string;
+    query: string;
+    model?: GPTModel;
+    temperature?: number;
+    maxTokens?: number;
+    topP?: number;
+    frequencyPenalty?: number;
+    presencePenalty?: number;
+  },
+  options: FetchEventSourceInit,
+) {
+  const {
+    token,
+    prompt,
+    query,
+    model = 'gpt-3.5-turbo',
+    temperature = 0,
+    maxTokens = 1000,
+    topP = 1,
+    frequencyPenalty = 1,
+    presencePenalty = 1,
+  } = params;
+  const { url, headers } = endpoints.v1.chat.completions;
+
+  const body = {
+    model,
+    temperature,
+    // eslint-disable-next-line camelcase
+    max_tokens: maxTokens,
+    // eslint-disable-next-line camelcase
+    top_p: topP,
+    // eslint-disable-next-line camelcase
+    frequency_penalty: frequencyPenalty,
+    // eslint-disable-next-line camelcase
+    presence_penalty: presencePenalty,
+    stream: true,
+    messages: [
+      { role: 'system', content: prompt },
+      { role: 'user', content: `"${query}"` },
+    ],
+  };
+
+  const response = await fetchEventSource(baseUrl + url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${token}`,
+    },
+    openWhenHidden: true,
+    ...options,
+  });
+  return response;
+}
+
 export default {
   setApiBaseUrl,
   useAxios,
   completions,
   chatCompletions,
+  chatCompletionsStream,
 };

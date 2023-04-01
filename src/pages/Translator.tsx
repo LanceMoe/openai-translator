@@ -161,7 +161,7 @@ function TranslatorPage() {
           </Button>
           <TextareaAutosize
             name="translatedText"
-            value={isTranslating ? '' : translatedText}
+            value={translatedText || ''}
             className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]"
             placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
             readOnly

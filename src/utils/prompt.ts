@@ -21,7 +21,7 @@ export const getTranslatePrompt = (fromLang: Language, toLang: Language) => {
       return '翻译成简体';
     }
     if (toLang === 'ja') {
-      return '日本語に翻訳しろ';
+      return 'Translate into Japanese.';
     }
     return `translate into ${LANGUAGES[toLang] || toLang}`;
   }

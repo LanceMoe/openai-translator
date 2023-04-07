@@ -149,7 +149,7 @@ function TranslatorPage() {
             </Button>
           </div>
         </div>
-        <div className="p-4 m-0 form-control">
+        <div className="p-4 pb-14 m-0 form-control">
           <Button
             type="submit"
             color="primary"

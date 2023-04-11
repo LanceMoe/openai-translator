@@ -113,10 +113,10 @@ function HistoryRecord() {
                     {formatTime(record.createdAt, i18n.language || 'en-US')}
                   </time>
                 </div>
-                <div className="chat-bubble">{record.text}</div>
+                <div className="chat-bubble whitespace-pre-line break-words">{record.text}</div>
               </div>
               <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-info">{record.translation}</div>
+                <div className="chat-bubble chat-bubble-info whitespace-pre-line break-words">{record.translation}</div>
               </div>
             </li>
           ))}

@@ -5,12 +5,13 @@ import { useEffect, useRef, useState } from 'react';
 import apis from '@/client/apis';
 import { ChatCompletionsResponse, CompletionsResponse, GPTModel, OpenAIModel } from '@/types';
 
-const { baseUrl, endpoints } = apis;
+let { baseUrl, endpoints } = apis;
 
 const client = axios.create({ baseURL: baseUrl });
 
 export function setApiBaseUrl(url: string) {
   client.defaults.baseURL = url;
+  baseUrl = url;
 }
 
 export function useAxios(config: AxiosRequestConfig) {
@@ -165,7 +166,6 @@ export async function chatCompletionsStream(
       { role: 'user', content: `"${query}"` },
     ],
   };
-
   const response = await fetchEventSource(baseUrl + url, {
     method: 'POST',
     body: JSON.stringify(body),

@@ -86,7 +86,7 @@ export async function chatCompletions(
   token: string,
   prompt: string,
   query: string,
-  model: GPTModel = 'gpt-3.5-turbo-0301',
+  model: GPTModel = 'gpt-3.5-turbo',
   temperature = 0,
   maxTokens = 1000,
   topP = 1,

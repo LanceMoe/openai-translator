@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from 'react';
 import apis from '@/client/apis';
 import { ChatCompletionsResponse, CompletionsResponse, GPTModel, OpenAIModel } from '@/types';
 
-let { baseUrl, endpoints } = apis;
+let baseUrl = apis.baseUrl;
+const { endpoints } = apis;
 
 const client = axios.create({ baseURL: baseUrl });
 
@@ -40,7 +41,7 @@ export function useAxios(config: AxiosRequestConfig) {
         setLoaded(true);
       }
     })();
-  }, []);
+  }, [config]);
 
   return { data, error, loaded, cancel };
 }

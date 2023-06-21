@@ -33,23 +33,23 @@ const GlobalContext = createContext<GlobalContextValue>({
     currentModel: 'gpt-3.5-turbo',
     tempretureParam: 0.7,
   },
-  setConfigValues: () => {},
+  setConfigValues: () => undefined,
   translator: {
     lastTranslateData: {
       fromLang: 'auto',
       toLang: 'auto',
     },
-    setLastTranslateData: () => {},
+    setLastTranslateData: () => undefined,
     translateText: '',
-    setTranslateText: () => {},
+    setTranslateText: () => undefined,
     translatedText: undefined,
-    mutateTanslateText: () => {},
+    mutateTanslateText: () => undefined,
     isTranslating: false,
     isTranslateError: false,
   },
   history: {
     historyRecords: [],
-    setHistoryRecords: () => {},
+    setHistoryRecords: () => undefined,
   },
 });
 
@@ -104,7 +104,14 @@ export function GlobalProvider(props: Props) {
       },
       ...prev,
     ]);
-  }, [translatedText, isTranslating]);
+  }, [
+    translatedText,
+    isTranslating,
+    setHistoryRecords,
+    lastTranslateData.fromLang,
+    lastTranslateData.toLang,
+    translateText,
+  ]);
 
   const contextValue = useMemo(
     () => ({
@@ -126,20 +133,21 @@ export function GlobalProvider(props: Props) {
       },
     }),
     [
-      translateText,
-      setTranslateText,
-      translatedText,
-      mutateTanslateText,
-      isTranslating,
-      isTranslateError,
-      historyRecords,
-      setHistoryRecords,
       openaiApiUrl,
       openaiApiKey,
       streamEnabled,
       currentModel,
       tempretureParam,
       setConfigValues,
+      lastTranslateData,
+      setLastTranslateData,
+      translateText,
+      translatedText,
+      mutateTanslateText,
+      isTranslating,
+      isTranslateError,
+      historyRecords,
+      setHistoryRecords,
     ],
   );
 

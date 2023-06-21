@@ -44,5 +44,8 @@
   "Reset to default": "デフォルトにリセット",
   "Don't forget to click the save button for the settings to take effect!": "設定を有効にするには保存ボタンをクリックしてください！",
   "Close": "閉じる",
-  "Change Language": "言語を変更する"
+  "Change Language": "言語を変更する",
+  "Nothing to copy!": "コピーするものがありません！",
+  "Copied!": "コピーしました！",
+  "Failed to copy!": "コピーに失敗しました！"
 }

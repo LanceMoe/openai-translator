@@ -44,5 +44,8 @@
   "Reset to default": "Reset to default",
   "Don't forget to click the save button for the settings to take effect!": "Don't forget to click the save button for the settings to take effect!",
   "Close": "Close",
-  "Change Language": "Change Language"
+  "Change Language": "Change Language",
+  "Nothing to copy!": "Nothing to copy!",
+  "Copied!": "Copied!",
+  "Failed to copy!": "Failed to copy!"
 }

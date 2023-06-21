@@ -1,9 +1,10 @@
 import clsx from 'clsx';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
+import { MdContentCopy } from 'react-icons/md';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import { useGlobalStore } from '@/components/GlobalStore';
@@ -32,60 +33,89 @@ function TranslatorPage() {
       return;
     }
     toast.error(t('Something went wrong, please try again later.'));
-  }, [isTranslateError]);
+  }, [isTranslateError, t]);
 
-  // ↑ Hooks before, keep hooks order
-
-  const onExchangeLanguageBtnClick = () =>
-    setLastTranslateData((prev) => ({
-      ...prev,
-      fromLang: lastTranslateData.toLang,
-      toLang: lastTranslateData.fromLang,
-    }));
-
-  const handleTranslate = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!openaiApiKey) {
-      toast.error(t('Please enter your API Key in config page first!'));
+  const onCopyBtnClick = useCallback(() => {
+    if (!translatedText) {
+      toast.error(t('Nothing to copy!'));
       return;
     }
+    navigator.clipboard
+      .writeText(translatedText)
+      .then(() => {
+        toast.success(t('Copied!'));
+      })
+      .catch(() => {
+        toast.error(t('Failed to copy!'));
+      });
+  }, [t, translatedText]);
 
-    const formData = new FormData(event.currentTarget);
-    const { translateText, fromLang, toLang } = Object.fromEntries(formData.entries());
-    if (!translateText || !fromLang || !toLang) {
-      return;
-    }
+  const onExchangeLanguageBtnClick = useCallback(
+    () =>
+      setLastTranslateData((prev) => ({
+        ...prev,
+        fromLang: prev.toLang,
+        toLang: prev.fromLang,
+      })),
+    [setLastTranslateData],
+  );
 
-    setTranslateText(translateText as string);
+  const handleTranslate = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
-    let prompt: string;
-
-    if (toLang === 'auto') {
-      if (i18n.language.startsWith('zh')) {
-        prompt = '翻译成简体白话文';
-      } else {
-        const _toLang = LANGUAGES[i18n.language as Language] || i18n.language;
-        prompt = `translate into ${_toLang}`;
+      if (!openaiApiKey) {
+        toast.error(t('Please enter your API Key in config page first!'));
+        return;
       }
-    } else {
-      prompt = getTranslatePrompt(fromLang as Language, toLang as Language);
-    }
 
-    setLastTranslateData((prev) => ({
-      ...prev,
-      fromLang: fromLang as Language,
-      toLang: toLang as Language,
-    }));
+      const formData = new FormData(event.currentTarget);
+      const { translateText, fromLang, toLang } = Object.fromEntries(formData.entries());
+      if (!translateText || !fromLang || !toLang) {
+        return;
+      }
 
-    mutateTanslateText({
-      token: openaiApiKey,
-      engine: currentModel,
-      prompt: prompt,
-      tempretureParam: tempretureParam,
-      queryText: translateText as string,
-    });
-  };
+      setTranslateText(translateText as string);
+
+      let prompt: string;
+
+      if (toLang === 'auto') {
+        if (i18n.language.startsWith('zh')) {
+          prompt = '翻译成简体白话文';
+        } else {
+          const _toLang = LANGUAGES[i18n.language as Language] || i18n.language;
+          prompt = `translate into ${_toLang}`;
+        }
+      } else {
+        prompt = getTranslatePrompt(fromLang as Language, toLang as Language);
+      }
+
+      setLastTranslateData((prev) => ({
+        ...prev,
+        fromLang: fromLang as Language,
+        toLang: toLang as Language,
+      }));
+
+      mutateTanslateText({
+        token: openaiApiKey,
+        engine: currentModel,
+        prompt: prompt,
+        tempretureParam: tempretureParam,
+        queryText: translateText as string,
+      });
+    },
+    [
+      currentModel,
+      i18n.language,
+      mutateTanslateText,
+      openaiApiKey,
+      setLastTranslateData,
+      setTranslateText,
+      t,
+      tempretureParam,
+    ],
+  );
+  // ↑ Hooks before, keep hooks order
 
   return (
     <form method="post" onSubmit={handleTranslate}>
@@ -137,7 +167,6 @@ function TranslatorPage() {
               placeholder={t('Please enter the text you want to translate here.')}
               required
             ></TextareaAutosize>
-
             <Button
               type="submit"
               color="primary"
@@ -159,14 +188,31 @@ function TranslatorPage() {
           >
             {isTranslating ? t('Translating...') : t('Translate')}
           </Button>
-          <TextareaAutosize
-            name="translatedText"
-            value={translatedText || ''}
-            className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]"
-            placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
-            readOnly
-            required
-          ></TextareaAutosize>
+          <div className="relative">
+            <TextareaAutosize
+              name="translatedText"
+              value={translatedText || ''}
+              className={clsx(
+                'w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]',
+                !!translatedText && !isTranslating && 'pb-9',
+              )}
+              placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
+              readOnly
+              required
+            ></TextareaAutosize>
+            {!!translatedText && !isTranslating && (
+              <Button
+                type="button"
+                shape="circle"
+                color="ghost"
+                className="absolute left-2 bottom-4"
+                size="sm"
+                onClick={onCopyBtnClick}
+              >
+                <MdContentCopy size="16" />
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </form>

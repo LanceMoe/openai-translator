@@ -44,5 +44,8 @@
   "Reset to default": "重置为默认值",
   "Don't forget to click the save button for the settings to take effect!": "别忘了点击保存按钮使设置生效！",
   "Close": "关闭",
-  "Change Language": "更改语言"
+  "Change Language": "更改语言",
+  "Nothing to copy!": "没有可复制的内容！",
+  "Copied!": "已复制！",
+  "Failed to copy!": "复制失败！"
 }

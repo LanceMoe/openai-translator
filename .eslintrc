@@ -5,12 +5,7 @@
     "node": true,
     "jest": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -19,22 +14,12 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "react-hooks",
-    "@typescript-eslint",
-    "prettier",
-    "simple-import-sort",
-    "import"
-  ],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "simple-import-sort", "import"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "camelcase": "error",
     "spaced-comment": "error",
-    "quotes": [
-      "error",
-      "single"
-    ],
+    "quotes": ["error", "single"],
     "no-duplicate-imports": "error",
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": "warn",
@@ -46,14 +31,9 @@
     "import/newline-after-import": "off",
     "import/no-duplicates": "error",
     "@next/next/no-img-element": "off",
-    "brace-style": [
-      "error",
-      "1tbs"
-    ],
-    "curly": [
-      "error",
-      "all"
-    ]
+    "react-hooks/exhaustive-deps": "warn",
+    "brace-style": ["error", "1tbs"],
+    "curly": ["error", "all"]
   },
   "settings": {
     "import/resolver": {

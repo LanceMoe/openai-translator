@@ -207,6 +207,7 @@ function TranslatorPage() {
                 color="ghost"
                 className="absolute left-2 bottom-4"
                 size="sm"
+                title={t('Copy translated text')}
                 onClick={onCopyBtnClick}
               >
                 <MdContentCopy size="16" />

@@ -104,9 +104,9 @@ export function GlobalProvider(props: Props) {
       },
       ...prev,
     ]);
-    // Don't need to catch translateText
+    // Don't need to catch translateText, lastTranslateData.fromLang, lastTranslateData.toLang
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [translatedText, isTranslating, setHistoryRecords, lastTranslateData.fromLang, lastTranslateData.toLang]);
+  }, [translatedText, isTranslating, setHistoryRecords]);
 
   const contextValue = useMemo(
     () => ({

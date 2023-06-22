@@ -8,10 +8,10 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 type Props = {
   language: string;
   onChangeTranscript: (newTranscript: string) => void;
-};
+} & React.ComponentPropsWithoutRef<typeof Button>;
 
 export function SpeechRecognitionButton(props: Props) {
-  const { language, onChangeTranscript } = props;
+  const { language, onChangeTranscript, ...restProps } = props;
   const { t } = useTranslation();
 
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
@@ -42,10 +42,10 @@ export function SpeechRecognitionButton(props: Props) {
       type="button"
       shape="circle"
       color={listening ? 'error' : 'ghost'}
-      className="absolute left-2 bottom-4"
       size="sm"
       title={listening ? t('Stop speaking') : t('Start speaking')}
       onClick={onClickSpeechRecognitionBtn}
+      {...restProps}
     >
       {listening ? <MdStop size="16" /> : <MdOutlineMicNone size="16" />}
     </Button>

@@ -180,15 +180,25 @@ function TranslatorPage() {
                 ref={translateTextAreaRef}
                 name="translateText"
                 defaultValue={translateText}
-                className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-9"
+                className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-10"
                 placeholder={t('Please enter the text you want to translate here.')}
+                onChange={(e) => setTranslateText(e.target.value)}
+                disabled={isTranslating}
                 required
               ></TextareaAutosize>
-              <SpeechRecognitionButton
-                className="absolute left-2 bottom-4"
-                language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
-                onChangeTranscript={onChangeTranscript}
-              />
+              <div className="absolute flex flex-row justify-start bottom-5 left-0 w-full px-2 gap-2">
+                <SpeechRecognitionButton
+                  language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
+                  onChangeTranscript={onChangeTranscript}
+                  disabled={isTranslating}
+                />
+                {!!translateText && (
+                  <TTSButton
+                    language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
+                    text={translateText}
+                  />
+                )}
+              </div>
             </div>
             <Button
               type="submit"
@@ -217,17 +227,19 @@ function TranslatorPage() {
               value={translatedText || ''}
               className={clsx(
                 'w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]',
-                !!translatedText && !isTranslating && 'pb-9',
+                !!translatedText && !isTranslating && 'pb-10',
               )}
               placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
               readOnly
               required
             ></TextareaAutosize>
-            <div className="absolute flex flex-row justify-between left-2 bottom-4 w-full">
-              <TTSButton
-                language={lastTranslateData.toLang === 'auto' ? i18n.language : lastTranslateData.toLang}
-                text={translatedText || ''}
-              />
+            <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
+              {!!translatedText && (
+                <TTSButton
+                  language={lastTranslateData.toLang === 'auto' ? i18n.language : lastTranslateData.toLang}
+                  text={translatedText || ''}
+                />
+              )}
               {!!translatedText && !isTranslating && (
                 <Button
                   type="button"

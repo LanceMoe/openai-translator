@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -8,11 +8,13 @@ import { MdContentCopy } from 'react-icons/md';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import { useGlobalStore } from '@/components/GlobalStore';
+import { SpeechRecognitionButton } from '@/components/SpeechRecognitionButton';
 import { Language, LANGUAGES } from '@/constants';
 import { getTranslatePrompt } from '@/utils/prompt';
 
 function TranslatorPage() {
   const { t, i18n } = useTranslation();
+  const translateTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const {
     configValues: { openaiApiKey, currentModel, tempretureParam },
@@ -160,13 +162,25 @@ function TranslatorPage() {
           </div>
 
           <div className="form-control">
-            <TextareaAutosize
-              name="translateText"
-              defaultValue={translateText}
-              className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px]"
-              placeholder={t('Please enter the text you want to translate here.')}
-              required
-            ></TextareaAutosize>
+            <div className="relative">
+              <TextareaAutosize
+                ref={translateTextAreaRef}
+                name="translateText"
+                defaultValue={translateText}
+                className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-9"
+                placeholder={t('Please enter the text you want to translate here.')}
+                required
+              ></TextareaAutosize>
+              <SpeechRecognitionButton
+                language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
+                onChangeTranscript={(newTranscript) => {
+                  if (!translateTextAreaRef.current || !newTranscript) {
+                    return;
+                  }
+                  translateTextAreaRef.current.defaultValue = newTranscript;
+                }}
+              />
+            </div>
             <Button
               type="submit"
               color="primary"

@@ -23,9 +23,12 @@ export function TTSButton(props: Props) {
     utterance.text = text;
     utterance.onend = () => {
       setRecording(false);
+      window.speechSynthesis.cancel();
     };
     utterance.onerror = () => {
       toast.error(t('Something went wrong, please try again later.'));
+      setRecording(false);
+      window.speechSynthesis.cancel();
     };
     utterance.onstart = () => {
       setRecording(true);

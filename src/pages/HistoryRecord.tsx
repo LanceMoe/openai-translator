@@ -1,10 +1,12 @@
 import { t } from 'i18next';
+import { useCallback } from 'react';
 import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FaEllipsisV, FaTrashAlt } from 'react-icons/fa';
 
 import { useGlobalStore } from '@/components/GlobalStore';
+import { TTSButton } from '@/components/TTSButton';
 import { Language, LANGUAGES } from '@/constants';
 import { formatTime } from '@/utils';
 
@@ -14,37 +16,47 @@ function HistoryRecord() {
     history: { historyRecords, setHistoryRecords },
   } = useGlobalStore();
 
-  const handleDeleteHistoryRecord = (id: string) => {
-    (document.activeElement as HTMLElement).blur();
-    setHistoryRecords((prev) => prev.filter((record) => record.id !== id));
-    toast.success(t('Delete history record successfully.'));
-  };
+  const handleDeleteHistoryRecord = useCallback(
+    (id: string) => {
+      (document.activeElement as HTMLElement).blur();
+      setHistoryRecords((prev) => prev.filter((record) => record.id !== id));
+      toast.success(t('Delete history record successfully.'));
+    },
+    [setHistoryRecords],
+  );
 
-  const handleClearHistoryRecords = () => {
+  const handleClearHistoryRecords = useCallback(() => {
     (document.activeElement as HTMLElement).blur();
     setHistoryRecords([]);
     toast.success(t('Clear history records successfully.'));
-  };
+  }, [setHistoryRecords]);
 
-  const handleCopyOriginalText = (id: string) => {
-    (document.activeElement as HTMLElement).blur();
-    const record = historyRecords.find((record) => record.id === id);
-    if (!record) {
-      return;
-    }
-    navigator.clipboard.writeText(record.text);
-    toast.success(t('Copy original text successfully.'));
-  };
+  const handleCopyOriginalText = useCallback(
+    (id: string) => {
+      (document.activeElement as HTMLElement).blur();
+      const record = historyRecords.find((record) => record.id === id);
+      if (!record) {
+        return;
+      }
+      navigator.clipboard.writeText(record.text);
+      toast.success(t('Copy original text successfully.'));
+    },
+    [historyRecords],
+  );
 
-  const handleCopyTranslation = (id: string) => {
-    (document.activeElement as HTMLElement).blur();
-    const record = historyRecords.find((record) => record.id === id);
-    if (!record) {
-      return;
-    }
-    navigator.clipboard.writeText(record.translation);
-    toast.success(t('Copy translation successfully.'));
-  };
+  const handleCopyTranslation = useCallback(
+    (id: string) => {
+      (document.activeElement as HTMLElement).blur();
+      const record = historyRecords.find((record) => record.id === id);
+      if (!record) {
+        return;
+      }
+      navigator.clipboard.writeText(record.translation);
+      toast.success(t('Copy translation successfully.'));
+    },
+    [historyRecords],
+  );
+
   return (
     <div className="container max-w-screen-md p-4 m-0 mb-12 md:mx-auto">
       <h1 className="flex justify-between w-full text-2xl font-bold align-middle bg-base-100">
@@ -113,14 +125,30 @@ function HistoryRecord() {
                     {formatTime(record.createdAt, i18n.language || 'en-US')}
                   </time>
                 </div>
-                <div className="chat-bubble whitespace-pre-line break-words">{record.text}</div>
+                <div className="chat-bubble whitespace-pre-line break-words">
+                  {record.text}
+                  <TTSButton
+                    language={record.fromLanguage === 'auto' ? i18n.language : record.fromLanguage}
+                    text={record.text}
+                    size="xs"
+                    className="ml-1"
+                  />
+                </div>
               </div>
               <div className="chat chat-start">
-                <div className="chat-bubble chat-bubble-info whitespace-pre-line break-words">{record.translation}</div>
+                <div className="chat-bubble chat-bubble-info whitespace-pre-line break-words">
+                  {record.translation}
+                  <TTSButton
+                    language={record.toLanguage === 'auto' ? i18n.language : record.toLanguage}
+                    text={record.translation}
+                    size="xs"
+                    className="ml-1"
+                  />
+                </div>
               </div>
             </li>
           ))}
-        {(!historyRecords || !historyRecords.length) && <p className="">{t('No history record.')}</p>}
+        {!historyRecords?.length && <p className="">{t('No history record.')}</p>}
       </ul>
     </div>
   );

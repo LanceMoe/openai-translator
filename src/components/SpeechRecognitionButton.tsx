@@ -25,6 +25,7 @@ export function SpeechRecognitionButton(props: Props) {
       resetTranscript();
       SpeechRecognition.startListening({
         language: language === 'wyw' ? 'zh-TW' : language,
+        continuous: true,
       });
       toast.success(t('Recording started.'));
     } else {

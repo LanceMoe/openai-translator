@@ -4,7 +4,7 @@ import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
-import { MdContentCopy } from 'react-icons/md';
+import { MdClose, MdContentCopy } from 'react-icons/md';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import { useGlobalStore } from '@/components/GlobalStore';
@@ -130,6 +130,14 @@ function TranslatorPage() {
       tempretureParam,
     ],
   );
+
+  const onClearBtnClick = useCallback(() => {
+    if (!translateTextAreaRef.current) {
+      return;
+    }
+    translateTextAreaRef.current.value = '';
+  }, []);
+
   // ↑ Hooks before, keep hooks order
 
   return (
@@ -186,17 +194,31 @@ function TranslatorPage() {
                 disabled={isTranslating}
                 required
               ></TextareaAutosize>
-              <div className="absolute flex flex-row justify-start bottom-5 left-0 w-full px-2 gap-2">
-                <SpeechRecognitionButton
-                  language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
-                  onChangeTranscript={onChangeTranscript}
-                  disabled={isTranslating}
-                />
-                {!!translateText && (
-                  <TTSButton
+              <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
+                <div className="flex flex-row justify-start gap-2">
+                  <SpeechRecognitionButton
                     language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
-                    text={translateText}
+                    onChangeTranscript={onChangeTranscript}
+                    disabled={isTranslating}
                   />
+                  {!!translateText && (
+                    <TTSButton
+                      language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
+                      text={translateText}
+                    />
+                  )}
+                </div>
+                {!!translateText && (
+                  <Button
+                    type="button"
+                    shape="circle"
+                    color="ghost"
+                    size="sm"
+                    title="Clear the input"
+                    onClick={onClearBtnClick}
+                  >
+                    <MdClose size="16" />
+                  </Button>
                 )}
               </div>
             </div>

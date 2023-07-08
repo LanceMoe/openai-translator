@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { Button, Form, Input, Toggle } from 'react-daisyui';
+import { useCallback, useRef } from 'react';
+import { Button, Input, Toggle } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
@@ -16,46 +16,52 @@ function ConfigPage() {
   } = useGlobalStore();
   const openaiApiInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const { openaiApiUrl, openaiApiKey, streamEnabled, selectedModel, tempretureParam } = Object.fromEntries(
-      formData.entries(),
-    );
-    if (!openaiApiUrl) {
-      toast.error(t('Please enter API Url.'));
-      return;
-    }
-    if (!openaiApiKey) {
-      toast.error(t('Please enter your API Key.'));
-      return;
-    }
-    if (!selectedModel) {
-      toast.error(t('Please select a model.'));
-      return;
-    }
-    setConfigValues((prev) => ({
-      ...prev,
-      openaiApiUrl: `${openaiApiUrl}`,
-      openaiApiKey: `${openaiApiKey}`,
-      streamEnabled: streamEnabled === 'on',
-      currentModel: selectedModel as OpenAIModel,
-      tempretureParam: +tempretureParam,
-    }));
-    toast.success(t('Config Saved!'));
-  };
+  const handleSave = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      const { openaiApiUrl, openaiApiKey, streamEnabled, selectedModel, tempretureParam } = Object.fromEntries(
+        formData.entries(),
+      );
+      if (!openaiApiUrl) {
+        toast.error(t('Please enter API Url.'));
+        return;
+      }
+      if (!openaiApiKey) {
+        toast.error(t('Please enter your API Key.'));
+        return;
+      }
+      if (!selectedModel) {
+        toast.error(t('Please select a model.'));
+        return;
+      }
+      setConfigValues((prev) => ({
+        ...prev,
+        openaiApiUrl: `${openaiApiUrl}`,
+        openaiApiKey: `${openaiApiKey}`,
+        streamEnabled: streamEnabled === 'on',
+        currentModel: selectedModel as OpenAIModel,
+        tempretureParam: +tempretureParam,
+      }));
+      toast.success(t('Config Saved!'));
+    },
+    [setConfigValues, t],
+  );
 
-  const handleResetOpenaiApiUrl = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    event.preventDefault();
-    const inputRef = openaiApiInputRef.current;
-    if (!inputRef) {
-      return;
-    }
-    inputRef.value = 'https://api.openai.com';
-    inputRef.focus();
-    // eslint-disable-next-line quotes
-    toast(t("Don't forget to click the save button for the settings to take effect!"));
-  };
+  const handleResetOpenaiApiUrl = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      event.preventDefault();
+      const inputRef = openaiApiInputRef.current;
+      if (!inputRef) {
+        return;
+      }
+      inputRef.value = 'https://api.openai.com';
+      inputRef.focus();
+      // eslint-disable-next-line quotes
+      toast(t("Don't forget to click the save button for the settings to take effect!"));
+    },
+    [t],
+  );
 
   return (
     <div className="p-4 w-[28.75rem] max-w-[100vw] bg-base-100 overflow-y-auto overflow-x-hidden h-full">

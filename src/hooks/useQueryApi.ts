@@ -19,9 +19,7 @@ export function useQueryApi(streamEnabled = true) {
       streamEnabled
         ? { data: streamData, mutate: streamMutate, isLoading: streamIsLoading, isError: streamIsError }
         : { data, mutate, isLoading, isError },
-    streamEnabled
-      ? [streamEnabled, streamData, streamMutate, streamIsLoading, streamIsError]
-      : [streamEnabled, data, mutate, isLoading, isError],
+    [data, isError, isLoading, mutate, streamData, streamEnabled, streamIsError, streamIsLoading, streamMutate],
   );
 
   return value;

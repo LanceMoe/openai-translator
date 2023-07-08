@@ -37,9 +37,11 @@ export function SpeechRecognitionButton(props: Props) {
     return null;
   }
 
+  // NOTE: This is a workaround for a bug in react-daisyui.
+  (restProps as Record<string, unknown>)['type'] = 'button';
+
   return (
     <Button
-      type="button"
       shape="circle"
       color={listening ? 'error' : 'ghost'}
       size="sm"

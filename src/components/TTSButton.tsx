@@ -45,9 +45,11 @@ export function TTSButton(props: Props) {
     }
   }, [recording, utterance]);
 
+  // NOTE: This is a workaround for a bug in react-daisyui.
+  (restProps as Record<string, unknown>)['type'] = 'button';
+
   return (
     <Button
-      type="button"
       shape="circle"
       color={recording ? 'error' : 'ghost'}
       size="sm"

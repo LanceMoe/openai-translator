@@ -180,7 +180,7 @@ function TranslatorPage() {
                 ref={translateTextAreaRef}
                 name="translateText"
                 defaultValue={translateText}
-                className="w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-10"
+                className="w-full mb-2 whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-10"
                 placeholder={t('Please enter the text you want to translate here.')}
                 onChange={(e) => setTranslateText(e.target.value)}
                 disabled={isTranslating}
@@ -226,7 +226,7 @@ function TranslatorPage() {
               name="translatedText"
               value={translatedText || ''}
               className={clsx(
-                'w-full mb-2 break-all resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]',
+                'w-full mb-2 whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]',
                 !!translatedText && !isTranslating && 'pb-10',
               )}
               placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}

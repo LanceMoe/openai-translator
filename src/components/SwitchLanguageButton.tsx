@@ -28,7 +28,7 @@ export function SwitchLanguageButton() {
   useEffect(() => {
     document.documentElement.setAttribute('lang', lang);
     i18n.changeLanguage(lang);
-  }, [lang]);
+  }, [i18n, lang]);
 
   useEffect(() => {
     if (!isMenuOpen && document.activeElement) {

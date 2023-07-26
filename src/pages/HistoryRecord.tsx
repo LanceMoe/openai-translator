@@ -102,7 +102,7 @@ function HistoryRecord() {
                     <span className="font-bold">
                       {LANGUAGES[record.toLanguage as Language] || record.fromLanguage || 'Auto'}
                     </span>
-                    <div className="dropdown dropdown-end">
+                    <div className="dropdown dropdown-end z-[1]">
                       <label tabIndex={0} className="mx-1 btn btn-sm btn-ghost btn-circle">
                         <FaEllipsisV size={8} />
                       </label>

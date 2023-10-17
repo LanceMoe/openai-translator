@@ -31,7 +31,7 @@ module.exports = {
     themes: [
       {
         mcplight: {
-          "color-scheme": "light",
+          'color-scheme': 'light',
           primary: '#047AFF',
           secondary: '#463AA2',
           accent: '#C148AC',
@@ -59,17 +59,17 @@ module.exports = {
       },
       {
         mcpdark: {
-          "color-scheme": "dark",
+          'color-scheme': 'dark',
 
-          "primary": "#487ce2",
-          "secondary": "#c7f5fc",
-          "accent": "#ad2628",
-          "neutral": "#26273B",
-          "base-100": "#282a36",
-          "info": "#86C2F3",
-          "success": "#116962",
-          "warning": "#F4A352",
-          "error": "#E3547A",
+          primary: '#487ce2',
+          secondary: '#c7f5fc',
+          accent: '#ad2628',
+          neutral: '#26273B',
+          'base-100': '#282a36',
+          info: '#86C2F3',
+          success: '#116962',
+          warning: '#F4A352',
+          error: '#E3547A',
 
           // '--rounded-box': '1rem', // border radius rounded-box utility class, used in card and other large boxes
           '--rounded-btn': '1rem', // border radius rounded-btn utility class, used in buttons and similar element

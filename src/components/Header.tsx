@@ -49,7 +49,7 @@ function Header() {
       <Navbar className="sticky top-0 z-50 bg-primary text-primary-content">
         <div className="flex-1">
           <label className="text-xl normal-case btn btn-ghost" htmlFor="about-modal">
-            {t('topbar.title')}
+            {t('topBar.title')}
           </label>
         </div>
         <div className="flex-none">

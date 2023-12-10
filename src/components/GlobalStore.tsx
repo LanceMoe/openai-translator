@@ -15,7 +15,7 @@ type GlobalContextValue = {
     translateText: string;
     setTranslateText: Dispatch<SetStateAction<string>>;
     translatedText: string | undefined;
-    mutateTanslateText: (data: Parameters<typeof fetchTranslation>[0]) => void;
+    mutateTranslateText: (data: Parameters<typeof fetchTranslation>[0]) => void;
     isTranslating: boolean;
     isTranslateError: boolean;
   };
@@ -31,7 +31,7 @@ const GlobalContext = createContext<GlobalContextValue>({
     openaiApiKey: '',
     streamEnabled: true,
     currentModel: 'gpt-3.5-turbo',
-    tempretureParam: 0.7,
+    temperatureParam: 0.7,
   },
   setConfigValues: () => undefined,
   translator: {
@@ -43,7 +43,7 @@ const GlobalContext = createContext<GlobalContextValue>({
     translateText: '',
     setTranslateText: () => undefined,
     translatedText: undefined,
-    mutateTanslateText: () => undefined,
+    mutateTranslateText: () => undefined,
     isTranslating: false,
     isTranslateError: false,
   },
@@ -70,19 +70,19 @@ export function GlobalProvider(props: Props) {
     openaiApiKey: '',
     streamEnabled: true,
     currentModel: 'gpt-3.5-turbo',
-    tempretureParam: 0.7,
+    temperatureParam: 0.7,
   });
   const {
     openaiApiUrl = 'https://api.openai.com',
     openaiApiKey = '',
     streamEnabled = true,
     currentModel = 'gpt-3.5-turbo',
-    tempretureParam = 0.7,
+    temperatureParam = 0.7,
   } = configValues;
 
   const {
     data: translatedText,
-    mutate: mutateTanslateText,
+    mutate: mutateTranslateText,
     isLoading: isTranslating,
     isError: isTranslateError,
   } = useQueryApi(streamEnabled);
@@ -110,7 +110,7 @@ export function GlobalProvider(props: Props) {
 
   const contextValue = useMemo(
     () => ({
-      configValues: { openaiApiUrl, openaiApiKey, streamEnabled, currentModel, tempretureParam },
+      configValues: { openaiApiUrl, openaiApiKey, streamEnabled, currentModel, temperatureParam },
       setConfigValues,
       translator: {
         lastTranslateData,
@@ -118,7 +118,7 @@ export function GlobalProvider(props: Props) {
         translateText,
         setTranslateText,
         translatedText,
-        mutateTanslateText,
+        mutateTranslateText,
         isTranslating,
         isTranslateError,
       },
@@ -132,13 +132,13 @@ export function GlobalProvider(props: Props) {
       openaiApiKey,
       streamEnabled,
       currentModel,
-      tempretureParam,
+      temperatureParam,
       setConfigValues,
       lastTranslateData,
       setLastTranslateData,
       translateText,
       translatedText,
-      mutateTanslateText,
+      mutateTranslateText,
       isTranslating,
       isTranslateError,
       historyRecords,

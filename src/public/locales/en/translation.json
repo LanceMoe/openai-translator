@@ -1,5 +1,5 @@
 {
-  "topbar": {
+  "topBar": {
     "title": "OpenAI Translator",
     "darkModeSwitcherTitle": "Switch Dark Mode"
   },
@@ -22,7 +22,7 @@
   "Config": "Config",
   "Config Saved!": "Config Saved!",
   "Get your OpenAI API Key": "Get your OpenAI API Key",
-  "Plsase paste your OpenAI API Key here.": "Plsase paste your OpenAI API Key here.",
+  "Please paste your OpenAI API Key here.": "Please paste your OpenAI API Key here.",
   "Save": "Save",
   "Cancel": "Cancel",
   "Yes": "Yes",
@@ -38,8 +38,8 @@
   "Clear history records successfully.": "Clear history records successfully.",
   "Copy original text successfully.": "Copy original text successfully.",
   "Copy translation successfully.": "Copy translation successfully.",
-  "Tempreture": "Tempreture",
-  "Higher tempreture will be more creative.": "Higher tempreture will be more creative.",
+  "Temperature": "Temperature",
+  "Higher temperature will be more creative.": "Higher temperature will be more creative.",
   "Use stream (typing effect)": "Use stream (typing effect)",
   "Reset to default": "Reset to default",
   "Don't forget to click the save button for the settings to take effect!": "Don't forget to click the save button for the settings to take effect!",

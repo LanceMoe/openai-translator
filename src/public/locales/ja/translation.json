@@ -1,5 +1,5 @@
 {
-  "topbar": {
+  "topBar": {
     "title": "OpenAI翻訳機",
     "darkModeSwitcherTitle": "暗色モードに切り替える"
   },
@@ -22,7 +22,7 @@
   "Config": "設定",
   "Config Saved!": "設定が保存されました！",
   "Get your OpenAI API Key": "OpenAI APIキーを取得する",
-  "Plsase paste your OpenAI API Key here.": "OpenAI APIキーをここに貼り付けてください。",
+  "Please paste your OpenAI API Key here.": "OpenAI APIキーをここに貼り付けてください。",
   "Save": "保存",
   "Cancel": "キャンセル",
   "Yes": "はい",
@@ -38,8 +38,8 @@
   "Clear history records successfully.": "履歴記録を消去しました。",
   "Copy original text successfully.": "元のテキストをコピーしました。",
   "Copy translation successfully.": "翻訳をコピーしました。",
-  "Tempreture": "臨機応変",
-  "Higher tempreture will be more creative.": "高い臨機応変值はより創造的になります。",
+  "Temperature": "臨機応変",
+  "Higher temperature will be more creative.": "高い臨機応変值はより創造的になります。",
   "Use stream (typing effect)": "ストリームを有効（タイピング効果）",
   "Reset to default": "デフォルトにリセット",
   "Don't forget to click the save button for the settings to take effect!": "設定を有効にするには保存ボタンをクリックしてください！",

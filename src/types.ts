@@ -62,5 +62,5 @@ export type ConfigValues = {
   openaiApiKey: string;
   streamEnabled: boolean;
   currentModel: OpenAIModel;
-  tempretureParam: number;
+  temperatureParam: number;
 };

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button } from 'react-daisyui';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,7 @@ export function TTSButton(props: Props) {
   const { language, text, ...restProps } = props;
   const { t } = useTranslation();
   const [recording, setRecording] = useState(false);
-  const [utterance] = useState(new SpeechSynthesisUtterance());
+  const utterance = useMemo(() => new SpeechSynthesisUtterance(), []);
 
   useEffect(() => {
     utterance.lang = language === 'wyw' ? 'zh-TW' : language;

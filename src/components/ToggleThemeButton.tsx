@@ -7,7 +7,7 @@ export function ToggleThemeButton() {
   const { t } = useTranslation();
   const [darkMode, setDarkMode] = useDarkMode();
   return (
-    <label className="swap swap-rotate btn btn-ghost btn-circle" title={t('topbar.darkModeSwitcherTitle')}>
+    <label className="swap swap-rotate btn btn-ghost btn-circle" title={t('topBar.darkModeSwitcherTitle')}>
       <input
         type="checkbox"
         onClick={() => setDarkMode(!darkMode)}

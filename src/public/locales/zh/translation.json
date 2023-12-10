@@ -1,5 +1,5 @@
 {
-  "topbar": {
+  "topBar": {
     "title": "OpenAI 翻译器",
     "darkModeSwitcherTitle": "深色模式切换"
   },
@@ -22,7 +22,7 @@
   "Config": "设置",
   "Config Saved!": "设置已保存！",
   "Get your OpenAI API Key": "获取您的 OpenAI API Key",
-  "Plsase paste your OpenAI API Key here.": "请将您的 OpenAI API Key 粘贴到这里。",
+  "Please paste your OpenAI API Key here.": "请将您的 OpenAI API Key 粘贴到这里。",
   "Save": "保存",
   "Cancel": "取消",
   "Yes": "是",
@@ -38,8 +38,8 @@
   "Clear history records successfully.": "清空历史记录成功。",
   "Copy original text successfully.": "复制原文成功。",
   "Copy translation successfully.": "复制翻译成功。",
-  "Tempreture": "随机应变",
-  "Higher tempreture will be more creative.": "随机应变值越高，结果越有创意。",
+  "Temperature": "随机应变",
+  "Higher temperature will be more creative.": "随机应变值越高，结果越有创意。",
   "Use stream (typing effect)": "使用流模式 (打字效果)",
   "Reset to default": "重置为默认值",
   "Don't forget to click the save button for the settings to take effect!": "别忘了点击保存按钮使设置生效！",

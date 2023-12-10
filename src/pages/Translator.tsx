@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
 import { MdClose, MdContentCopy } from 'react-icons/md';
-import TextareaAutosize from 'react-textarea-autosize';
+import TextareaAutoSize from 'react-textarea-autosize';
 
 import { useGlobalStore } from '@/components/GlobalStore';
 import { SpeechRecognitionButton } from '@/components/SpeechRecognitionButton';
@@ -18,14 +18,14 @@ function TranslatorPage() {
   const translateTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const {
-    configValues: { openaiApiKey, currentModel, tempretureParam },
+    configValues: { openaiApiKey, currentModel, temperatureParam },
     translator: {
       lastTranslateData,
       setLastTranslateData,
       translateText,
       setTranslateText,
       translatedText,
-      mutateTanslateText,
+      mutateTranslateText,
       isTranslating,
       isTranslateError,
     },
@@ -111,23 +111,23 @@ function TranslatorPage() {
         toLang: toLang as Language,
       }));
 
-      mutateTanslateText({
+      mutateTranslateText({
         token: openaiApiKey,
         engine: currentModel,
-        prompt: prompt,
-        tempretureParam: tempretureParam,
+        prompt,
+        temperatureParam,
         queryText: translateText as string,
       });
     },
     [
       currentModel,
       i18n.language,
-      mutateTanslateText,
+      mutateTranslateText,
       openaiApiKey,
       setLastTranslateData,
       setTranslateText,
       t,
-      tempretureParam,
+      temperatureParam,
     ],
   );
 
@@ -184,7 +184,7 @@ function TranslatorPage() {
 
           <div className="form-control">
             <div className="relative">
-              <TextareaAutosize
+              <TextareaAutoSize
                 ref={translateTextAreaRef}
                 name="translateText"
                 defaultValue={translateText}
@@ -193,7 +193,7 @@ function TranslatorPage() {
                 onChange={(e) => setTranslateText(e.target.value)}
                 disabled={isTranslating}
                 required
-              ></TextareaAutosize>
+              ></TextareaAutoSize>
               <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
                 <div className="flex flex-row justify-start gap-2">
                   <SpeechRecognitionButton
@@ -244,7 +244,7 @@ function TranslatorPage() {
             {isTranslating ? t('Translating...') : t('Translate')}
           </Button>
           <div className="relative">
-            <TextareaAutosize
+            <TextareaAutoSize
               name="translatedText"
               value={translatedText || ''}
               className={clsx(
@@ -254,7 +254,7 @@ function TranslatorPage() {
               placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
               readOnly
               required
-            ></TextareaAutosize>
+            ></TextareaAutoSize>
             <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
               {!!translatedText && (
                 <TTSButton

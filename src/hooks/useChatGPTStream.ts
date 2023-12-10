@@ -14,8 +14,8 @@ export function useChatGPTStream() {
   const [loading, setLoading] = useState(false);
 
   const mutate = useCallback(
-    (params: { token: string; engine: OpenAIModel; prompt: string; tempretureParam: number; queryText: string }) => {
-      const { token, engine, prompt, queryText, tempretureParam } = params;
+    (params: { token: string; engine: OpenAIModel; prompt: string; temperatureParam: number; queryText: string }) => {
+      const { token, engine, prompt, queryText, temperatureParam } = params;
       if (loading) {
         console.warn('Already loading!');
         return;
@@ -33,7 +33,8 @@ export function useChatGPTStream() {
         return;
       }
 
-      const tmpParam = +tempretureParam > 0.4 && +tempretureParam <= 1.0 ? +tempretureParam : getRadomNumber(0.5, 1.0);
+      const tmpParam =
+        +temperatureParam > 0.4 && +temperatureParam <= 1.0 ? +temperatureParam : getRadomNumber(0.5, 1.0);
 
       const isGptModel = GPT_MODELS.includes(engine as GPTModel);
 

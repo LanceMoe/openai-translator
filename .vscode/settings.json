@@ -16,7 +16,7 @@
   // https://qiita.com/mysticatea/items/3f306470e8262e50bb70
   "[javascript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
+      "source.fixAll.eslint": "explicit"
     }
   },
   "[typescript]": {
@@ -33,7 +33,7 @@
   },
   "[css]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.stylelint": true
+      "source.fixAll.stylelint": "explicit"
     }
   },
   "[json]": {
@@ -41,5 +41,11 @@
   },
   "[jsonc]": {
     "editor.formatOnSave": true
+  },
+  "[typescript][typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "explicit"
+    }
   }
 }

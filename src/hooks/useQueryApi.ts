@@ -6,7 +6,7 @@ import { fetchTranslation } from '@/client/fetcher';
 import { useChatGPTStream } from './useChatGPTStream';
 
 export function useQueryApi(streamEnabled = true) {
-  const { data, mutate, isLoading, isError } = useMutation(fetchTranslation);
+  const { data, mutate, isPending, isError } = useMutation({ mutationFn: fetchTranslation });
   const {
     data: streamData,
     mutate: streamMutate,
@@ -18,8 +18,8 @@ export function useQueryApi(streamEnabled = true) {
     () =>
       streamEnabled
         ? { data: streamData, mutate: streamMutate, isLoading: streamIsLoading, isError: streamIsError }
-        : { data, mutate, isLoading, isError },
-    [data, isError, isLoading, mutate, streamData, streamEnabled, streamIsError, streamIsLoading, streamMutate],
+        : { data, mutate, isLoading: isPending, isError },
+    [data, isError, isPending, mutate, streamData, streamEnabled, streamIsError, streamIsLoading, streamMutate],
   );
 
   return value;

@@ -27,8 +27,8 @@ dependencies:
     specifier: ^3.1.3
     version: 3.1.3
   daisyui:
-    specifier: ^4.4.19
-    version: 4.4.19(postcss@8.4.32)
+    specifier: 4.4.14
+    version: 4.4.14(postcss@8.4.32)
   i18next:
     specifier: ^23.7.8
     version: 23.7.8
@@ -40,7 +40,7 @@ dependencies:
     version: 18.2.0
   react-daisyui:
     specifier: ^5.0.0
-    version: 5.0.0(daisyui@4.4.19)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.6)
+    version: 5.0.0(daisyui@4.4.14)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.6)
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
@@ -2803,8 +2803,8 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: false
 
-  /daisyui@4.4.19(postcss@8.4.32):
-    resolution: {integrity: sha512-IjOLWwnndD4N7Ut5CDxbUsaVtbqXPeVHM92IcgxGFxpuOd3CCKW/PAXZH6JoBTHFRaN57vB9XqEhdWm5yC+bPA==}
+  /daisyui@4.4.14(postcss@8.4.32):
+    resolution: {integrity: sha512-1g37QzzDFM0QLQe+qRBswkGKyaGijk84t01UMg1ytkFhQxru3zeMh5nWcpC9KnqzKgnITkpSebpGqq4gP8zRrg==}
     engines: {node: '>=16.9.0'}
     dependencies:
       css-selector-tokenizer: 0.8.0
@@ -4724,7 +4724,7 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /react-daisyui@5.0.0(daisyui@4.4.19)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.6):
+  /react-daisyui@5.0.0(daisyui@4.4.14)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.6):
     resolution: {integrity: sha512-j1cugAxALmIbihycGBh7P9H3UXrfsvqu84qM6O55l7nOKST43IjUkZjmNav/7s0ZaUpa9Y+52mFchUb2zvon1A==}
     peerDependencies:
       daisyui: ^4.4.6
@@ -4732,7 +4732,7 @@ packages:
       react-dom: '>=16'
       tailwindcss: '>=3.2.7'
     dependencies:
-      daisyui: 4.4.19(postcss@8.4.32)
+      daisyui: 4.4.14(postcss@8.4.32)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tailwindcss: 3.3.6

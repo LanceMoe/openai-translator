@@ -20,7 +20,7 @@ export function GlobalToaster() {
           show={t.visible}
           className={clsx(
             'alert max-w-screen-lg mx-auto shadow-lg',
-            'grid-flow-col	grid-cols-[auto_minmax(auto,_1fr)] justify-items-start text-left',
+            'grid-flow-col grid-cols-[auto_minmax(auto,_1fr)] justify-items-start text-left',
             toastStyle[t.type] || toastStyle['blank'],
           )}
           enter="transition-all duration-150"

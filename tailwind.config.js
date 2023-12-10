@@ -33,6 +33,7 @@ module.exports = {
         mcplight: {
           'color-scheme': 'light',
           primary: '#047AFF',
+          'primary-content': '#ffffff',
           secondary: '#463AA2',
           accent: '#C148AC',
           neutral: '#021431',
@@ -62,6 +63,7 @@ module.exports = {
           'color-scheme': 'dark',
 
           primary: '#487ce2',
+          'primary-content': '#ffffff',
           secondary: '#c7f5fc',
           accent: '#ad2628',
           neutral: '#26273B',

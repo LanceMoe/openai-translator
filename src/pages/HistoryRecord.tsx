@@ -69,7 +69,7 @@ function HistoryRecord() {
             </label>
             <div
               tabIndex={0}
-              className="w-64 p-2 shadow dropdown-content card card-compact bg-warning text-warning-content"
+              className="w-64 p-2 shadow dropdown-content card card-compact bg-warning text-warning-content z-50"
             >
               <div className="card-body">
                 <h3 className="card-title">{t('Notice!')}</h3>

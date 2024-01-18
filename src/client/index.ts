@@ -141,6 +141,7 @@ export async function chatCompletionsStream(
     token,
     prompt,
     query,
+    model = 'gpt-3.5-turbo'
     temperature = 0,
     maxTokens = 4000,
     topP = 1,

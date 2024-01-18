@@ -151,7 +151,6 @@ export async function chatCompletionsStream(
   const { url, headers } = endpoints.v1.chat.completions;
 
   const body = {
-    model,
     temperature,
     // eslint-disable-next-line camelcase
     max_tokens: maxTokens,

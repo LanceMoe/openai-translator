@@ -22,7 +22,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  height: calc(100svh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  max-height: calc(100svh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
 }
 
 @supports (-webkit-touch-callout: none) {

@@ -60,7 +60,7 @@ export const OPENAI_MODELS_DESCRIPTION: Record<OpenAIModel, string> = {
 export const LANGUAGES = {
   auto: 'Auto',
   'zh-Hans': '简体中文',
-  'zh-Hant': '繁體中文',
+  'zh-Hant': '正體中文',
   en: 'English',
   yue: '粵語',
   wyw: '漢文',

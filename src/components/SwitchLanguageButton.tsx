@@ -1,20 +1,47 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
-import { Button } from 'react-daisyui';
+import { Badge, Button } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { FaLanguage, FaSortDown } from 'react-icons/fa';
 import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
 
-import EnFlag from '@/svg/flags/en.svg?react';
-import HkFlag from '@/svg/flags/hk.svg?react';
-import JpFlag from '@/svg/flags/jp.svg?react';
-import TwFlag from '@/svg/flags/tw.svg?react';
-
 const LANGUAGES = [
-  { code: 'en', name: 'English', icon: <EnFlag width="20" height="20" title="English" /> },
-  { code: 'zh', name: '简体中文', icon: <HkFlag width="20" height="20" title="简体中文" /> },
-  { code: 'zh-TW', name: '繁體中文', icon: <TwFlag width="20" height="20" title="繁體中文" /> },
-  { code: 'ja', name: '日本語', icon: <JpFlag width="20" height="20" title="日本語" /> },
+  {
+    code: 'en',
+    name: 'English',
+    icon: (
+      <Badge size="sm" variant="outline">
+        EN
+      </Badge>
+    ),
+  },
+  {
+    code: 'zh',
+    name: '简体中文',
+    icon: (
+      <Badge size="sm" variant="outline">
+        ZH
+      </Badge>
+    ),
+  },
+  {
+    code: 'zh-TW',
+    name: '正體中文',
+    icon: (
+      <Badge size="sm" variant="outline">
+        ZH
+      </Badge>
+    ),
+  },
+  {
+    code: 'ja',
+    name: '日本語',
+    icon: (
+      <Badge size="sm" variant="outline">
+        JA
+      </Badge>
+    ),
+  },
 ] as const;
 
 type LanguageCode = (typeof LANGUAGES)[number]['code'];

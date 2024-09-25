@@ -43,7 +43,7 @@ export function useChatGPTStream() {
           token,
           prompt,
           query: queryText,
-          model: isGptModel ? (engine as GPTModel) : 'gpt-3.5-turbo',
+          model: isGptModel ? (engine as GPTModel) : 'gpt-4o-mini',
           temperature: tmpParam,
         },
         {

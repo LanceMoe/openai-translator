@@ -87,7 +87,7 @@ export async function chatCompletions(
   token: string,
   prompt: string,
   query: string,
-  model: GPTModel = 'gpt-3.5-turbo',
+  model: GPTModel = 'gpt-4o-mini',
   temperature = 0,
   maxTokens = 1000,
   topP = 1,
@@ -141,7 +141,7 @@ export async function chatCompletionsStream(
     token,
     prompt,
     query,
-    model = 'gpt-3.5-turbo',
+    model = 'gpt-4o-mini',
     temperature = 0,
     maxTokens = 1000,
     topP = 1,
@@ -163,8 +163,9 @@ export async function chatCompletionsStream(
     presence_penalty: presencePenalty,
     stream: true,
     messages: [
-      { role: 'system', content: prompt },
-      { role: 'user', content: `"${query}"` },
+      { role: 'system', content: `${prompt}` },
+      { role: 'system', content: `Please note that your response should solely consist of the translation.` },
+      { role: 'user', content: `${query}` },
     ],
   };
   const response = await fetchEventSource(baseUrl + url, {

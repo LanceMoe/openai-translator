@@ -14,6 +14,8 @@ export const GPT_MODELS = [
   'gpt-4-32k-0614',
   'gpt-4-turbo',
   'gpt-4o',
+  'gpt-4o-mini',
+  'o1-mini',
 ] as const;
 
 export const OPENAI_MODELS = [...GPT_MODELS, 'text-davinci-003', 'text-davinci-002'] as const;
@@ -26,7 +28,7 @@ export const OPENAI_MODELS_TITLES: Record<OpenAIModel, string> = {
   'text-davinci-002': 'text-davinci-002',
   'gpt-3.5-turbo-0613': 'gpt-3.5-turbo-0613',
   'gpt-3.5-turbo-0301': 'gpt-3.5-turbo-0301',
-  'gpt-3.5-turbo': 'gpt-3.5-turbo (recommended)',
+  'gpt-3.5-turbo': 'gpt-3.5-turbo',
   'gpt-3.5-turbo-16k': 'gpt-3.5-turbo-16k',
   'gpt-3.5-turbo-16k-0613': 'gpt-3.5-turbo-16k-0613',
   'gpt-4': 'gpt-4',
@@ -37,6 +39,8 @@ export const OPENAI_MODELS_TITLES: Record<OpenAIModel, string> = {
   'gpt-4-32k-0614': 'gpt-4-32k-0614 (testing)',
   'gpt-4-turbo': 'gpt-4-turbo',
   'gpt-4o': 'gpt-4o',
+  'gpt-4o-mini': 'gpt-4o-mini (recommended)',
+  'o1-mini': 'o1-mini',
 } as const;
 
 export const OPENAI_MODELS_DESCRIPTION: Record<OpenAIModel, string> = {
@@ -55,6 +59,8 @@ export const OPENAI_MODELS_DESCRIPTION: Record<OpenAIModel, string> = {
   'gpt-4-32k-0614': 'GPT-4 32K 0614',
   'gpt-4-turbo': 'GPT-4 turbo',
   'gpt-4o': 'GPT-4o',
+  'gpt-4o-mini': 'GPT-4o-mini',
+  'o1-mini': 'O1-mini',
 } as const;
 
 export const LANGUAGES = {

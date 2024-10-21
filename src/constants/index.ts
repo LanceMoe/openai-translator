@@ -1,60 +1,61 @@
 /* eslint-disable camelcase */
 
-export const GPT_MODELS = [
-  'gpt-3.5-turbo-0613',
-  'gpt-3.5-turbo-0301',
-  'gpt-3.5-turbo',
-  'gpt-3.5-turbo-16k',
-  'gpt-3.5-turbo-16k-0613',
-  'gpt-4',
-  'gpt-4-0314',
-  'gpt-4-0614',
-  'gpt-4-32k',
-  'gpt-4-32k-0314',
-  'gpt-4-32k-0614',
-  'gpt-4-turbo',
+export const CHAT_MODELS = [
+  'gpt-4o-mini',
   'gpt-4o',
+  'gpt-4-turbo',
+  'gpt-4',
+  'gpt-3.5-turbo',
+  'gpt-4o-mini-2024-07-18',
+  'gpt-4o-2024-08-06',
+  'gpt-4o-2024-05-13',
+  'gpt-4-turbo-preview',
+  'gpt-4-turbo-2024-04-09',
+  'gpt-4-1106-preview',
+  'gpt-4-0613',
+  'gpt-4-0125-preview',
+  'gpt-3.5-turbo-16k',
+  'gpt-3.5-turbo-1106',
+  'gpt-3.5-turbo-0125',
+  'chatgpt-4o-latest',
 ] as const;
 
-export const OPENAI_MODELS = [...GPT_MODELS, 'text-davinci-003', 'text-davinci-002'] as const;
+export const COMPLETIONS_MODELS = [
+  'gpt-3.5-turbo-instruct',
+  'gpt-3.5-turbo-instruct-0914',
+  'babbage-002',
+  'text-davinci-002',
+] as const;
 
-export type GPTModel = (typeof GPT_MODELS)[number];
+export const OPENAI_MODELS = [...CHAT_MODELS, ...COMPLETIONS_MODELS] as const;
+
+export type GhatModel = (typeof CHAT_MODELS)[number];
+export type CompletionsModel = (typeof COMPLETIONS_MODELS)[number];
 export type OpenAIModel = (typeof OPENAI_MODELS)[number];
 
 export const OPENAI_MODELS_TITLES: Record<OpenAIModel, string> = {
-  'text-davinci-003': 'text-davinci-003',
-  'text-davinci-002': 'text-davinci-002',
-  'gpt-3.5-turbo-0613': 'gpt-3.5-turbo-0613',
-  'gpt-3.5-turbo-0301': 'gpt-3.5-turbo-0301',
-  'gpt-3.5-turbo': 'gpt-3.5-turbo (recommended)',
-  'gpt-3.5-turbo-16k': 'gpt-3.5-turbo-16k',
-  'gpt-3.5-turbo-16k-0613': 'gpt-3.5-turbo-16k-0613',
-  'gpt-4': 'gpt-4',
-  'gpt-4-0314': 'gpt-4-0314',
-  'gpt-4-0614': 'gpt-4-0614',
-  'gpt-4-32k': 'gpt-4-32k (testing)',
-  'gpt-4-32k-0314': 'gpt-4-32k-0314 (testing)',
-  'gpt-4-32k-0614': 'gpt-4-32k-0614 (testing)',
-  'gpt-4-turbo': 'gpt-4-turbo',
-  'gpt-4o': 'gpt-4o',
-} as const;
-
-export const OPENAI_MODELS_DESCRIPTION: Record<OpenAIModel, string> = {
-  'text-davinci-003': 'Text Davinci 003',
-  'text-davinci-002': 'Text Davinci 002',
-  'gpt-3.5-turbo-0613': 'GPT-3.5 Turbo 0613',
-  'gpt-3.5-turbo-0301': 'GPT-3.5 Turbo 0301',
-  'gpt-3.5-turbo': 'GPT-3.5 Turbo',
-  'gpt-3.5-turbo-16k': 'GPT-3.5 Turbo 16K',
-  'gpt-3.5-turbo-16k-0613': 'GPT-3.5 Turbo 16K 0613',
-  'gpt-4': 'GPT-4',
-  'gpt-4-0314': 'GPT-4 0314',
-  'gpt-4-0614': 'GPT-4 0614',
-  'gpt-4-32k': 'GPT-4 32K',
-  'gpt-4-32k-0314': 'GPT-4 32K 0314',
-  'gpt-4-32k-0614': 'GPT-4 32K 0614',
-  'gpt-4-turbo': 'GPT-4 turbo',
+  'gpt-4o-mini': 'GPT-4o Mini (recommended)',
   'gpt-4o': 'GPT-4o',
+  'gpt-4-turbo': 'GPT-4 Turbo',
+  'gpt-4': 'GPT-4',
+  'gpt-3.5-turbo': 'GPT-3.5 Turbo',
+  'gpt-4o-mini-2024-07-18': 'GPT-4o Mini (2024-07-18)',
+  'gpt-4o-2024-08-06': 'GPT-4o (2024-08-06)',
+  'gpt-4o-2024-05-13': 'GPT-4o (2024-05-13)',
+  'gpt-4-turbo-preview': 'GPT-4 Turbo Preview',
+  'gpt-4-turbo-2024-04-09': 'GPT-4 Turbo (2024-04-09)',
+  'gpt-4-1106-preview': 'GPT-4 (1106 Preview)',
+  'gpt-4-0613': 'GPT-4 (0613)',
+  'gpt-4-0125-preview': 'GPT-4 (0125 Preview)',
+  'gpt-3.5-turbo-16k': 'GPT-3.5 Turbo (16k)',
+  'gpt-3.5-turbo-1106': 'GPT-3.5 Turbo (1106)',
+  'gpt-3.5-turbo-0125': 'GPT-3.5 Turbo (0125)',
+  'chatgpt-4o-latest': 'ChatGPT-4o Latest',
+
+  'gpt-3.5-turbo-instruct': 'GPT-3.5 Turbo Instruct',
+  'gpt-3.5-turbo-instruct-0914': 'GPT-3.5 Turbo Instruct (0914)',
+  'babbage-002': 'Babbage-002',
+  'text-davinci-002': 'Text-Davinci-002',
 } as const;
 
 export const LANGUAGES = {

@@ -49,5 +49,5 @@
     }
   },
   "tailwindCSS.classAttributes": ["class", "className", " ngClass", "classes", ".*_CLASSES"],
-  "cSpell.words": ["zustand"]
+  "cSpell.words": ["Davinci", "OPENAI", "zustand"]
 }

@@ -1,5 +1,5 @@
 import OpenAIClient from '@/client';
-import { GPT_MODELS } from '@/constants';
+import { CHAT_MODELS } from '@/constants';
 import { GPTModel, OpenAIModel } from '@/types';
 import { trimText } from '@/utils';
 
@@ -22,7 +22,7 @@ export const fetchTranslation = async (params: {
     return Math.random() * (max - min) + min;
   };
 
-  const isGptModel = (GPT_MODELS as unknown as string[]).includes(engine);
+  const isGptModel = (CHAT_MODELS as unknown as string[]).includes(engine);
 
   const tmpParam = +temperatureParam > 0.4 && +temperatureParam <= 1.0 ? +temperatureParam : getRadomNumber(0.5, 1.0);
 

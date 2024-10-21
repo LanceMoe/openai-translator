@@ -1,6 +1,5 @@
 import OpenAIClient from '@/client';
-import { CHAT_MODELS } from '@/constants';
-import type { ChatModel, OpenAIModel } from '@/types';
+import { CHAT_MODELS, type ChatModel, type OpenAIModel } from '@/constants';
 import { trimText } from '@/utils';
 
 export const fetchTranslation = async (params: {

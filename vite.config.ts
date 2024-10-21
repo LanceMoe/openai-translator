@@ -71,6 +71,9 @@ export default async function ({ command, mode }: ConfigEnv): Promise<UserConfig
         '@/': `${__dirname}/src/`,
       },
     },
+    define: {
+      BUILD_TIME: JSON.stringify(new Date().toISOString()),
+    },
     assetsInclude: ['favicon.png', 'openai-translator-apple-touch-icon.png', 'locales/**/*.json', 'icons/*.{png,svg}'],
   };
 }

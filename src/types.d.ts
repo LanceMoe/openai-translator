@@ -1,8 +1,10 @@
-import type { ChatModel, OpenAIModel } from '@/constants';
+interface Window {
+  BUILD_TIME: string;
+}
 
-export type { ChatModel, OpenAIModel };
+declare const BUILD_TIME: string;
 
-export type CompletionsResponse = {
+type CompletionsResponse = {
   id: string;
   object: string;
   created: number;
@@ -20,7 +22,7 @@ export type CompletionsResponse = {
   };
 };
 
-export type ChatCompletionsResponse = {
+type ChatCompletionsResponse = {
   id: string;
   object: string;
   created: number;
@@ -43,7 +45,7 @@ export type ChatCompletionsResponse = {
   }[];
 };
 
-export type HistoryRecord = {
+type HistoryRecord = {
   id: string;
   text: string;
   translation: string;
@@ -52,15 +54,7 @@ export type HistoryRecord = {
   toLanguage: string;
 };
 
-export type LastTranslateData = {
+type LastTranslateData = {
   fromLang: string;
   toLang: string;
-};
-
-export type ConfigValues = {
-  openaiApiUrl: string;
-  openaiApiKey: string;
-  streamEnabled: boolean;
-  currentModel: OpenAIModel;
-  temperatureParam: number;
 };

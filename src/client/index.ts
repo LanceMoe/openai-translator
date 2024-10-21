@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
 import apis from '@/client/apis';
-import type { ChatCompletionsResponse, ChatModel, CompletionsResponse, OpenAIModel } from '@/types';
+import type { ChatModel, OpenAIModel } from '@/constants';
 
 let baseUrl = apis.baseUrl;
 const { endpoints } = apis;

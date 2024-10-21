@@ -3,8 +3,8 @@ import { useLocalStorage } from 'usehooks-ts';
 
 import { setApiBaseUrl } from '@/client';
 import { fetchTranslation } from '@/client/fetcher';
+import { type ConfigValues } from '@/constants';
 import { useQueryApi } from '@/hooks/useQueryApi';
-import type { ConfigValues, HistoryRecord, LastTranslateData } from '@/types';
 
 type GlobalContextValue = {
   configValues: ConfigValues;

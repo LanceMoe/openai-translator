@@ -1,8 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import OpenAIClient from '@/client';
-import { CHAT_MODELS, ChatModel } from '@/constants';
-import type { ChatCompletionsResponse, OpenAIModel } from '@/types';
+import { CHAT_MODELS, type ChatModel, type OpenAIModel } from '@/constants';
 
 function getRadomNumber(min: number, max: number) {
   return Math.random() * (max - min) + min;

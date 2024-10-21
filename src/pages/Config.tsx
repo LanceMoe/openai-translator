@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
 
 import { useGlobalStore } from '@/components/GlobalStore';
-import { OPENAI_MODELS_TITLES } from '@/constants';
-import type { OpenAIModel } from '@/types';
+import { OPENAI_MODELS_TITLES, type OpenAIModel } from '@/constants';
 
 function ConfigPage() {
   const { t } = useTranslation();

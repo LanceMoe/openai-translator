@@ -167,3 +167,11 @@ export const LANGUAGES = {
 } as const;
 
 export type Language = keyof typeof LANGUAGES;
+
+export type ConfigValues = {
+  openaiApiUrl: string;
+  openaiApiKey: string;
+  streamEnabled: boolean;
+  currentModel: OpenAIModel;
+  temperatureParam: number;
+};

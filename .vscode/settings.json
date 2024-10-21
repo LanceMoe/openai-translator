@@ -47,5 +47,7 @@
       "source.fixAll.eslint": "explicit",
       "source.fixAll.stylelint": "explicit"
     }
-  }
+  },
+  "tailwindCSS.classAttributes": ["class", "className", " ngClass", "classes", ".*_CLASSES"],
+  "cSpell.words": ["Davinci", "OPENAI", "zustand"]
 }

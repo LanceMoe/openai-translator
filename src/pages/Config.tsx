@@ -6,7 +6,7 @@ import { FaTimes } from 'react-icons/fa';
 
 import { useGlobalStore } from '@/components/GlobalStore';
 import { OPENAI_MODELS_TITLES } from '@/constants';
-import { OpenAIModel } from '@/types';
+import type { OpenAIModel } from '@/types';
 
 function ConfigPage() {
   const { t } = useTranslation();
@@ -64,7 +64,7 @@ function ConfigPage() {
   );
 
   return (
-    <div className="p-4 w-[28.75rem] max-w-[100vw] bg-base-100 overflow-y-auto overflow-x-hidden h-full">
+    <div className="p-6 w-[28.75rem] max-w-[100vw] bg-base-100 overflow-y-auto overflow-x-hidden h-full">
       <h1 className="sticky top-0 z-50 flex justify-between w-full text-2xl font-bold align-middle bg-base-100">
         <span className="leading-[48px]">{t('Config')}</span>
         <label

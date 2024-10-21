@@ -4,7 +4,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { setApiBaseUrl } from '@/client';
 import { fetchTranslation } from '@/client/fetcher';
 import { useQueryApi } from '@/hooks/useQueryApi';
-import { ConfigValues, HistoryRecord, LastTranslateData } from '@/types';
+import type { ConfigValues, HistoryRecord, LastTranslateData } from '@/types';
 
 type GlobalContextValue = {
   configValues: ConfigValues;
@@ -25,7 +25,7 @@ type GlobalContextValue = {
   };
 };
 
-const GlobalContext = createContext<GlobalContextValue>({
+const context = createContext<GlobalContextValue>({
   configValues: {
     openaiApiUrl: 'https://api.openai.com',
     openaiApiKey: '',
@@ -146,9 +146,13 @@ export function GlobalProvider(props: Props) {
     ],
   );
 
-  return <GlobalContext.Provider value={contextValue}>{children}</GlobalContext.Provider>;
+  return <context.Provider value={contextValue}>{children}</context.Provider>;
 }
 
 export function useGlobalStore() {
-  return useContext(GlobalContext);
+  const value = useContext(context);
+  if (!value) {
+    throw new Error('useGlobalStore must be used within a GlobalProvider');
+  }
+  return value;
 }

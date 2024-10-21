@@ -143,7 +143,7 @@ function TranslatorPage() {
   return (
     <form method="post" onSubmit={handleTranslate}>
       <div className="container max-w-screen-2xl xl:mx-auto md:grid md:grid-cols-2 md:gap-4">
-        <div className="w-full md:min-h-[calc(100vh_-_112px)] max-w-full p-4 m-0 shadow-md top-16 bg-base-100">
+        <div className="w-full md:min-h-[calc(100vh_-_112px)] max-w-full p-4 m-0 top-16 bg-base-100 md:border-r border-r-base-300">
           <div className="flex flex-row mb-4">
             <select
               className="w-5/12 select"
@@ -194,7 +194,7 @@ function TranslatorPage() {
                 disabled={isTranslating}
                 required
               ></TextareaAutoSize>
-              <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
+              <div className="absolute left-0 flex flex-row justify-between w-full px-2 bottom-5">
                 <div className="flex flex-row justify-start gap-2">
                   <SpeechRecognitionButton
                     language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
@@ -233,7 +233,7 @@ function TranslatorPage() {
             </Button>
           </div>
         </div>
-        <div className="p-4 pb-14 m-0 form-control">
+        <div className="p-4 m-0 pb-14 form-control">
           <Button
             type="submit"
             color="primary"
@@ -255,7 +255,7 @@ function TranslatorPage() {
               readOnly
               required
             ></TextareaAutoSize>
-            <div className="absolute flex flex-row justify-between left-0 bottom-5 w-full px-2">
+            <div className="absolute left-0 flex flex-row justify-between w-full px-2 bottom-5">
               {!!translatedText && (
                 <TTSButton
                   language={lastTranslateData.toLang === 'auto' ? i18n.language : lastTranslateData.toLang}

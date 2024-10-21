@@ -1,6 +1,6 @@
-import type { GPTModel, OpenAIModel } from '@/constants';
+import type { ChatModel, OpenAIModel } from '@/constants';
 
-export type { GPTModel, OpenAIModel };
+export type { ChatModel, OpenAIModel };
 
 export type CompletionsResponse = {
   id: string;

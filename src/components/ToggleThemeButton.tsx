@@ -1,22 +1,23 @@
 import { useTranslation } from 'react-i18next';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { BsLightbulbFill, BsMoonStarsFill } from 'react-icons/bs';
 
-import { useDarkMode } from '@/hooks/theme';
+import { useTheme } from '@/hooks/useTheme';
 
 export function ToggleThemeButton() {
   const { t } = useTranslation();
-  const [darkMode, setDarkMode] = useDarkMode();
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <label className="swap swap-rotate btn btn-ghost btn-circle" title={t('topBar.darkModeSwitcherTitle')}>
       <input
         type="checkbox"
-        onClick={() => setDarkMode(!darkMode)}
-        checked={!darkMode}
+        onClick={() => toggleTheme()}
+        checked={theme === 'dark'}
         title="Dark Mode Switcher"
         readOnly
       />
-      <FaSun className="w-5 h-5 fill-current swap-on" size={20} />
-      <FaMoon className="w-5 h-5 fill-current swap-off" size={20} />
+      <BsLightbulbFill className="swap-on" size={20} />
+      <BsMoonStarsFill className="swap-off" size={20} />
     </label>
   );
 }

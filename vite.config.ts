@@ -40,8 +40,8 @@ const pwaOptions: Partial<VitePWAOptions | ManifestOptions> = {
       },
     ],
     start_url: '/',
-    theme_color: '#047AFF',
-    background_color: '#047AFF',
+    theme_color: '#ffffff',
+    background_color: '#ffffff',
   },
   includeAssets: ['openai-translator-apple-touch-icon.png', 'favicon.png', 'locales/**/*.json', 'icons/*.{png,svg}'],
 };

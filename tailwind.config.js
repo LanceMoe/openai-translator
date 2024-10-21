@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable @typescript-eslint/no-var-requires */
 module.exports = {
   content: [
@@ -17,7 +18,19 @@ module.exports = {
         tabs: '1rem 1rem 0 0',
       },
       fontFamily: {
-        'm-plus-rounded-1c': 'M PLUS Rounded 1c',
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Oxygen',
+          'Ubuntu',
+          'Cantarell',
+          'Fira Sans',
+          'Droid Sans',
+          'Helvetica Neue',
+          'sans-serif',
+        ],
       },
     },
   },

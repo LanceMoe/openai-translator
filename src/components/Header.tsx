@@ -14,7 +14,7 @@ function AboutModal() {
         <label className="relative modal-box" htmlFor="">
           <h3 className="text-lg font-bold">About OpenAI Translator</h3>
           <p className="py-4">Author: Lance.Moe</p>
-          <p className="grid grid-cols-2 gap-2 py-4">
+          <p className="grid grid-cols-2 gap-2 pt-4">
             <a
               href="https://github.com/LanceMoe/openai-translator"
               target="_blank"
@@ -46,7 +46,7 @@ function Header() {
   return (
     <>
       <AboutModal />
-      <Navbar className="sticky top-0 z-50 bg-primary text-primary-content">
+      <Navbar className="sticky top-0 z-50 bg-base-100 text-base-100-content">
         <div className="flex-1">
           <label className="text-xl normal-case btn btn-ghost" htmlFor="about-modal">
             {t('topBar.title')}

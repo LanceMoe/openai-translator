@@ -3,8 +3,8 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 const statusBarColor = {
-  light: '#047AFF',
-  dark: '#487ce2',
+  light: '#ffffff',
+  dark: '#1E232A',
 } as const;
 
 const localStorageKey = 'openai-translator-theme' as const;

@@ -3,6 +3,67 @@
 @tailwind utilities;
 @tailwind variants;
 
+@layer components {
+  .navbar {
+    @apply z-50 border-b border-b-base-300 backdrop-blur bg-base-100/80;
+  }
+
+  .btn {
+    @apply relative;
+
+    &:before {
+      @apply absolute -left-0.5 -top-0.5 -right-0.5 -bottom-0.5 content-[''] transition-[background] duration-1000 ease-out bg-center rounded-[inherit];
+    }
+
+    &:hover {
+      &:before {
+        @apply bg-[length:15000%] bg-[radial-gradient(circle,_transparent_1%,_#00000020_1%)];
+      }
+    }
+
+    &:active {
+      &:before {
+        @apply duration-0 bg-[length:100%];
+      }
+    }
+  }
+
+  .bottom-nav {
+    @apply border-t border-t-base-300 backdrop-blur bg-base-100/80 fixed inset-x-0 bottom-0 z-50 items-center block h-[calc(48px+env(safe-area-inset-bottom))] rounded-tabs;
+
+    & > * {
+      @apply gap-0 bg-transparent text-xs leading-normal tracking-[.0125em] font-medium;
+
+      &:not(.active) {
+        @apply pt-0;
+      }
+
+      &:where(.active) {
+        @apply font-bold border-t-0 text-primary;
+
+        & > svg {
+          @apply rounded-full bg-primary/5;
+        }
+      }
+
+      & > svg {
+        @apply h-8 w-14 p-1.5;
+      }
+    }
+  }
+}
+
+@layer utilities {
+  .max-h-mobile-screen {
+    max-height: 100vh;
+    max-height: 100svh;
+  }
+}
+
+:root {
+  --border-btn: 3px;
+}
+
 html {
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }

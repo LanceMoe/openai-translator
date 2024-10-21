@@ -2,7 +2,8 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { Badge, Button } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
-import { FaLanguage, FaSortDown } from 'react-icons/fa';
+import { FaSortDown } from 'react-icons/fa';
+import { IoLanguage } from 'react-icons/io5';
 import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
 
 const LANGUAGES = [
@@ -76,7 +77,7 @@ export function SwitchLanguageButton() {
         className="gap-1 normal-case"
         onClick={() => setIsMenuOpen((prev) => !prev)}
       >
-        <FaLanguage size={20} />
+        <IoLanguage size={20} />
         <FaSortDown size={12} />
       </Button>
       <div className="w-56 mt-16 overflow-y-auto shadow-2xl dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box top-px">

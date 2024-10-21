@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { BsLightbulbFill, BsMoonStarsFill } from 'react-icons/bs';
 
 import { useTheme } from '@/hooks/useTheme';
 
@@ -16,8 +16,8 @@ export function ToggleThemeButton() {
         title="Dark Mode Switcher"
         readOnly
       />
-      <FaSun className="w-5 h-5 fill-current swap-on" size={20} />
-      <FaMoon className="w-5 h-5 fill-current swap-off" size={20} />
+      <BsLightbulbFill className="swap-on" size={20} />
+      <BsMoonStarsFill className="swap-off" size={20} />
     </label>
   );
 }

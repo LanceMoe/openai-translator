@@ -27,10 +27,10 @@ module.exports = {
     logs: true,
     rtl: false,
     prefix: '',
-    darkTheme: 'mcpdark',
+    darkTheme: 'dark',
     themes: [
       {
-        mcplight: {
+        light: {
           'color-scheme': 'light',
           primary: '#047AFF',
           'primary-content': '#ffffff',
@@ -59,7 +59,7 @@ module.exports = {
         },
       },
       {
-        mcpdark: {
+        dark: {
           'color-scheme': 'dark',
 
           primary: '#487ce2',

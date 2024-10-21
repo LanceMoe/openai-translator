@@ -4,12 +4,11 @@ import '@/index.css';
 import { lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import { GlobalProvider } from '@/components/GlobalStore';
 import { ReactQueryProvider } from '@/components/ReactQueryProvider';
-import { useDarkMode } from '@/hooks/theme';
+import { useAutoChangeTheme } from '@/hooks/useTheme';
 import TabLayout from '@/layouts/TabLayout';
 import NotFound from '@/pages/NotFound';
-
-import { GlobalProvider } from './components/GlobalStore';
 
 const GlobalToaster = lazy(() => import('@/components/GlobalToaster'));
 
@@ -17,7 +16,7 @@ const TranslatorPage = lazy(() => import('@/pages/Translator'));
 const HistoryRecordPage = lazy(() => import('@/pages/HistoryRecord'));
 
 function App() {
-  useDarkMode();
+  useAutoChangeTheme();
 
   return (
     <ReactQueryProvider>

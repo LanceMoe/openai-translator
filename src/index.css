@@ -65,7 +65,7 @@
 }
 
 body {
-  @apply w-full h-full p-0 m-0 mx-auto overflow-hidden overscroll-y-none overscroll-x-none;
+  @apply w-full h-full p-0 m-0 mx-auto overscroll-y-none overscroll-x-none;
   -ms-overflow-style: none;
   scrollbar-width: none;
   -webkit-tap-highlight-color: transparent;

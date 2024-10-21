@@ -20,5 +20,5 @@ export function setDaisyUiTheme(theme: string) {
 
 export function enableTailwindDarkMode(enable: boolean) {
   const { classList } = document.documentElement;
-  enable ? classList.add('dark') : classList.remove('dark');
+  classList.toggle('dark', enable);
 }

@@ -1,10 +1,10 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
+    "andrewmcodes.tailwindcss-extension-pack",
     "esbenp.prettier-vscode",
     "steoates.autoimport",
-    "stylelint.vscode-stylelint",
-    "ms-playwright.playwright",
-    "ambar.bundle-size"
+    "ambar.bundle-size",
+    "streetsidesoftware.code-spell-checker"
   ]
 }

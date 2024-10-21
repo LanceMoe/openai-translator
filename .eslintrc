@@ -3,16 +3,22 @@
     "browser": true,
     "es2021": true,
     "node": true,
-    "jest": true
+    "jest": true,
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
     },
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "simple-import-sort", "import"],
   "rules": {
@@ -35,24 +41,24 @@
     "react/jsx-curly-brace-presence": [
       "error",
       {
-        "props": "never"
-      }
+        "props": "never",
+      },
     ],
     "object-shorthand": "error",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "prefer-arrow-callback": "error",
     "react/function-component-definition": [
       2,
-      { "namedComponents": "function-declaration", "unnamedComponents": "arrow-function" }
-    ]
+      { "namedComponents": "function-declaration", "unnamedComponents": "arrow-function" },
+    ],
   },
   "settings": {
     "react": {
-      "version": "detect"
+      "version": "detect",
     },
     "import/resolver": {
-      "typescript": {}
-    }
-  }
+      "typescript": {},
+    },
+  },
 }

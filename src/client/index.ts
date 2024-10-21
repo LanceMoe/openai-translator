@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
 import apis from '@/client/apis';
-import { ChatCompletionsResponse, CompletionsResponse, GPTModel, OpenAIModel } from '@/types';
+import type { ChatCompletionsResponse, ChatModel, CompletionsResponse, OpenAIModel } from '@/types';
 
 let baseUrl = apis.baseUrl;
 const { endpoints } = apis;
@@ -50,7 +50,7 @@ export async function completions(
   token: string,
   prompt: string,
   query: string,
-  model: Omit<OpenAIModel, GPTModel> = 'text-davinci-003',
+  model: Omit<OpenAIModel, ChatModel> = 'text-davinci-003',
   temperature = 0,
   maxTokens = 1000,
   topP = 1,
@@ -87,7 +87,7 @@ export async function chatCompletions(
   token: string,
   prompt: string,
   query: string,
-  model: GPTModel = 'gpt-4o-mini',
+  model: ChatModel = 'gpt-4o-mini',
   temperature = 0,
   maxTokens = 1000,
   topP = 1,
@@ -128,7 +128,7 @@ export async function chatCompletionsStream(
     token: string;
     prompt: string;
     query: string;
-    model?: GPTModel;
+    model?: ChatModel;
     temperature?: number;
     maxTokens?: number;
     topP?: number;

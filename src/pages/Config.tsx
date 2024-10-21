@@ -6,7 +6,7 @@ import { FaTimes } from 'react-icons/fa';
 
 import { useGlobalStore } from '@/components/GlobalStore';
 import { OPENAI_MODELS_TITLES } from '@/constants';
-import { OpenAIModel } from '@/types';
+import type { OpenAIModel } from '@/types';
 
 function ConfigPage() {
   const { t } = useTranslation();

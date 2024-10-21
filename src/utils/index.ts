@@ -20,3 +20,5 @@ export function formatTime(time: number, lang = 'en-US') {
   }).format(dt);
   return result;
 }
+
+export const getKeys = <T extends Record<PropertyKey, unknown>>(obj: T): (keyof T)[] => Object.keys(obj);

@@ -4,7 +4,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { setApiBaseUrl } from '@/client';
 import { fetchTranslation } from '@/client/fetcher';
 import { useQueryApi } from '@/hooks/useQueryApi';
-import { ConfigValues, HistoryRecord, LastTranslateData } from '@/types';
+import type { ConfigValues, HistoryRecord, LastTranslateData } from '@/types';
 
 type GlobalContextValue = {
   configValues: ConfigValues;

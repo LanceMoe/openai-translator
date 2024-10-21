@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 
 import OpenAIClient from '@/client';
-import { CHAT_MODELS, GhatModel } from '@/constants';
-import { ChatCompletionsResponse, OpenAIModel } from '@/types';
+import { CHAT_MODELS, ChatModel } from '@/constants';
+import type { ChatCompletionsResponse, OpenAIModel } from '@/types';
 
 function getRadomNumber(min: number, max: number) {
   return Math.random() * (max - min) + min;
@@ -36,14 +36,14 @@ export function useChatGPTStream() {
       const tmpParam =
         +temperatureParam > 0.4 && +temperatureParam <= 1.0 ? +temperatureParam : getRadomNumber(0.5, 1.0);
 
-      const isGptModel = CHAT_MODELS.includes(engine as GhatModel);
+      const isChatModel = CHAT_MODELS.includes(engine as ChatModel);
 
       OpenAIClient.chatCompletionsStream(
         {
           token,
           prompt,
           query: queryText,
-          model: isGptModel ? (engine as GhatModel) : 'gpt-4o-mini',
+          model: isChatModel ? (engine as ChatModel) : 'gpt-4o-mini',
           temperature: tmpParam,
         },
         {

@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 import { getKeys } from '@/utils';
 
 export const CHAT_MODELS_TITLES = {

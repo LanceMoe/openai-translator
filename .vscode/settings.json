@@ -49,5 +49,12 @@
     }
   },
   "tailwindCSS.classAttributes": ["class", "className", " ngClass", "classes", ".*_CLASSES"],
-  "cSpell.words": ["Davinci", "OPENAI", "zustand"]
+  "cSpell.words": ["Davinci", "OPENAI", "zustand"],
+  "eslint.useFlatConfig": true,
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }

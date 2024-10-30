@@ -163,9 +163,9 @@ export async function chatCompletionsStream(
     presence_penalty: presencePenalty,
     stream: true,
     messages: [
-      { role: 'system', content: `${prompt}` },
-      { role: 'system', content: `Please note that your response should solely consist of the translation.` },
-      { role: 'user', content: `${query}` },
+      { role: 'system', content: prompt },
+      { role: 'system', content: 'Please note that your response should solely consist of the translation.' },
+      { role: 'user', content: query },
     ],
   };
   const response = await fetchEventSource(baseUrl + url, {

@@ -17,5 +17,4 @@ self.addEventListener('message', (event) => {
 cleanupOutdatedCaches();
 
 // self.__WB_MANIFEST is default injection point
-// eslint-disable-next-line no-underscore-dangle
 precacheAndRoute(self.__WB_MANIFEST);

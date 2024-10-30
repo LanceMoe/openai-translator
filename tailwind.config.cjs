@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-/* eslint-disable @typescript-eslint/no-var-requires */
 module.exports = {
   content: [
     './src/**/*.{html,js,jsx,md,mdx,ts,tsx}',

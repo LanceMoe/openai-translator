@@ -1,9 +1,14 @@
 import clsx from 'clsx';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { BsTranslate } from 'react-icons/bs';
+import { FaHistory } from 'react-icons/fa';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 
-import NAV_ITEMS from '@/constants/NavItems';
+const NAV_ITEMS = [
+  { key: 'translator', label: 'Translator', to: '/', icon: <BsTranslate size={24} /> },
+  { key: 'history', label: 'History records', to: '/history', icon: <FaHistory size={24} /> },
+] as const;
 
 function NavBar() {
   const location = useLocation();

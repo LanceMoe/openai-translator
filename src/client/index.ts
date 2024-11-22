@@ -1,49 +1,15 @@
 import { fetchEventSource, FetchEventSourceInit } from '@microsoft/fetch-event-source';
-import axios, { AxiosRequestConfig } from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 
 import apis from '@/client/apis';
 import type { ChatModel, OpenAIModel } from '@/constants';
 
-let baseUrl = apis.baseUrl;
-const { endpoints } = apis;
+const { endpoints, baseUrl } = apis;
 
 const client = axios.create({ baseURL: baseUrl });
 
 export function setApiBaseUrl(url: string) {
   client.defaults.baseURL = url;
-  baseUrl = url;
-}
-
-export function useAxios(config: AxiosRequestConfig) {
-  const [data, setData] = useState<Record<string, unknown> | null>(null);
-  const [error, setError] = useState('');
-  const [loaded, setLoaded] = useState(false);
-
-  const controllerRef = useRef(new AbortController());
-  const cancel = () => {
-    controllerRef.current.abort();
-  };
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await client.request({
-          signal: controllerRef.current.signal,
-          ...config,
-        });
-
-        setData(response.data);
-      } catch (error) {
-        const { detail } = error as Record<string, string>;
-        setError(detail);
-      } finally {
-        setLoaded(true);
-      }
-    })();
-  }, [config]);
-
-  return { data, error, loaded, cancel };
 }
 
 export async function completions(
@@ -183,7 +149,6 @@ export async function chatCompletionsStream(
 
 export default {
   setApiBaseUrl,
-  useAxios,
   completions,
   chatCompletions,
   chatCompletionsStream,

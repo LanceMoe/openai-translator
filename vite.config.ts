@@ -10,7 +10,7 @@ const pwaOptions: Partial<VitePWAOptions | ManifestOptions> = {
   registerType: 'autoUpdate',
   categories: ['education', 'utilities'],
   description:
-    'A translator app that uses OpenAI GPT-3 to translate between languages. It is a PWA that can be installed on your phone or desktop.',
+    'A translator app built using OpenAI GPT model to translate between languages. It is a PWA that can be installed on your phone or desktop.',
   manifest: {
     short_name: 'OpenAI Translator',
     name: 'OpenAI Translator',

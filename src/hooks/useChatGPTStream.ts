@@ -65,14 +65,7 @@ export function useChatGPTStream() {
               return;
             }
             const parsedData = JSON.parse(event.data) as ChatCompletionsResponse;
-            const text = parsedData.choices
-              .map((choice) => {
-                if (choice.delta) {
-                  return choice.delta.content;
-                }
-                return '';
-              })
-              .join('');
+            const text = parsedData.choices.map((choice) => choice.delta?.content || '').join('');
             setData((prev) => prev + text);
           },
           onclose() {

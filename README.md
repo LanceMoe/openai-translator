@@ -8,16 +8,18 @@
 
 # OpenAI Translator
 
-A translator app that uses OpenAI GPT-3 to translate between languages. It is a PWA that can be installed on your phone or desktop.
+A translator app built using OpenAI GPT model to translate between languages. It is a PWA that can be installed on your phone or desktop.
 
 https://translator.lance.moe/
 
 Support models:
 
-- GPT-3.5 Turbo (ChatGPT engine)
-- GPT-4
-- GPT-4 Turbo
 - GPT-4o
+- GPT-4o Mini
+- GPT-4 Turbo
+- GPT-4
+- GPT-3.5 Turbo
+- And other OpenAI LLM models
 
 <img width="970" alt="image" src="https://user-images.githubusercontent.com/18505474/222828200-948eef23-bf59-43af-ac27-1484c2bcd406.png">
 
@@ -27,12 +29,12 @@ Support models:
 
 - OpenAI API
 - React 18
-- Vite 4
+- Vite 5
 - Tailwind CSS 3
-- DaisyUI 2
+- DaisyUI 4
 - Axios
 - React Router 6
-- React Query 4
+- React Query 5
 - PWA
 - Cloudflare Pages
 

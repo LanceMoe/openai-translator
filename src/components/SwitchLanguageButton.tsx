@@ -1,10 +1,10 @@
+import { useClickOutside, useLocalStorage } from '@mantine/hooks';
 import clsx from 'clsx';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Badge, Button } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { FaSortDown } from 'react-icons/fa';
 import { IoLanguage } from 'react-icons/io5';
-import { useLocalStorage, useOnClickOutside } from 'usehooks-ts';
 
 const LANGUAGES = [
   {
@@ -49,11 +49,13 @@ type LanguageCode = (typeof LANGUAGES)[number]['code'];
 
 export function SwitchLanguageButton() {
   const { t, i18n } = useTranslation();
-  const ref = useRef(null);
-  const [lang, setLang] = useLocalStorage<LanguageCode>('langCode', 'zh');
+  const ref = useClickOutside<HTMLDivElement>(() => setIsMenuOpen(false));
+  const [lang, setLang] = useLocalStorage<LanguageCode>({
+    key: 'langCode',
+    defaultValue: 'zh',
+    getInitialValueInEffect: false,
+  });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useOnClickOutside(ref, () => setIsMenuOpen(false));
 
   useEffect(() => {
     document.documentElement.setAttribute('lang', lang);

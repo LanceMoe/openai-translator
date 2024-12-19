@@ -28,12 +28,12 @@ Support models:
 ## Tech Stack
 
 - OpenAI API
-- React 18
-- Vite 5
+- React 19
+- Vite 6
 - Tailwind CSS 3
 - DaisyUI 4
 - Axios
-- React Router 6
+- React Router 7
 - React Query 5
 - PWA
 - Cloudflare Pages

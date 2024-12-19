@@ -1,5 +1,5 @@
+import { useLocalStorage } from '@mantine/hooks';
 import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
-import { useLocalStorage } from 'usehooks-ts';
 
 import { setApiBaseUrl } from '@/client';
 import { fetchTranslation } from '@/client/fetcher';
@@ -60,17 +60,29 @@ type Props = {
 export function GlobalProvider(props: Props) {
   const { children } = props;
   const [translateText, setTranslateText] = useState('');
-  const [historyRecords, setHistoryRecords] = useLocalStorage<HistoryRecord[]>('history-record', []);
-  const [lastTranslateData, setLastTranslateData] = useLocalStorage<LastTranslateData>('last-translate-data', {
-    fromLang: 'auto',
-    toLang: 'auto',
+  const [historyRecords, setHistoryRecords] = useLocalStorage<HistoryRecord[]>({
+    key: 'history-record',
+    defaultValue: [],
+    getInitialValueInEffect: false,
   });
-  const [configValues, setConfigValues] = useLocalStorage<ConfigValues>('extra-config', {
-    openaiApiUrl: 'https://api.openai.com',
-    openaiApiKey: '',
-    streamEnabled: true,
-    currentModel: 'gpt-4o-mini',
-    temperatureParam: 0.7,
+  const [lastTranslateData, setLastTranslateData] = useLocalStorage<LastTranslateData>({
+    key: 'last-translate-data',
+    defaultValue: {
+      fromLang: 'auto',
+      toLang: 'auto',
+    },
+    getInitialValueInEffect: false,
+  });
+  const [configValues, setConfigValues] = useLocalStorage<ConfigValues>({
+    key: 'extra-config',
+    defaultValue: {
+      openaiApiUrl: 'https://api.openai.com',
+      openaiApiKey: '',
+      streamEnabled: true,
+      currentModel: 'gpt-4o-mini',
+      temperatureParam: 0.7,
+    },
+    getInitialValueInEffect: false,
   });
   const {
     openaiApiUrl = 'https://api.openai.com',

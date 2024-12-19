@@ -6,6 +6,10 @@ import { ConfigEnv, loadEnv, UserConfig } from 'vite';
 import { ManifestOptions, VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 
+const ReactCompilerConfig = {
+  target: '19',
+};
+
 const pwaOptions: Partial<VitePWAOptions | ManifestOptions> = {
   registerType: 'autoUpdate',
   categories: ['education', 'utilities'],
@@ -65,7 +69,15 @@ export default async function ({ command, mode }: ConfigEnv): Promise<UserConfig
       outDir: '../dist',
       emptyOutDir: true,
     },
-    plugins: [react(), svgr(), VitePWA(pwaOptions)],
+    plugins: [
+      react({
+        babel: {
+          plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]],
+        },
+      }),
+      svgr(),
+      VitePWA(pwaOptions),
+    ],
     resolve: {
       alias: {
         '@/': `${__dirname}/src/`,

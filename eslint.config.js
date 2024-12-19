@@ -6,6 +6,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import importPlugin from 'eslint-plugin-import';
+import reactCompiler from 'eslint-plugin-react-compiler';
 
 export default tseslint.config(
   { ignores: ['dist', 'vite.config.ts', '**/env.d.ts', '**/vite-env.d.ts'] },
@@ -34,13 +35,14 @@ export default tseslint.config(
     plugins: {
       react,
       'react-hooks': reactHooks,
+      'react-compiler': reactCompiler,
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-
+      'react-compiler/react-compiler': 'error',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 
       'react/react-in-jsx-scope': 'off',

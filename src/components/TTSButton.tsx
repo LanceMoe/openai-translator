@@ -46,7 +46,8 @@ export function TTSButton(props: Props) {
   }, [recording, utterance]);
 
   // NOTE: This is a workaround for a bug in react-daisyui.
-  (restProps as Record<string, unknown>)['type'] = 'button';
+  // eslint-disable-next-line react-compiler/react-compiler
+  (restProps as Record<string, string>)['type'] = 'button';
 
   return (
     <Button

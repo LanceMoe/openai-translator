@@ -117,6 +117,7 @@ export function GlobalProvider(props: Props) {
       ...prev,
     ]);
     // Don't need to catch translateText, lastTranslateData.fromLang, lastTranslateData.toLang
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [translatedText, isTranslating, setHistoryRecords]);
 

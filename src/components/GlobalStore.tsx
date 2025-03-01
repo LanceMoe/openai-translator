@@ -1,21 +1,32 @@
 import { useLocalStorage } from '@mantine/hooks';
-import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, type Dispatch, type SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
 
 import { setApiBaseUrl } from '@/client';
-import { fetchTranslation } from '@/client/fetcher';
-import { type ConfigValues } from '@/constants';
+import type { ChatModel, ConfigValues as ConfigValuesBase } from '@/constants';
 import { useQueryApi } from '@/hooks/useQueryApi';
+
+type ConfigValues = Omit<ConfigValuesBase, 'currentModel'> & {
+  currentModel: ChatModel;
+};
 
 type GlobalContextValue = {
   configValues: ConfigValues;
   setConfigValues: Dispatch<SetStateAction<ConfigValues>>;
+  availableModels: { id: string; name: string }[];
+  setAvailableModels: Dispatch<SetStateAction<{ id: string; name: string }[]>>;
   translator: {
     lastTranslateData: LastTranslateData;
     setLastTranslateData: Dispatch<SetStateAction<LastTranslateData>>;
     translateText: string;
     setTranslateText: Dispatch<SetStateAction<string>>;
     translatedText: string | undefined;
-    mutateTranslateText: (data: Parameters<typeof fetchTranslation>[0]) => void;
+    mutateTranslateText: (data: {
+      token: string;
+      engine: ChatModel;
+      prompt: string;
+      temperatureParam: number;
+      queryText: string;
+    }) => void;
     isTranslating: boolean;
     isTranslateError: boolean;
   };
@@ -34,6 +45,8 @@ const context = createContext<GlobalContextValue>({
     temperatureParam: 0.7,
   },
   setConfigValues: () => undefined,
+  availableModels: [],
+  setAvailableModels: () => undefined,
   translator: {
     lastTranslateData: {
       fromLang: 'auto',
@@ -92,17 +105,13 @@ export function GlobalProvider(props: Props) {
     temperatureParam = 0.7,
   } = configValues;
 
-  const {
-    data: translatedText,
-    mutate: mutateTranslateText,
-    isLoading: isTranslating,
-    isError: isTranslateError,
-  } = useQueryApi(streamEnabled);
+  const { data: translatedText, mutate: mutateTranslateText, isLoading, isError } = useQueryApi(streamEnabled);
+  const [availableModels, setAvailableModels] = useState<{ id: string; name: string }[]>([]);
 
   useEffect(() => setApiBaseUrl(configValues.openaiApiUrl), [configValues.openaiApiUrl]);
 
   useEffect(() => {
-    if (!translatedText || isTranslating) {
+    if (!translatedText || isLoading) {
       return;
     }
     setHistoryRecords((prev) => [
@@ -116,15 +125,21 @@ export function GlobalProvider(props: Props) {
       },
       ...prev,
     ]);
-    // Don't need to catch translateText, lastTranslateData.fromLang, lastTranslateData.toLang
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [translatedText, isTranslating, setHistoryRecords]);
+  }, [
+    translatedText,
+    isLoading,
+    setHistoryRecords,
+    lastTranslateData.fromLang,
+    lastTranslateData.toLang,
+    translateText,
+  ]);
 
   const contextValue = useMemo(
     () => ({
       configValues: { openaiApiUrl, openaiApiKey, streamEnabled, currentModel, temperatureParam },
       setConfigValues,
+      availableModels,
+      setAvailableModels,
       translator: {
         lastTranslateData,
         setLastTranslateData,
@@ -132,8 +147,8 @@ export function GlobalProvider(props: Props) {
         setTranslateText,
         translatedText,
         mutateTranslateText,
-        isTranslating,
-        isTranslateError,
+        isTranslating: isLoading,
+        isTranslateError: isError,
       },
       history: {
         historyRecords,
@@ -147,13 +162,14 @@ export function GlobalProvider(props: Props) {
       currentModel,
       temperatureParam,
       setConfigValues,
+      availableModels,
       lastTranslateData,
       setLastTranslateData,
       translateText,
       translatedText,
       mutateTranslateText,
-      isTranslating,
-      isTranslateError,
+      isLoading,
+      isError,
       historyRecords,
       setHistoryRecords,
     ],

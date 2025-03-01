@@ -1,22 +1,25 @@
-import { fetchEventSource, FetchEventSourceInit } from '@microsoft/fetch-event-source';
-import axios from 'axios';
+import { fetchEventSource, type FetchEventSourceInit } from '@microsoft/fetch-event-source';
+import ky from 'ky';
 
 import apis from '@/client/apis';
-import type { ChatModel, OpenAIModel } from '@/constants';
+import type { ChatModel } from '@/constants';
 
 const { endpoints, baseUrl } = apis;
 
-const client = axios.create({ baseURL: baseUrl });
+const client = ky.create({ prefixUrl: baseUrl });
+let currentBaseUrl = baseUrl;
 
 export function setApiBaseUrl(url: string) {
-  client.defaults.baseURL = url;
+  currentBaseUrl = url;
+  // Re-create the ky client with the new prefix URL
+  client.extend({ prefixUrl: url });
 }
 
 export async function completions(
   token: string,
   prompt: string,
   query: string,
-  model: Omit<OpenAIModel, ChatModel> = 'text-davinci-003',
+  model = 'text-davinci-003',
   temperature = 0,
   maxTokens = 1000,
   topP = 1,
@@ -24,12 +27,6 @@ export async function completions(
   presencePenalty = 1,
 ) {
   const { url, headers } = endpoints.v1.completions;
-  const config = {
-    headers: {
-      ...headers,
-      Authorization: `Bearer ${token}`,
-    },
-  };
 
   const body = {
     prompt: `${prompt}:\n\n"${query}" =>`,
@@ -45,8 +42,17 @@ export async function completions(
     presence_penalty: presencePenalty,
   };
 
-  const response = await client.post<CompletionsResponse>(url, body, config);
-  return response;
+  const response = await client
+    .post(url, {
+      json: body,
+      headers: {
+        ...headers,
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .json<CompletionsResponse>();
+
+  return { data: response };
 }
 
 export async function chatCompletions(
@@ -61,12 +67,6 @@ export async function chatCompletions(
   presencePenalty = 1,
 ) {
   const { url, headers } = endpoints.v1.chat.completions;
-  const config = {
-    headers: {
-      ...headers,
-      Authorization: `Bearer ${token}`,
-    },
-  };
 
   const body = {
     model,
@@ -85,8 +85,17 @@ export async function chatCompletions(
     ],
   };
 
-  const response = await client.post<ChatCompletionsResponse>(url, body, config);
-  return response;
+  const response = await client
+    .post(url, {
+      json: body,
+      headers: {
+        ...headers,
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .json<ChatCompletionsResponse>();
+
+  return { data: response };
 }
 
 export async function chatCompletionsStream(
@@ -94,7 +103,7 @@ export async function chatCompletionsStream(
     token: string;
     prompt: string;
     query: string;
-    model?: ChatModel;
+    model?: string;
     temperature?: number;
     maxTokens?: number;
     topP?: number;
@@ -134,7 +143,7 @@ export async function chatCompletionsStream(
       { role: 'user', content: query },
     ],
   };
-  const response = await fetchEventSource(baseUrl + url, {
+  const response = await fetchEventSource(currentBaseUrl + url, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {

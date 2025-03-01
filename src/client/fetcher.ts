@@ -1,10 +1,10 @@
 import OpenAIClient from '@/client';
-import { CHAT_MODELS, type ChatModel, type OpenAIModel } from '@/constants';
+import { CHAT_MODELS, type ChatModel } from '@/constants';
 import { trimText } from '@/utils';
 
 export const fetchTranslation = async (params: {
   token: string;
-  engine: OpenAIModel;
+  engine: string;
   prompt: string;
   temperatureParam: number;
   queryText: string;

@@ -1,14 +1,15 @@
-import { fetchEventSource, FetchEventSourceInit } from '@microsoft/fetch-event-source';
+import { fetchEventSource, type FetchEventSourceInit } from '@microsoft/fetch-event-source';
 import axios from 'axios';
 
 import apis from '@/client/apis';
-import type { ChatModel, OpenAIModel } from '@/constants';
 
 const { endpoints, baseUrl } = apis;
 
 const client = axios.create({ baseURL: baseUrl });
+let currentBaseUrl = baseUrl;
 
 export function setApiBaseUrl(url: string) {
+  currentBaseUrl = url;
   client.defaults.baseURL = url;
 }
 
@@ -16,7 +17,7 @@ export async function completions(
   token: string,
   prompt: string,
   query: string,
-  model: Omit<OpenAIModel, ChatModel> = 'text-davinci-003',
+  model = 'text-davinci-003',
   temperature = 0,
   maxTokens = 1000,
   topP = 1,
@@ -53,7 +54,7 @@ export async function chatCompletions(
   token: string,
   prompt: string,
   query: string,
-  model: ChatModel = 'gpt-4o-mini',
+  model = 'gpt-4o-mini',
   temperature = 0,
   maxTokens = 1000,
   topP = 1,
@@ -94,7 +95,7 @@ export async function chatCompletionsStream(
     token: string;
     prompt: string;
     query: string;
-    model?: ChatModel;
+    model?: string;
     temperature?: number;
     maxTokens?: number;
     topP?: number;
@@ -134,7 +135,7 @@ export async function chatCompletionsStream(
       { role: 'user', content: query },
     ],
   };
-  const response = await fetchEventSource(baseUrl + url, {
+  const response = await fetchEventSource(currentBaseUrl + url, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {

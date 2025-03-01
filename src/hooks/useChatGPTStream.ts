@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import OpenAIClient from '@/client';
-import { CHAT_MODELS, type ChatModel, type OpenAIModel } from '@/constants';
+import { type ChatModel } from '@/constants';
 
 function getRadomNumber(min: number, max: number) {
   return Math.random() * (max - min) + min;
@@ -13,7 +13,7 @@ export function useChatGPTStream() {
   const [loading, setLoading] = useState(false);
 
   const mutate = useCallback(
-    (params: { token: string; engine: OpenAIModel; prompt: string; temperatureParam: number; queryText: string }) => {
+    (params: { token: string; engine: ChatModel; prompt: string; temperatureParam: number; queryText: string }) => {
       const { token, engine, prompt, queryText, temperatureParam } = params;
       if (loading) {
         console.warn('Already loading!');
@@ -35,14 +35,14 @@ export function useChatGPTStream() {
       const tmpParam =
         +temperatureParam > 0.4 && +temperatureParam <= 1.0 ? +temperatureParam : getRadomNumber(0.5, 1.0);
 
-      const isChatModel = CHAT_MODELS.includes(engine as ChatModel);
+      const modelToUse = engine || 'gpt-4o-mini';
 
       OpenAIClient.chatCompletionsStream(
         {
           token,
           prompt,
           query: queryText,
-          model: isChatModel ? (engine as ChatModel) : 'gpt-4o-mini',
+          model: modelToUse,
           temperature: tmpParam,
         },
         {

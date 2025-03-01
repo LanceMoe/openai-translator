@@ -1,5 +1,13 @@
 import { getKeys } from '@/utils';
 
+const COMPLETIONS_MODELS_TITLES = {
+  // Completions models
+  'gpt-3.5-turbo-instruct': 'GPT-3.5-Turbo Instruct',
+  'gpt-3.5-turbo-instruct-0914': 'GPT-3.5-Turbo Instruct (0914)',
+  'babbage-002': 'Babbage-002',
+  'text-davinci-002': 'Text-Davinci-002',
+} as const;
+
 export const CHAT_MODELS_TITLES = {
   // Chat models
   'gpt-4o-mini': 'GPT-4o-Mini (recommended)',
@@ -26,26 +34,11 @@ export const CHAT_MODELS_TITLES = {
   'o1-preview-2024-09-12': 'o1 Preview (2024-09-12)',
 } as const;
 
-const COMPLETIONS_MODELS_TITLES = {
-  // Completions models
-  'gpt-3.5-turbo-instruct': 'GPT-3.5-Turbo Instruct',
-  'gpt-3.5-turbo-instruct-0914': 'GPT-3.5-Turbo Instruct (0914)',
-  'babbage-002': 'Babbage-002',
-  'text-davinci-002': 'Text-Davinci-002',
-} as const;
-
-export const OPENAI_MODELS_TITLES = {
-  ...CHAT_MODELS_TITLES,
-  ...COMPLETIONS_MODELS_TITLES,
-} as const;
-
-export type ChatModel = keyof typeof CHAT_MODELS_TITLES;
-export type CompletionsModel = keyof typeof COMPLETIONS_MODELS_TITLES;
-export type OpenAIModel = keyof typeof OPENAI_MODELS_TITLES;
-
 export const CHAT_MODELS = getKeys(CHAT_MODELS_TITLES);
 export const COMPLETIONS_MODELS = getKeys(COMPLETIONS_MODELS_TITLES);
-export const OPENAI_MODELS = getKeys(OPENAI_MODELS_TITLES);
+
+export type ChatModel = keyof typeof CHAT_MODELS_TITLES;
+export type CompletionsModel = keyof typeof COMPLETIONS_MODELS;
 
 export const LANGUAGES = {
   auto: 'Auto',
@@ -170,6 +163,6 @@ export type ConfigValues = {
   openaiApiUrl: string;
   openaiApiKey: string;
   streamEnabled: boolean;
-  currentModel: OpenAIModel;
+  currentModel: string;
   temperatureParam: number;
 };

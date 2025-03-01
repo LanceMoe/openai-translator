@@ -18,6 +18,13 @@ export default {
           },
         },
       },
+      models: {
+        url: '/v1/models',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
     },
   },
 };

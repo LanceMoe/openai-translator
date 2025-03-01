@@ -40,6 +40,9 @@ importers:
       i18next-http-backend:
         specifier: ^3.0.2
         version: 3.0.2
+      ky:
+        specifier: ^1.7.5
+        version: 1.7.5
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -2882,6 +2885,11 @@ packages:
   keyv@4.5.4:
     resolution:
       { integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw== }
+
+  ky@1.7.5:
+    resolution:
+      { integrity: sha512-HzhziW6sc5m0pwi5M196+7cEBtbt0lCYi67wNsiwMUmz833wloE0gbzJPWKs1gliFKQb34huItDQX97LyOdPdA== }
+    engines: { node: '>=18' }
 
   leven@3.1.0:
     resolution:
@@ -6706,6 +6714,8 @@ snapshots:
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
+
+  ky@1.7.5: {}
 
   leven@3.1.0: {}
 

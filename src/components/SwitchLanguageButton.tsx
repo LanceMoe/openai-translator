@@ -1,7 +1,6 @@
 import { useClickOutside, useLocalStorage } from '@mantine/hooks';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
-import { Badge, Button } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { FaSortDown } from 'react-icons/fa';
 import { IoLanguage } from 'react-icons/io5';
@@ -10,38 +9,22 @@ const LANGUAGES = [
   {
     code: 'en',
     name: 'English',
-    icon: (
-      <Badge size="sm" variant="outline">
-        EN
-      </Badge>
-    ),
+    icon: <span className="badge badge-sm badge-outline">EN</span>,
   },
   {
     code: 'zh',
     name: '简体中文',
-    icon: (
-      <Badge size="sm" variant="outline">
-        ZH
-      </Badge>
-    ),
+    icon: <span className="badge badge-sm badge-outline">ZH</span>,
   },
   {
     code: 'zh-TW',
     name: '正體中文',
-    icon: (
-      <Badge size="sm" variant="outline">
-        ZH
-      </Badge>
-    ),
+    icon: <span className="badge badge-sm badge-outline">ZH</span>,
   },
   {
     code: 'ja',
     name: '日本語',
-    icon: (
-      <Badge size="sm" variant="outline">
-        JA
-      </Badge>
-    ),
+    icon: <span className="badge badge-sm badge-outline">JA</span>,
   },
 ] as const;
 
@@ -71,17 +54,16 @@ export function SwitchLanguageButton() {
 
   return (
     <div title="Change Language" className={clsx('dropdown', 'dropdown-end', isMenuOpen && 'dropdown-open')} ref={ref}>
-      <Button
+      <button
         type="button"
         title={t('Change Language')}
         tabIndex={0}
-        color="ghost"
-        className="gap-1 normal-case"
+        className="btn btn-ghost gap-1 normal-case"
         onClick={() => setIsMenuOpen((prev) => !prev)}
       >
         <IoLanguage size={20} />
         <FaSortDown size={12} />
-      </Button>
+      </button>
       <div className="w-56 mt-16 overflow-y-auto shadow-2xl dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box top-px">
         <ul className="gap-1 p-3 menu menu-compact" tabIndex={0}>
           {LANGUAGES.map((language) => (

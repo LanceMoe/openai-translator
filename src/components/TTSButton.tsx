@@ -1,16 +1,19 @@
+import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button } from 'react-daisyui';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineVolumeUp, MdStop } from 'react-icons/md';
 
+type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 type Props = {
   language: string;
   text: string;
-} & React.ComponentPropsWithoutRef<typeof Button>;
+  size?: ButtonSize;
+} & Omit<React.ComponentPropsWithoutRef<'button'>, 'size'>;
 
 export function TTSButton(props: Props) {
-  const { language, text, ...restProps } = props;
+  const { language, text, className, size = 'sm', ...restProps } = props;
   const { t } = useTranslation();
   const [recording, setRecording] = useState(false);
   const utterance = useMemo(() => new SpeechSynthesisUtterance(), []);
@@ -45,20 +48,15 @@ export function TTSButton(props: Props) {
     }
   }, [recording, utterance]);
 
-  // NOTE: This is a workaround for a bug in react-daisyui.
-  // eslint-disable-next-line react-compiler/react-compiler
-  (restProps as Record<string, string>)['type'] = 'button';
-
   return (
-    <Button
-      shape="circle"
-      color={recording ? 'error' : 'ghost'}
-      size="sm"
+    <button
+      className={clsx('btn btn-circle', `btn-${size}`, recording ? 'btn-error' : 'btn-ghost', className)}
       title={recording ? t('Stop reading') : t('Start reading')}
       onClick={onClickTTSBtn}
       {...restProps}
+      type="button"
     >
       {recording ? <MdStop size="16" /> : <MdOutlineVolumeUp size="16" />}
-    </Button>
+    </button>
   );
 }

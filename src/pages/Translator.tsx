@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { useCallback, useEffect, useRef } from 'react';
-import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
@@ -161,9 +160,14 @@ function TranslatorPage() {
             </select>
 
             <div className="flex justify-center w-2/12">
-              <Button type="button" color="ghost" shape="circle" onClick={onExchangeLanguageBtnClick} title="Exchange">
+              <button
+                type="button"
+                className="btn btn-ghost btn-circle"
+                onClick={onExchangeLanguageBtnClick}
+                title="Exchange"
+              >
                 <CgArrowsExchange size={20} />
-              </Button>
+              </button>
             </div>
 
             <select
@@ -209,40 +213,28 @@ function TranslatorPage() {
                   )}
                 </div>
                 {!!translateText && (
-                  <Button
+                  <button
                     type="button"
-                    shape="circle"
-                    color="ghost"
-                    size="sm"
+                    className="btn btn-circle btn-sm btn-ghost"
                     title="Clear the input"
                     onClick={onClearBtnClick}
                   >
                     <MdClose size="16" />
-                  </Button>
+                  </button>
                 )}
               </div>
             </div>
-            <Button
-              type="submit"
-              color="primary"
-              className="md:hidden"
-              loading={isTranslating}
-              disabled={isTranslating}
-            >
+            <button type="submit" className="btn btn-primary md:hidden" disabled={isTranslating}>
+              {isTranslating && <span className="loading loading-spinner loading-sm" />}
               {isTranslating ? t('Translating...') : t('Translate')}
-            </Button>
+            </button>
           </div>
         </div>
         <div className="p-4 m-0 pb-14 form-control">
-          <Button
-            type="submit"
-            color="primary"
-            className="hidden mb-4 md:inline-flex"
-            loading={isTranslating}
-            disabled={isTranslating}
-          >
+          <button type="submit" className="btn btn-primary hidden mb-4 md:inline-flex" disabled={isTranslating}>
+            {isTranslating && <span className="loading loading-spinner loading-sm" />}
             {isTranslating ? t('Translating...') : t('Translate')}
-          </Button>
+          </button>
           <div className="relative">
             <TextareaAutoSize
               name="translatedText"
@@ -263,16 +255,14 @@ function TranslatorPage() {
                 />
               )}
               {!!translatedText && !isTranslating && (
-                <Button
+                <button
                   type="button"
-                  shape="circle"
-                  color="ghost"
-                  size="sm"
+                  className="btn btn-circle btn-sm btn-ghost"
                   title={t('Copy translated text')}
                   onClick={onCopyBtnClick}
                 >
                   <MdContentCopy size="16" />
-                </Button>
+                </button>
               )}
             </div>
           </div>

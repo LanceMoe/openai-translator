@@ -1,9 +1,5 @@
 module.exports = {
-  content: [
-    './src/**/*.{html,js,jsx,md,mdx,ts,tsx}',
-    'node_modules/daisyui/dist/**/*.js',
-    'node_modules/react-daisyui/dist/**/*.js',
-  ],
+  content: ['./src/**/*.{html,js,jsx,md,mdx,ts,tsx}', 'node_modules/daisyui/dist/**/*.js'],
   // prefix: 'tw-',
   darkMode: 'class',
   important: true,

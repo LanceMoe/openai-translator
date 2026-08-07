@@ -1,5 +1,5 @@
+import clsx from 'clsx';
 import { useCallback, useEffect } from 'react';
-import { Button } from 'react-daisyui';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineMicNone, MdStop } from 'react-icons/md';
@@ -8,10 +8,10 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 type Props = {
   language: string;
   onChangeTranscript: (newTranscript: string) => void;
-} & React.ComponentPropsWithoutRef<typeof Button>;
+} & React.ComponentPropsWithoutRef<'button'>;
 
 export function SpeechRecognitionButton(props: Props) {
-  const { language, onChangeTranscript, ...restProps } = props;
+  const { language, onChangeTranscript, className, ...restProps } = props;
   const { t } = useTranslation();
 
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
@@ -38,20 +38,15 @@ export function SpeechRecognitionButton(props: Props) {
     return null;
   }
 
-  // NOTE: This is a workaround for a bug in react-daisyui.
-  // eslint-disable-next-line react-compiler/react-compiler
-  (restProps as Record<string, string>)['type'] = 'button';
-
   return (
-    <Button
-      shape="circle"
-      color={listening ? 'error' : 'ghost'}
-      size="sm"
+    <button
+      className={clsx('btn btn-circle btn-sm', listening ? 'btn-error' : 'btn-ghost', className)}
       title={listening ? t('Stop speaking') : t('Start speaking')}
       onClick={onClickSpeechRecognitionBtn}
       {...restProps}
+      type="button"
     >
       {listening ? <MdStop size="16" /> : <MdOutlineMicNone size="16" />}
-    </Button>
+    </button>
   );
 }

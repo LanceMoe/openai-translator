@@ -1,5 +1,4 @@
 import { useCallback, useRef } from 'react';
-import { Button, Input, Toggle } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
@@ -78,7 +77,12 @@ function ConfigPage() {
         <div className="mb-2 form-control">
           <label className="label">
             <span className="text-lg font-bold label-text">{t('Use stream (typing effect)')}</span>
-            <Toggle color="primary" name="streamEnabled" defaultChecked={streamEnabled} />
+            <input
+              type="checkbox"
+              className="toggle toggle-primary"
+              name="streamEnabled"
+              defaultChecked={streamEnabled}
+            />
           </label>
         </div>
         <div className="mb-2 form-control">
@@ -90,11 +94,10 @@ function ConfigPage() {
               </a>
             </span>
           </label>
-          <Input
+          <input
             ref={openaiApiInputRef}
             name="openaiApiUrl"
-            color="primary"
-            className="break-all"
+            className="input input-primary break-all"
             placeholder={t('Please input OpenAI API Url here.')}
             defaultValue={openaiApiUrl}
             required
@@ -164,9 +167,9 @@ function ConfigPage() {
           </div>
         </div>
         <div className="form-control">
-          <Button type="submit" color="primary">
+          <button type="submit" className="btn btn-primary">
             {t('Save')}
-          </Button>
+          </button>
         </div>
       </form>
     </div>

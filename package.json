@@ -26,7 +26,6 @@
     "i18next": "^24.2.3",
     "i18next-http-backend": "^3.0.6",
     "react": "^19.2.8",
-    "react-daisyui": "^5.0.5",
     "react-dom": "^19.2.8",
     "react-hot-toast": "^2.6.0",
     "react-i18next": "^15.7.4",

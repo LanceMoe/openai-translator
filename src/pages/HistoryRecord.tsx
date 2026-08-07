@@ -1,6 +1,5 @@
 import { t } from 'i18next';
 import { useCallback } from 'react';
-import { Button } from 'react-daisyui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FaEllipsisV, FaTrashAlt } from 'react-icons/fa';
@@ -75,12 +74,16 @@ function HistoryRecord() {
                 <h3 className="card-title">{t('Notice!')}</h3>
                 <p>{t('Do you really want to clear all history?')}</p>
                 <div className="flex justify-end">
-                  <Button size="sm" color="ghost" onClick={() => (document.activeElement as HTMLElement).blur()}>
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-ghost"
+                    onClick={() => (document.activeElement as HTMLElement).blur()}
+                  >
                     {t('Cancel')}
-                  </Button>
-                  <Button size="sm" color="error" className="ml-2" onClick={handleClearHistoryRecords}>
+                  </button>
+                  <button type="button" className="btn btn-sm btn-error ml-2" onClick={handleClearHistoryRecords}>
                     {t('Yes')}
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>

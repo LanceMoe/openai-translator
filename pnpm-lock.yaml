@@ -43,9 +43,6 @@ importers:
       react:
         specifier: ^19.2.8
         version: 19.2.8
-      react-daisyui:
-        specifier: ^5.0.5
-        version: 5.0.5(daisyui@4.12.24(postcss@8.5.25))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@3.4.19(yaml@2.9.0))
       react-dom:
         specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
@@ -3580,15 +3577,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
       react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
-
-  react-daisyui@5.0.5:
-    resolution:
-      { integrity: sha512-bh2XjayCeCmV855GqdhvCwIGDsrHxDfbczuVSMze4B71Ou6VwIesMTaHu8LQ6qYFi7tN59mBF073b0EUh2khFA== }
-    peerDependencies:
-      daisyui: ^4.12.10
-      react: '>=16'
-      react-dom: '>=16'
-      tailwindcss: '>=3.2.7'
 
   react-dom@19.2.8:
     resolution:
@@ -7403,13 +7391,6 @@ snapshots:
       react-dom: 19.2.8(react@19.2.8)
       react-stately: 3.49.0(react@19.2.8)
       use-sync-external-store: 1.6.0(react@19.2.8)
-
-  react-daisyui@5.0.5(daisyui@4.12.24(postcss@8.5.25))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@3.4.19(yaml@2.9.0)):
-    dependencies:
-      daisyui: 4.12.24(postcss@8.5.25)
-      react: 19.2.8
-      react-dom: 19.2.8(react@19.2.8)
-      tailwindcss: 3.4.19(yaml@2.9.0)
 
   react-dom@19.2.8(react@19.2.8):
     dependencies:

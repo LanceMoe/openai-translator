@@ -1,4 +1,3 @@
-import { Navbar } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { BsGithub, BsTwitter } from 'react-icons/bs';
 
@@ -47,7 +46,7 @@ function Header() {
   return (
     <>
       <AboutModal />
-      <Navbar className="sticky top-0 z-50 bg-base-100 text-base-100-content">
+      <div className="navbar sticky top-0 z-50 bg-base-100 text-base-100-content">
         <div className="flex-1">
           <label className="text-xl normal-case btn btn-ghost" htmlFor="about-modal">
             {t('topBar.title')}
@@ -58,7 +57,7 @@ function Header() {
           <ToggleThemeButton />
           <SwitchLanguageButton />
         </div>
-      </Navbar>
+      </div>
     </>
   );
 }

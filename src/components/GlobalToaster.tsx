@@ -1,5 +1,4 @@
 import { Transition } from '@headlessui/react';
-import { Button } from 'react-daisyui';
 import toast, { resolveValue, Toaster, ToastIcon } from 'react-hot-toast';
 import { twMerge } from 'tailwind-merge';
 
@@ -36,9 +35,9 @@ export default function GlobalToaster() {
             <div className="flex-row justify-between w-full gap-2">
               <h4>{resolveValue(t.message, t)}</h4>
             </div>
-            <Button size="sm" color="ghost" shape="circle" onClick={() => toast.dismiss(t.id)}>
+            <button type="button" className="btn btn-circle btn-sm btn-ghost" onClick={() => toast.dismiss(t.id)}>
               ✕
-            </Button>
+            </button>
           </div>
         </Transition>
       )}

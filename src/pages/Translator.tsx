@@ -224,14 +224,14 @@ function TranslatorPage() {
                 )}
               </div>
             </div>
-            <button type="submit" className="btn btn-primary md:hidden" disabled={isTranslating}>
+            <button type="submit" className="btn btn-primary md:hidden w-full" disabled={isTranslating}>
               {isTranslating && <span className="loading loading-spinner loading-sm" />}
               {isTranslating ? t('Translating...') : t('Translate')}
             </button>
           </div>
         </div>
         <div className="p-4 m-0 pb-14 form-control">
-          <button type="submit" className="btn btn-primary hidden mb-4 md:inline-flex" disabled={isTranslating}>
+          <button type="submit" className="w-full btn btn-primary hidden mb-4 md:inline-flex" disabled={isTranslating}>
             {isTranslating && <span className="loading loading-spinner loading-sm" />}
             {isTranslating ? t('Translating...') : t('Translate')}
           </button>

@@ -7,9 +7,11 @@ import type { ChatModel, OpenAIModel } from '@/constants';
 const { endpoints, baseUrl } = apis;
 
 const client = axios.create({ baseURL: baseUrl });
+let apiBaseUrl = baseUrl;
 
 export function setApiBaseUrl(url: string) {
-  client.defaults.baseURL = url;
+  apiBaseUrl = url.trim().replace(/\/+$/, '') || baseUrl;
+  client.defaults.baseURL = apiBaseUrl;
 }
 
 export async function completions(
@@ -134,7 +136,7 @@ export async function chatCompletionsStream(
       { role: 'user', content: query },
     ],
   };
-  const response = await fetchEventSource(baseUrl + url, {
+  const response = await fetchEventSource(apiBaseUrl + url, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {

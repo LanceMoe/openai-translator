@@ -32,14 +32,13 @@ type LanguageCode = (typeof LANGUAGES)[number]['code'];
 
 export function SwitchLanguageButton() {
   const { t, i18n } = useTranslation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const ref = useClickOutside<HTMLDivElement>(() => setIsMenuOpen(false));
   const [lang, setLang] = useLocalStorage<LanguageCode>({
     key: 'langCode',
     defaultValue: 'zh',
     getInitialValueInEffect: false,
   });
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   useEffect(() => {
     document.documentElement.setAttribute('lang', lang);
     i18n.changeLanguage(lang);

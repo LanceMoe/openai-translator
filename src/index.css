@@ -1,7 +1,30 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@tailwind variants;
+@import 'tailwindcss';
+
+@plugin 'daisyui' {
+  themes:
+    light --default,
+    dark --prefersdark;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'light';
+  default: true;
+  --color-primary: #1967d2;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'dark';
+  prefersdark: true;
+  --color-primary: #7096f8;
+}
+
+@theme {
+  --shadow-tabs: 0 0 12px hsla(174, 65%, 15%, 0.15);
+  --radius-tabs: 1rem 1rem 0 0;
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+}
 
 @layer components {
   .navbar {
@@ -28,7 +51,7 @@
     }
   }
 
-  .bottom-nav {
+  .dock {
     @apply border-t border-t-base-300 backdrop-blur bg-base-100/80 fixed inset-x-0 bottom-0 z-50 items-center block h-[calc(48px+env(safe-area-inset-bottom))] rounded-tabs;
 
     & > * {

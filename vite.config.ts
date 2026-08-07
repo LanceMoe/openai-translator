@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react';
 import { ConfigEnv, loadEnv, UserConfig } from 'vite';
 import { ManifestOptions, VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
+import tailwindcss from '@tailwindcss/vite';
 
 const ReactCompilerConfig = {
   target: '19',
@@ -56,14 +57,14 @@ const pwaOptions: Partial<VitePWAOptions | ManifestOptions> = {
 // publishing mode: pre | prod
 
 export default async function ({ command, mode }: ConfigEnv): Promise<UserConfig> {
-  const env = loadEnv(mode, __dirname);
+  const env = loadEnv(mode, import.meta.dirname);
 
   return {
     server: {
       open: true,
     },
     base: env['VITE_PUBLIC_PATH'],
-    root: resolve(__dirname, 'src'),
+    root: resolve(import.meta.dirname, 'src'),
     build: {
       // Specified by the relative path from root (= ./)
       outDir: '../dist',
@@ -77,10 +78,11 @@ export default async function ({ command, mode }: ConfigEnv): Promise<UserConfig
       }),
       svgr(),
       VitePWA(pwaOptions),
+      tailwindcss(),
     ],
     resolve: {
       alias: {
-        '@/': `${__dirname}/src/`,
+        '@/': `${import.meta.dirname}/src/`,
       },
     },
     define: {

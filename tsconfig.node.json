@@ -4,7 +4,7 @@
     "strict": true,
     "composite": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "forceConsistentCasingInFileNames": true
   },
   "include": ["vite.config.ts"]

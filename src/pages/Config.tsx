@@ -75,7 +75,7 @@ function ConfigPage() {
       </h1>
       <form method="post" onSubmit={handleSave}>
         <div className="mb-2 form-control">
-          <label className="label">
+          <label className="label justify-between w-full">
             <span className="text-lg font-bold label-text">{t('Use stream (typing effect)')}</span>
             <input
               type="checkbox"
@@ -86,7 +86,7 @@ function ConfigPage() {
           </label>
         </div>
         <div className="mb-2 form-control">
-          <label className="label">
+          <label className="label justify-between w-full">
             <span className="text-lg font-bold label-text">{t('OpenAI API Url')}</span>
             <span className="label-text-alt">
               <a className="link link-primary" href="#" onClick={handleResetOpenaiApiUrl}>
@@ -97,14 +97,14 @@ function ConfigPage() {
           <input
             ref={openaiApiInputRef}
             name="openaiApiUrl"
-            className="input input-primary break-all"
+            className="input input-primary break-all w-full"
             placeholder={t('Please input OpenAI API Url here.')}
             defaultValue={openaiApiUrl}
             required
           />
         </div>
         <div className="mb-2 form-control">
-          <label className="label">
+          <label className="label justify-between w-full">
             <span className="text-lg font-bold label-text">{t('OpenAI API Key')}</span>
             <span className="label-text-alt">
               <a
@@ -119,14 +119,14 @@ function ConfigPage() {
           </label>
           <textarea
             name="openaiApiKey"
-            className="h-24 break-all resize-none rounded-2xl textarea textarea-md textarea-primary"
+            className="h-24 break-all resize-none rounded-2xl textarea textarea-md textarea-primary w-full"
             placeholder={t('Please paste your OpenAI API Key here.')}
             defaultValue={openaiApiKey}
             required
           ></textarea>
         </div>
         <div className="mb-2 form-control">
-          <label className="label">
+          <label className="label justify-between w-full">
             <span className="text-lg font-bold label-text">{t('Model (engine)')}</span>
           </label>
           <select
@@ -143,7 +143,7 @@ function ConfigPage() {
           </select>
         </div>
         <div className="mb-4 form-control">
-          <label className="label">
+          <label className="label justify-between w-full">
             <span className="text-lg font-bold label-text">{t('Temperature')}</span>
             <span className="label-text-alt">{t('Higher temperature will be more creative.')}</span>
           </label>
@@ -167,7 +167,7 @@ function ConfigPage() {
           </div>
         </div>
         <div className="form-control">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary w-full">
             {t('Save')}
           </button>
         </div>

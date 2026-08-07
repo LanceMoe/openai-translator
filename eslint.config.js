@@ -1,3 +1,4 @@
+import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
 import react from 'eslint-plugin-react';
 import js from '@eslint/js';
 import globals from 'globals';
@@ -11,14 +12,24 @@ import reactCompiler from 'eslint-plugin-react-compiler';
 export default tseslint.config(
   { ignores: ['dist', 'vite.config.ts', '**/env.d.ts', '**/vite-env.d.ts'] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended, importPlugin.flatConfigs.recommended],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...fixupConfigRules(importPlugin.flatConfigs.recommended),
+    ],
     settings: {
       react: {
         version: 'detect',
       },
 
       'import/resolver': {
-        typescript: {},
+        alias: {
+          map: [['@', './src']],
+          extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+        },
+        typescript: {
+          project: './tsconfig.json',
+        },
       },
     },
     files: ['**/*.{ts,tsx}'],
@@ -33,7 +44,7 @@ export default tseslint.config(
       },
     },
     plugins: {
-      react,
+      react: fixupPluginRules(react),
       'react-hooks': reactHooks,
       'react-compiler': reactCompiler,
       'react-refresh': reactRefresh,

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { MdOutlineVolumeUp, MdStop } from 'react-icons/md';
@@ -16,9 +16,10 @@ export function TTSButton(props: Props) {
   const { language, text, className, size = 'sm', ...restProps } = props;
   const { t } = useTranslation();
   const [recording, setRecording] = useState(false);
-  const utterance = useMemo(() => new SpeechSynthesisUtterance(), []);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
+    const utterance = new SpeechSynthesisUtterance();
     utterance.lang = language === 'wyw' ? 'zh-TW' : language;
     utterance.volume = 1;
     utterance.rate = 1;
@@ -36,17 +37,28 @@ export function TTSButton(props: Props) {
     utterance.onstart = () => {
       setRecording(true);
     };
-  }, [language, t, text, utterance]);
+    utteranceRef.current = utterance;
+
+    return () => {
+      if (utteranceRef.current === utterance) {
+        utteranceRef.current = null;
+      }
+    };
+  }, [language, t, text]);
 
   const onClickTTSBtn = useCallback(() => {
     if (recording) {
       window.speechSynthesis.pause();
       window.speechSynthesis.cancel();
     } else {
+      const utterance = utteranceRef.current;
+      if (!utterance) {
+        return;
+      }
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utterance);
     }
-  }, [recording, utterance]);
+  }, [recording]);
 
   return (
     <button

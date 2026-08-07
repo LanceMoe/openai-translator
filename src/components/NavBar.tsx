@@ -23,26 +23,28 @@ function NavBar() {
   );
 
   return (
-    <section id="bottom-navigation" className="bottom-nav">
-      <ul id="tabs" className="flex justify-around max-w-screen-md p-0 m-0 mx-auto">
-        {NAV_ITEMS.map(({ key, label, to, icon }) => (
-          <li
-            key={key}
-            className={clsx('flex-col w-24 duration-300', selectedKey === key ? 'text-primary' : 'text-base-content')}
-          >
-            <Link to={to} title={t(`navbar.${label}`)} draggable="false" className="flex flex-col items-center">
-              <div
-                className={clsx(
-                  'w-10 h-1 mb-2 duration-300 rounded-full',
-                  selectedKey === key ? 'bg-primary' : 'bg-transparent',
-                )}
-              ></div>
-              {icon}
-              {/* <span className='block text-xs font-semibold'>{t(`navbar.${label}`)}</span> */}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <section id="bottom-navigation" className="dock">
+      {NAV_ITEMS.map(({ key, label, to, icon }) => (
+        <Link
+          key={key}
+          to={to}
+          title={t(`navbar.${label}`)}
+          aria-label={t(`navbar.${label}`)}
+          draggable="false"
+          className={clsx(
+            'flex flex-col items-center w-24 duration-300',
+            selectedKey === key ? 'text-primary' : 'text-base-content',
+          )}
+        >
+          <div
+            className={clsx(
+              'w-10 h-1 mb-2 duration-300 rounded-full',
+              selectedKey === key ? 'bg-primary' : 'bg-transparent',
+            )}
+          ></div>
+          {icon}
+        </Link>
+      ))}
     </section>
   );
 }

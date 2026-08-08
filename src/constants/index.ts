@@ -1,39 +1,29 @@
 export const CHAT_MODELS = [
-  'gpt-4o-mini',
-  'gpt-4o',
-  'gpt-4-turbo',
-  'gpt-4',
-  'gpt-3.5-turbo',
-  'gpt-4o-mini-2024-07-18',
-  'gpt-4o-2024-08-06',
-  'gpt-4o-2024-05-13',
-  'gpt-4-turbo-preview',
-  'gpt-4-turbo-2024-04-09',
-  'gpt-4-1106-preview',
-  'gpt-4-0613',
-  'gpt-4-0125-preview',
-  'gpt-3.5-turbo-16k',
-  'gpt-3.5-turbo-1106',
-  'gpt-3.5-turbo-0125',
-  'chatgpt-4o-latest',
-  'o1-mini',
-  'o1-preview',
-  'o1-mini-2024-09-12',
-  'o1-preview-2024-09-12',
+  // --- High Cost-Efficiency & Speed (Daily & Bulk Translation) ---
+  'gpt-4o-mini', // [In: $0.15 / Out: $0.60 per 1M] Ultra low-cost, fast, ideal for bulk translation
+  'gpt-5.4-mini', // [In: $1.50 / Out: $9.00 per 1M] Fast, better format retention and long text handling
+  'gpt-5.4-nano', // [In: $0.20 / Out: $0.80 per 1M] Lowest cost, suitable for short phrases and queries
+
+  // --- Flagship Models (High Accuracy & Professional Domains) ---
+  'gpt-4o', // [In: $2.50 / Out: $10.00 per 1M] Strong multilingual support and context accuracy
+  'gpt-4.5-preview', // [In: $75.00 / Out: $150.00 per 1M] Exceptional phrasing, literary and nuanced text
+  'gpt-5.6-sol', // [In: $5.00 / Out: $30.00 per 1M] Top flagship for legal, medical, and specialized docs
+  'gpt-5.6-terra', // [In: $2.00 / Out: $12.00 per 1M] Balanced flagship for quality and cost
+  'gpt-5.6-luna', // [In: $0.20 / Out: $2.40 per 1M] High performance with low latency
+  'gpt-5.5', // [In: $12.50 / Out: $75.00 per 1M] Professional long-form document translation
+
+  // --- Reasoning Models (Complex Ambiguity & Ancient Text) ---
+  'o3-mini', // [In: $1.10 / Out: $4.40 per 1M] Handles complex logic and ambiguous idioms
+  'o1', // [In: $15.00 / Out: $60.00 per 1M] Deep reasoning for ancient texts and concept alignment
+
+  // --- Open-Weight Models (Self-Hosted Translation) ---
+  'gpt-oss-120b', // [Free open-weight] Flagship model for private enterprise hosting
+  'gpt-oss-20b', // [Free open-weight] Lightweight model for low-latency private hosting
 ] as const;
 
-export const COMPLETIONS_MODELS = [
-  'gpt-3.5-turbo-instruct',
-  'gpt-3.5-turbo-instruct-0914',
-  'babbage-002',
-  'text-davinci-002',
-] as const;
+export const DEFAULT_MODEL = 'gpt-5.6-luna';
 
-export const OPENAI_MODELS = [...CHAT_MODELS, ...COMPLETIONS_MODELS] as const;
-
-export type ChatModel = (typeof CHAT_MODELS)[number];
-export type CompletionsModel = (typeof COMPLETIONS_MODELS)[number];
-export type OpenAIModel = (typeof OPENAI_MODELS)[number];
+export type ChatModel = string;
 
 export const LANGUAGES = {
   auto: 'Auto',
@@ -158,6 +148,6 @@ export type ConfigValues = {
   openaiApiUrl: string;
   openaiApiKey: string;
   streamEnabled: boolean;
-  currentModel: OpenAIModel;
+  currentModel: ChatModel;
   temperatureParam: number;
 };

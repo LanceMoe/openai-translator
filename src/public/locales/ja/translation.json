@@ -48,5 +48,7 @@
   "Nothing to copy!": "コピーするものがありません！",
   "Copied!": "コピーしました！",
   "Failed to copy!": "コピーに失敗しました！",
-  "Copy translated text": "翻訳されたテキストをコピーする"
+  "Copy translated text": "翻訳されたテキストをコピーする",
+  "Connection": "接続",
+  "Generation": "生成"
 }

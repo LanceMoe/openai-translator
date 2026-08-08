@@ -3,7 +3,7 @@ import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo
 
 import { setApiBaseUrl } from '@/client';
 import { fetchTranslation } from '@/client/fetcher';
-import { type ConfigValues } from '@/constants';
+import { type ConfigValues, DEFAULT_MODEL } from '@/constants';
 import { useQueryApi } from '@/hooks/useQueryApi';
 
 type GlobalContextValue = {
@@ -30,7 +30,7 @@ const context = createContext<GlobalContextValue>({
     openaiApiUrl: 'https://api.openai.com',
     openaiApiKey: '',
     streamEnabled: true,
-    currentModel: 'gpt-4o-mini',
+    currentModel: DEFAULT_MODEL,
     temperatureParam: 0.7,
   },
   setConfigValues: () => undefined,
@@ -79,7 +79,7 @@ export function GlobalProvider(props: Props) {
       openaiApiUrl: 'https://api.openai.com',
       openaiApiKey: '',
       streamEnabled: true,
-      currentModel: 'gpt-4o-mini',
+      currentModel: DEFAULT_MODEL,
       temperatureParam: 0.7,
     },
     getInitialValueInEffect: false,
@@ -88,7 +88,7 @@ export function GlobalProvider(props: Props) {
     openaiApiUrl = 'https://api.openai.com',
     openaiApiKey = '',
     streamEnabled = true,
-    currentModel = 'gpt-4o-mini',
+    currentModel = DEFAULT_MODEL,
     temperatureParam = 0.7,
   } = configValues;
 

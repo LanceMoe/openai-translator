@@ -6,8 +6,8 @@ import { FaHistory } from 'react-icons/fa';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 
 const NAV_ITEMS = [
-  { key: 'translator', label: 'Translator', to: '/', icon: <BsTranslate size={24} /> },
-  { key: 'history', label: 'History records', to: '/history', icon: <FaHistory size={24} /> },
+  { key: 'translator', label: 'Translator', to: '/', icon: <BsTranslate className="size-6 p-0" size={24} /> },
+  { key: 'history', label: 'History records', to: '/history', icon: <FaHistory className="size-6 p-0" size={24} /> },
 ] as const;
 
 function NavBar() {
@@ -23,7 +23,7 @@ function NavBar() {
   );
 
   return (
-    <section id="bottom-navigation" className="dock">
+    <section id="bottom-navigation" className="dock p-0 h-12">
       {NAV_ITEMS.map(({ key, label, to, icon }) => (
         <Link
           key={key}
@@ -32,7 +32,7 @@ function NavBar() {
           aria-label={t(`navbar.${label}`)}
           draggable="false"
           className={clsx(
-            'flex flex-col items-center w-24 duration-300',
+            'flex flex-col items-center justify-start w-24 duration-300 mb-0',
             selectedKey === key ? 'text-primary' : 'text-base-content',
           )}
         >

@@ -48,7 +48,7 @@ function Header() {
       <AboutModal />
       <div className="navbar sticky top-0 z-50 bg-base-100 text-base-100-content">
         <div className="flex-1">
-          <label className="text-xl normal-case btn btn-ghost" htmlFor="about-modal">
+          <label className="text-xl normal-case btn btn-ghost px-2" htmlFor="about-modal">
             {t('topBar.title')}
           </label>
         </div>

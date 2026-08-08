@@ -2,7 +2,7 @@ import { fetchEventSource, FetchEventSourceInit } from '@microsoft/fetch-event-s
 import axios from 'axios';
 
 import apis from '@/client/apis';
-import type { ChatModel, OpenAIModel } from '@/constants';
+import { DEFAULT_MODEL } from '@/constants';
 
 const { endpoints, baseUrl } = apis;
 
@@ -14,48 +14,11 @@ export function setApiBaseUrl(url: string) {
   client.defaults.baseURL = apiBaseUrl;
 }
 
-export async function completions(
-  token: string,
-  prompt: string,
-  query: string,
-  model: Omit<OpenAIModel, ChatModel> = 'text-davinci-003',
-  temperature = 0,
-  maxTokens = 1000,
-  topP = 1,
-  frequencyPenalty = 1,
-  presencePenalty = 1,
-) {
-  const { url, headers } = endpoints.v1.completions;
-  const config = {
-    headers: {
-      ...headers,
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const body = {
-    prompt: `${prompt}:\n\n"${query}" =>`,
-    model,
-    temperature,
-    // eslint-disable-next-line camelcase
-    max_tokens: maxTokens,
-    // eslint-disable-next-line camelcase
-    top_p: topP,
-    // eslint-disable-next-line camelcase
-    frequency_penalty: frequencyPenalty,
-    // eslint-disable-next-line camelcase
-    presence_penalty: presencePenalty,
-  };
-
-  const response = await client.post<CompletionsResponse>(url, body, config);
-  return response;
-}
-
 export async function chatCompletions(
   token: string,
   prompt: string,
   query: string,
-  model: ChatModel = 'gpt-4o-mini',
+  model = DEFAULT_MODEL,
   temperature = 0,
   maxTokens = 1000,
   topP = 1,
@@ -96,7 +59,7 @@ export async function chatCompletionsStream(
     token: string;
     prompt: string;
     query: string;
-    model?: ChatModel;
+    model?: string;
     temperature?: number;
     maxTokens?: number;
     topP?: number;
@@ -109,7 +72,7 @@ export async function chatCompletionsStream(
     token,
     prompt,
     query,
-    model = 'gpt-4o-mini',
+    model = DEFAULT_MODEL,
     temperature = 0,
     maxTokens = 1000,
     topP = 1,
@@ -151,7 +114,6 @@ export async function chatCompletionsStream(
 
 export default {
   setApiBaseUrl,
-  completions,
   chatCompletions,
   chatCompletionsStream,
 };

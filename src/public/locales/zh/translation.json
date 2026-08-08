@@ -48,5 +48,7 @@
   "Nothing to copy!": "没有可复制的内容！",
   "Copied!": "已复制！",
   "Failed to copy!": "复制失败！",
-  "Copy translated text": "复制翻译"
+  "Copy translated text": "复制翻译",
+  "Connection": "连接",
+  "Generation": "生成"
 }

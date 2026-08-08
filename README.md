@@ -8,18 +8,29 @@
 
 # OpenAI Translator
 
-A translator app built using OpenAI GPT model to translate between languages. It is a PWA that can be installed on your phone or desktop.
+A PWA translator powered by OpenAI-compatible chat models. It can be installed on your phone or desktop.
 
 https://translator.lance.moe/
 
-Support models:
+## Features
 
-- GPT-4o
-- GPT-4o Mini
-- GPT-4 Turbo
-- GPT-4
-- GPT-3.5 Turbo
-- And other OpenAI LLM models
+- Uses the `/v1/chat/completions` API, with optional streaming output.
+- Configure a custom API base URL and API key for OpenAI-compatible providers.
+- Select a suggested model or enter any chat-model identifier supported by the configured provider.
+- Saves translation history locally.
+
+### Suggested Models
+
+The default model is `gpt-5.6-luna`. The configuration page also suggests:
+
+- `gpt-4o-mini`, `gpt-4o`
+- `gpt-5.4-mini`, `gpt-5.4-nano`
+- `gpt-4.5-preview`, `gpt-5.5`
+- `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`
+- `o3-mini`, `o1`
+- `gpt-oss-120b`, `gpt-oss-20b`
+
+Availability depends on the API provider and credentials you configure.
 
 <img width="970" alt="image" src="https://user-images.githubusercontent.com/18505474/222828200-948eef23-bf59-43af-ac27-1484c2bcd406.png">
 
@@ -27,11 +38,11 @@ Support models:
 
 ## Tech Stack
 
-- OpenAI API
+- OpenAI-compatible Chat Completions API
 - React 19
-- Vite 6
-- Tailwind CSS 3
-- DaisyUI 4
+- Vite 8
+- Tailwind CSS 4
+- DaisyUI 5
 - Axios
 - React Router 7
 - React Query 5

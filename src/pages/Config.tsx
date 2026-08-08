@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
 
 import { useGlobalStore } from '@/components/GlobalStore';
-import { OPENAI_MODELS_TITLES, type OpenAIModel } from '@/constants';
+import { OPENAI_MODELS, type OpenAIModel } from '@/constants';
 
 function ConfigPage() {
   const { t } = useTranslation();
@@ -135,9 +135,9 @@ function ConfigPage() {
             name="selectedModel"
             title="Selected model"
           >
-            {Object.keys(OPENAI_MODELS_TITLES).map((model) => (
+            {OPENAI_MODELS.map((model) => (
               <option key={model} value={model}>
-                {OPENAI_MODELS_TITLES[model as OpenAIModel]}
+                {model}
               </option>
             ))}
           </select>

@@ -21,7 +21,7 @@ export const fetchTranslation = async (params: {
     return Math.random() * (max - min) + min;
   };
 
-  const isChatModel = (CHAT_MODELS as string[]).includes(engine);
+  const isChatModel = CHAT_MODELS.includes(engine as ChatModel);
 
   const tmpParam = +temperatureParam > 0.4 && +temperatureParam <= 1.0 ? +temperatureParam : getRadomNumber(0.5, 1.0);
 

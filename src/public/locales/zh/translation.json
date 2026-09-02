@@ -50,5 +50,11 @@
   "Failed to copy!": "复制失败！",
   "Copy translated text": "复制翻译",
   "Connection": "连接",
-  "Generation": "生成"
+  "Generation": "生成",
+  "Recording started.": "录音已开始。",
+  "Recording stopped.": "录音已结束。",
+  "Start speaking": "开始语音输入",
+  "Stop speaking": "停止语音输入",
+  "Start reading": "朗读文本",
+  "Stop reading": "停止朗读"
 }

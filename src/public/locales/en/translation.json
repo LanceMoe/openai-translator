@@ -50,5 +50,11 @@
   "Failed to copy!": "Failed to copy!",
   "Copy translated text": "Copy translated text",
   "Connection": "Connection",
-  "Generation": "Generation"
+  "Generation": "Generation",
+  "Recording started.": "Recording started.",
+  "Recording stopped.": "Recording stopped.",
+  "Start speaking": "Start speaking",
+  "Stop speaking": "Stop speaking",
+  "Start reading": "Start reading",
+  "Stop reading": "Stop reading"
 }

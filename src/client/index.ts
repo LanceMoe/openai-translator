@@ -10,7 +10,9 @@ const client = axios.create({ baseURL: baseUrl });
 let apiBaseUrl = baseUrl;
 
 export function setApiBaseUrl(url: string) {
-  apiBaseUrl = url.trim().replace(/\/+$/, '') || baseUrl;
+  let cleaned = url.trim().replace(/\/+$/, '');
+  cleaned = cleaned.replace(/\/v1$/, '');
+  apiBaseUrl = cleaned || baseUrl;
   client.defaults.baseURL = apiBaseUrl;
 }
 
@@ -19,11 +21,11 @@ export async function chatCompletions(
   prompt: string,
   query: string,
   model = DEFAULT_MODEL,
-  temperature = 0,
+  temperature = 0.7,
   maxTokens = 1000,
   topP = 1,
-  frequencyPenalty = 1,
-  presencePenalty = 1,
+  frequencyPenalty = 0,
+  presencePenalty = 0,
 ) {
   const { url, headers } = endpoints.v1.chat.completions;
   const config = {
@@ -46,7 +48,8 @@ export async function chatCompletions(
     presence_penalty: presencePenalty,
     messages: [
       { role: 'system', content: prompt },
-      { role: 'user', content: `"${query}"` },
+      { role: 'system', content: 'Please note that your response should solely consist of the translation.' },
+      { role: 'user', content: query },
     ],
   };
 

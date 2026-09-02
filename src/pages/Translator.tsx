@@ -6,10 +6,10 @@ import { CgArrowsExchange } from 'react-icons/cg';
 import { MdClose, MdContentCopy } from 'react-icons/md';
 import TextareaAutoSize from 'react-textarea-autosize';
 
-import { useGlobalStore } from '@/components/GlobalStore';
 import { SpeechRecognitionButton } from '@/components/SpeechRecognitionButton';
 import { TTSButton } from '@/components/TTSButton';
 import { Language, LANGUAGES } from '@/constants';
+import { useGlobalStore } from '@/hooks/useGlobalStore';
 import { getTranslatePrompt } from '@/utils/prompt';
 
 function TranslatorPage() {
@@ -64,11 +64,9 @@ function TranslatorPage() {
 
   const onChangeTranscript = useCallback(
     (newTranscript: string) => {
-      if (!translateTextAreaRef.current || !newTranscript) {
+      if (!newTranscript) {
         return;
       }
-      translateTextAreaRef.current.value = newTranscript;
-      translateTextAreaRef.current.defaultValue = newTranscript;
       setTranslateText(newTranscript);
     },
     [setTranslateText],
@@ -84,12 +82,13 @@ function TranslatorPage() {
       }
 
       const formData = new FormData(event.currentTarget);
-      const { translateText, fromLang, toLang } = Object.fromEntries(formData.entries());
-      if (!translateText || !fromLang || !toLang) {
+      const { translateText: formText, fromLang, toLang } = Object.fromEntries(formData.entries());
+      const rawText = (formText as string) || translateText;
+      if (!rawText || !fromLang || !toLang) {
         return;
       }
 
-      setTranslateText(translateText as string);
+      setTranslateText(rawText);
 
       let prompt: string;
 
@@ -115,7 +114,7 @@ function TranslatorPage() {
         engine: currentModel,
         prompt,
         temperatureParam,
-        queryText: translateText as string,
+        queryText: rawText,
       });
     },
     [
@@ -127,15 +126,16 @@ function TranslatorPage() {
       setTranslateText,
       t,
       temperatureParam,
+      translateText,
     ],
   );
 
   const onClearBtnClick = useCallback(() => {
-    if (!translateTextAreaRef.current) {
-      return;
+    if (translateTextAreaRef.current) {
+      translateTextAreaRef.current.value = '';
     }
-    translateTextAreaRef.current.value = '';
-  }, []);
+    setTranslateText('');
+  }, [setTranslateText]);
 
   // ↑ Hooks before, keep hooks order
 
@@ -191,13 +191,13 @@ function TranslatorPage() {
               <TextareaAutoSize
                 ref={translateTextAreaRef}
                 name="translateText"
-                defaultValue={translateText}
+                value={translateText}
                 className="w-full mb-2 whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-10"
                 placeholder={t('Please enter the text you want to translate here.')}
                 onChange={(e) => setTranslateText(e.target.value)}
                 disabled={isTranslating}
                 required
-              ></TextareaAutoSize>
+              />
               <div className="absolute left-0 flex flex-row justify-between w-full px-2 bottom-5">
                 <div className="flex flex-row justify-start gap-2">
                   <SpeechRecognitionButton
@@ -245,8 +245,7 @@ function TranslatorPage() {
               )}
               placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
               readOnly
-              required
-            ></TextareaAutoSize>
+            />
             <div className="absolute left-0 flex flex-row justify-between w-full px-2 bottom-5">
               {!!translatedText && (
                 <TTSButton

@@ -1,38 +1,37 @@
-import { t } from 'i18next';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FaEllipsisV, FaTrashAlt } from 'react-icons/fa';
 
-import { useGlobalStore } from '@/components/GlobalStore';
 import { TTSButton } from '@/components/TTSButton';
 import { Language, LANGUAGES } from '@/constants';
+import { useGlobalStore } from '@/hooks/useGlobalStore';
 import { formatTime } from '@/utils';
 
 function HistoryRecord() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const {
     history: { historyRecords, setHistoryRecords },
   } = useGlobalStore();
 
   const handleDeleteHistoryRecord = useCallback(
     (id: string) => {
-      (document.activeElement as HTMLElement).blur();
+      (document.activeElement as HTMLElement)?.blur?.();
       setHistoryRecords((prev) => prev.filter((record) => record.id !== id));
       toast.success(t('Delete history record successfully.'));
     },
-    [setHistoryRecords],
+    [setHistoryRecords, t],
   );
 
   const handleClearHistoryRecords = useCallback(() => {
-    (document.activeElement as HTMLElement).blur();
+    (document.activeElement as HTMLElement)?.blur?.();
     setHistoryRecords([]);
     toast.success(t('Clear history records successfully.'));
-  }, [setHistoryRecords]);
+  }, [setHistoryRecords, t]);
 
   const handleCopyOriginalText = useCallback(
     (id: string) => {
-      (document.activeElement as HTMLElement).blur();
+      (document.activeElement as HTMLElement)?.blur?.();
       const record = historyRecords.find((record) => record.id === id);
       if (!record) {
         return;
@@ -40,12 +39,12 @@ function HistoryRecord() {
       navigator.clipboard.writeText(record.text);
       toast.success(t('Copy original text successfully.'));
     },
-    [historyRecords],
+    [historyRecords, t],
   );
 
   const handleCopyTranslation = useCallback(
     (id: string) => {
-      (document.activeElement as HTMLElement).blur();
+      (document.activeElement as HTMLElement)?.blur?.();
       const record = historyRecords.find((record) => record.id === id);
       if (!record) {
         return;
@@ -53,7 +52,7 @@ function HistoryRecord() {
       navigator.clipboard.writeText(record.translation);
       toast.success(t('Copy translation successfully.'));
     },
-    [historyRecords],
+    [historyRecords, t],
   );
 
   return (
@@ -68,7 +67,7 @@ function HistoryRecord() {
             </label>
             <div
               tabIndex={0}
-              className="z-50 w-64 p-2 shadow dropdown-content card card-compact bg-warning text-warning-content"
+              className="z-50 w-64 p-2 shadow dropdown-content card card-sm bg-warning text-warning-content"
             >
               <div className="card-body">
                 <h3 className="card-title">{t('Notice!')}</h3>
@@ -77,7 +76,7 @@ function HistoryRecord() {
                   <button
                     type="button"
                     className="btn btn-sm btn-ghost"
-                    onClick={() => (document.activeElement as HTMLElement).blur()}
+                    onClick={() => (document.activeElement as HTMLElement)?.blur?.()}
                   >
                     {t('Cancel')}
                   </button>
@@ -103,7 +102,7 @@ function HistoryRecord() {
                     </span>
                     <span className="mx-2">→</span>
                     <span className="font-bold">
-                      {LANGUAGES[record.toLanguage as Language] || record.fromLanguage || 'Auto'}
+                      {LANGUAGES[record.toLanguage as Language] || record.toLanguage || 'Auto'}
                     </span>
                     <div className="dropdown dropdown-end z-[1]">
                       <label tabIndex={0} className="mx-1 btn btn-sm btn-ghost btn-circle">

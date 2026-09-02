@@ -50,5 +50,11 @@
   "Failed to copy!": "複製失敗！",
   "Copy translated text": "複製翻譯",
   "Connection": "連線",
-  "Generation": "生成"
+  "Generation": "生成",
+  "Recording started.": "錄音已開始。",
+  "Recording stopped.": "錄音已結束。",
+  "Start speaking": "開始語音輸入",
+  "Stop speaking": "停止語音輸入",
+  "Start reading": "朗讀文字",
+  "Stop reading": "停止朗讀"
 }

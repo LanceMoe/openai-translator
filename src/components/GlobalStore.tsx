@@ -1,57 +1,11 @@
 import { useLocalStorage } from '@mantine/hooks';
-import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { setApiBaseUrl } from '@/client';
 import { fetchTranslation } from '@/client/fetcher';
+import { GlobalContext } from '@/components/GlobalStoreContext';
 import { type ConfigValues, DEFAULT_MODEL } from '@/constants';
 import { useQueryApi } from '@/hooks/useQueryApi';
-
-type GlobalContextValue = {
-  configValues: ConfigValues;
-  setConfigValues: Dispatch<SetStateAction<ConfigValues>>;
-  translator: {
-    lastTranslateData: LastTranslateData;
-    setLastTranslateData: Dispatch<SetStateAction<LastTranslateData>>;
-    translateText: string;
-    setTranslateText: Dispatch<SetStateAction<string>>;
-    translatedText: string | undefined;
-    mutateTranslateText: (data: Parameters<typeof fetchTranslation>[0]) => void;
-    isTranslating: boolean;
-    isTranslateError: boolean;
-  };
-  history: {
-    historyRecords: HistoryRecord[];
-    setHistoryRecords: Dispatch<SetStateAction<HistoryRecord[]>>;
-  };
-};
-
-const context = createContext<GlobalContextValue>({
-  configValues: {
-    openaiApiUrl: 'https://api.openai.com',
-    openaiApiKey: '',
-    streamEnabled: true,
-    currentModel: DEFAULT_MODEL,
-    temperatureParam: 0.7,
-  },
-  setConfigValues: () => undefined,
-  translator: {
-    lastTranslateData: {
-      fromLang: 'auto',
-      toLang: 'auto',
-    },
-    setLastTranslateData: () => undefined,
-    translateText: '',
-    setTranslateText: () => undefined,
-    translatedText: undefined,
-    mutateTranslateText: () => undefined,
-    isTranslating: false,
-    isTranslateError: false,
-  },
-  history: {
-    historyRecords: [],
-    setHistoryRecords: () => undefined,
-  },
-});
 
 type Props = {
   children: React.ReactNode;
@@ -94,10 +48,28 @@ export function GlobalProvider(props: Props) {
 
   const {
     data: translatedText,
-    mutate: mutateTranslateText,
+    mutate: rawMutateTranslateText,
     isLoading: isTranslating,
     isError: isTranslateError,
   } = useQueryApi(streamEnabled);
+
+  const activeTranslationRef = useRef<{
+    fromLang: string;
+    toLang: string;
+    text: string;
+  } | null>(null);
+
+  const mutateTranslateText = useCallback(
+    (data: Parameters<typeof fetchTranslation>[0]) => {
+      activeTranslationRef.current = {
+        fromLang: lastTranslateData.fromLang,
+        toLang: lastTranslateData.toLang,
+        text: data.queryText,
+      };
+      rawMutateTranslateText(data);
+    },
+    [lastTranslateData.fromLang, lastTranslateData.toLang, rawMutateTranslateText],
+  );
 
   useEffect(() => setApiBaseUrl(configValues.openaiApiUrl), [configValues.openaiApiUrl]);
 
@@ -105,21 +77,30 @@ export function GlobalProvider(props: Props) {
     if (!translatedText || isTranslating) {
       return;
     }
+    const currentActive = activeTranslationRef.current;
+    const fromLanguage = currentActive?.fromLang || lastTranslateData.fromLang;
+    const toLanguage = currentActive?.toLang || lastTranslateData.toLang;
+    const text = currentActive?.text ?? translateText;
+
     setHistoryRecords((prev) => [
       {
         id: self.crypto.randomUUID(),
-        fromLanguage: lastTranslateData.fromLang,
-        toLanguage: lastTranslateData.toLang,
-        text: translateText,
+        fromLanguage,
+        toLanguage,
+        text,
         translation: translatedText,
         createdAt: Date.now(),
       },
       ...prev,
     ]);
-    // Don't need to catch translateText, lastTranslateData.fromLang, lastTranslateData.toLang
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [translatedText, isTranslating, setHistoryRecords]);
+  }, [
+    translatedText,
+    isTranslating,
+    lastTranslateData.fromLang,
+    lastTranslateData.toLang,
+    setHistoryRecords,
+    translateText,
+  ]);
 
   const contextValue = useMemo(
     () => ({
@@ -150,6 +131,7 @@ export function GlobalProvider(props: Props) {
       lastTranslateData,
       setLastTranslateData,
       translateText,
+      setTranslateText,
       translatedText,
       mutateTranslateText,
       isTranslating,
@@ -159,13 +141,5 @@ export function GlobalProvider(props: Props) {
     ],
   );
 
-  return <context.Provider value={contextValue}>{children}</context.Provider>;
-}
-
-export function useGlobalStore() {
-  const value = useContext(context);
-  if (!value) {
-    throw new Error('useGlobalStore must be used within a GlobalProvider');
-  }
-  return value;
+  return <GlobalContext.Provider value={contextValue}>{children}</GlobalContext.Provider>;
 }

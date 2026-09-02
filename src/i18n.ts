@@ -1,15 +1,32 @@
 import i18n from 'i18next';
-import Backend from 'i18next-http-backend/cjs';
+import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
-const langCode = localStorage.getItem('langCode');
+function getInitialLang(): string {
+  const raw = localStorage.getItem('langCode');
+  if (!raw) {
+    return 'zh';
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    return typeof parsed === 'string' && parsed ? parsed : raw.trim();
+  } catch {
+    return raw.trim().replace(/^["']|["']$/g, '') || 'zh';
+  }
+}
+
+const basePath = import.meta.env.BASE_URL || '/';
+const normalizedBase = basePath.endsWith('/') ? basePath : `${basePath}/`;
 
 i18n
   .use(Backend)
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     defaultNS: 'translation',
-    lng: langCode ? langCode.slice(1, -1) : 'zh',
+    lng: getInitialLang(),
+    backend: {
+      loadPath: `${normalizedBase}locales/{{lng}}/{{ns}}.json`,
+    },
     // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
     // if you're using a language detector, do not define the lng option

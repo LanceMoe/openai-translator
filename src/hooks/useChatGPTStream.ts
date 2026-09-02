@@ -3,10 +3,6 @@ import { useCallback, useState } from 'react';
 import OpenAIClient from '@/client';
 import type { ChatModel } from '@/constants';
 
-function getRadomNumber(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
-
 export function useChatGPTStream() {
   const [data, setData] = useState('');
   const [error, setError] = useState('');
@@ -33,7 +29,9 @@ export function useChatGPTStream() {
       }
 
       const tmpParam =
-        +temperatureParam > 0.4 && +temperatureParam <= 1.0 ? +temperatureParam : getRadomNumber(0.5, 1.0);
+        Number.isFinite(+temperatureParam) && +temperatureParam >= 0 && +temperatureParam <= 2
+          ? +temperatureParam
+          : 0.7;
 
       OpenAIClient.chatCompletionsStream(
         {
@@ -54,6 +52,9 @@ export function useChatGPTStream() {
               console.warn('Client side error ', res);
               setError('Client side error ' + res.status);
               setLoading(false);
+            } else if (!res.ok) {
+              setError('HTTP error ' + res.status);
+              setLoading(false);
             }
           },
           onmessage(event) {
@@ -62,9 +63,13 @@ export function useChatGPTStream() {
               setLoading(false);
               return;
             }
-            const parsedData = JSON.parse(event.data) as ChatCompletionsResponse;
-            const text = parsedData.choices.map((choice) => choice.delta?.content || '').join('');
-            setData((prev) => prev + text);
+            try {
+              const parsedData = JSON.parse(event.data) as ChatCompletionsResponse;
+              const text = parsedData.choices?.map((choice) => choice.delta?.content || '').join('') || '';
+              setData((prev) => prev + text);
+            } catch (err) {
+              console.warn('Failed to parse SSE event data', err);
+            }
           },
           onclose() {
             setError('');

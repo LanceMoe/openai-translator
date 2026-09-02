@@ -50,5 +50,11 @@
   "Failed to copy!": "コピーに失敗しました！",
   "Copy translated text": "翻訳されたテキストをコピーする",
   "Connection": "接続",
-  "Generation": "生成"
+  "Generation": "生成",
+  "Recording started.": "録音を開始しました。",
+  "Recording stopped.": "録音を停止しました。",
+  "Start speaking": "音声入力を開始",
+  "Stop speaking": "音声入力を停止",
+  "Start reading": "テキストを読み上げる",
+  "Stop reading": "読み上げを停止"
 }

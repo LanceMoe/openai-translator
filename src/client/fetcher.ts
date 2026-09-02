@@ -17,11 +17,8 @@ export const fetchTranslation = async (params: {
     throw new Error('No prompt found!');
   }
 
-  const getRadomNumber = (min: number, max: number) => {
-    return Math.random() * (max - min) + min;
-  };
-
-  const tmpParam = +temperatureParam > 0.4 && +temperatureParam <= 1.0 ? +temperatureParam : getRadomNumber(0.5, 1.0);
+  const tmpParam =
+    Number.isFinite(+temperatureParam) && +temperatureParam >= 0 && +temperatureParam <= 2 ? +temperatureParam : 0.7;
 
   const resp = await OpenAIClient.chatCompletions(token, prompt, queryText, engine, tmpParam);
   const text = resp.data.choices

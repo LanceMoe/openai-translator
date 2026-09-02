@@ -5,8 +5,8 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
 
-import { useGlobalStore } from '@/components/GlobalStore';
 import { CHAT_MODELS, type ChatModel } from '@/constants';
+import { useGlobalStore } from '@/hooks/useGlobalStore';
 
 function ConfigPage() {
   const { t } = useTranslation();
@@ -75,7 +75,7 @@ function ConfigPage() {
     <div className="h-full w-full max-w-[28.75rem] overflow-x-hidden overflow-y-auto bg-base-100">
       <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-base-300 bg-base-100 px-4 sm:px-6">
         <h1 className="text-xl font-bold">{t('Config')}</h1>
-        <label htmlFor="history-record-drawer" className="drawer-button btn btn-ghost btn-circle" title={t('Close')}>
+        <label htmlFor="config-drawer" className="drawer-button btn btn-ghost btn-circle" title={t('Close')}>
           <FaTimes size={20} />
         </label>
       </header>

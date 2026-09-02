@@ -4,7 +4,7 @@ import { BsFillGearFill } from 'react-icons/bs';
 export function ConfigButton() {
   const { t } = useTranslation();
   return (
-    <label htmlFor="history-record-drawer" className="drawer-button btn btn-ghost btn-circle" title={t('Config')}>
+    <label htmlFor="config-drawer" className="drawer-button btn btn-ghost btn-circle" title={t('Config')}>
       <BsFillGearFill size={20} />
     </label>
   );

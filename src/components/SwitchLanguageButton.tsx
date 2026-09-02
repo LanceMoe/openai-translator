@@ -64,7 +64,7 @@ export function SwitchLanguageButton() {
         <FaSortDown size={12} />
       </button>
       <div className="w-56 mt-16 overflow-y-auto shadow-2xl dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box top-px">
-        <ul className="gap-1 p-3 menu menu-compact" tabIndex={0}>
+        <ul className="gap-1 p-3 menu menu-sm" tabIndex={0}>
           {LANGUAGES.map((language) => (
             <li key={language.code}>
               <a

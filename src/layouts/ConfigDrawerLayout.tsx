@@ -13,10 +13,10 @@ function ConfigDrawerLayout(props: Props) {
 
   return (
     <>
-      <input id="history-record-drawer" type="checkbox" className="drawer-toggle" />
+      <input id="config-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">{children}</div>
       <div className="drawer-side z-50 overflow-hidden">
-        <label htmlFor="history-record-drawer" className="drawer-overlay"></label>
+        <label htmlFor="config-drawer" className="drawer-overlay"></label>
         <Suspense fallback={<Loading />}>
           <ConfigPage />
         </Suspense>

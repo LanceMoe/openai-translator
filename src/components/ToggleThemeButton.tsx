@@ -16,8 +16,8 @@ export function ToggleThemeButton() {
         title="Dark Mode Switcher"
         readOnly
       />
-      <BsLightbulbFill className="swap-on" size={20} />
-      <BsMoonStarsFill className="swap-off" size={20} />
+      <BsMoonStarsFill className="swap-on" size={20} />
+      <BsLightbulbFill className="swap-off" size={20} />
     </label>
   );
 }

@@ -144,6 +144,12 @@ export const LANGUAGES = {
 
 export type Language = keyof typeof LANGUAGES;
 
+export const TRANSLATE_STYLES = ['general', 'academic', 'technical', 'business', 'colloquial', 'literary'] as const;
+
+export type TranslateStyle = (typeof TRANSLATE_STYLES)[number];
+
+export const DEFAULT_TRANSLATE_STYLE: TranslateStyle = 'general';
+
 export type ConfigValues = {
   openaiApiUrl: string;
   openaiApiKey: string;

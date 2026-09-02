@@ -34,9 +34,11 @@ type HistoryRecord = {
   createdAt: number;
   fromLanguage: string;
   toLanguage: string;
+  style?: string;
 };
 
 type LastTranslateData = {
   fromLang: string;
   toLang: string;
+  style?: string;
 };

@@ -3,12 +3,12 @@ import { useCallback, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgArrowsExchange } from 'react-icons/cg';
-import { MdClose, MdContentCopy } from 'react-icons/md';
+import { MdAutoAwesome, MdClose, MdContentCopy, MdTranslate } from 'react-icons/md';
 import TextareaAutoSize from 'react-textarea-autosize';
 
 import { SpeechRecognitionButton } from '@/components/SpeechRecognitionButton';
 import { TTSButton } from '@/components/TTSButton';
-import { Language, LANGUAGES } from '@/constants';
+import { DEFAULT_TRANSLATE_STYLE, Language, LANGUAGES, TRANSLATE_STYLES, TranslateStyle } from '@/constants';
 import { useGlobalStore } from '@/hooks/useGlobalStore';
 import { getTranslatePrompt } from '@/utils/prompt';
 
@@ -73,34 +73,29 @@ function TranslatorPage() {
   );
 
   const handleTranslate = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+    (event?: React.FormEvent<HTMLFormElement>) => {
+      event?.preventDefault();
 
       if (!openaiApiKey) {
         toast.error(t('Please enter your API Key in config page first!'));
         return;
       }
 
-      const formData = new FormData(event.currentTarget);
-      const { translateText: formText, fromLang, toLang } = Object.fromEntries(formData.entries());
-      const rawText = (formText as string) || translateText;
-      if (!rawText || !fromLang || !toLang) {
+      const rawText = translateText?.trim();
+      if (!rawText) {
         return;
       }
 
-      setTranslateText(rawText);
+      const fromLang = lastTranslateData.fromLang || 'auto';
+      const toLang = lastTranslateData.toLang || 'auto';
+      const selectedStyle = (lastTranslateData.style as TranslateStyle) || DEFAULT_TRANSLATE_STYLE;
 
       let prompt: string;
-
       if (toLang === 'auto') {
-        if (i18n.language.startsWith('zh')) {
-          prompt = '翻译成简体白话文';
-        } else {
-          const _toLang = LANGUAGES[i18n.language as Language] || i18n.language;
-          prompt = `translate into ${_toLang}`;
-        }
+        const targetLang = i18n.language.startsWith('zh') ? 'zh-Hans' : (i18n.language as Language) || 'en';
+        prompt = getTranslatePrompt(fromLang as Language, targetLang, selectedStyle);
       } else {
-        prompt = getTranslatePrompt(fromLang as Language, toLang as Language);
+        prompt = getTranslatePrompt(fromLang as Language, toLang as Language, selectedStyle);
       }
 
       setLastTranslateData((prev) => ({
@@ -120,10 +115,12 @@ function TranslatorPage() {
     [
       currentModel,
       i18n.language,
+      lastTranslateData.fromLang,
+      lastTranslateData.style,
+      lastTranslateData.toLang,
       mutateTranslateText,
       openaiApiKey,
       setLastTranslateData,
-      setTranslateText,
       t,
       temperatureParam,
       translateText,
@@ -137,132 +134,200 @@ function TranslatorPage() {
     setTranslateText('');
   }, [setTranslateText]);
 
-  // ↑ Hooks before, keep hooks order
+  const charCount = translateText ? translateText.length : 0;
+  const translatedCharCount = translatedText ? translatedText.length : 0;
 
   return (
-    <form method="post" onSubmit={handleTranslate}>
-      <div className="container max-w-screen-2xl xl:mx-auto md:grid md:grid-cols-2 md:gap-4">
-        <div className="w-full md:min-h-[calc(100vh_-_112px)] max-w-full p-4 m-0 top-16 bg-base-100 md:border-r border-r-base-300">
-          <div className="flex flex-row mb-4">
-            <select
-              className="w-5/12 select"
-              value={lastTranslateData.fromLang}
-              onChange={(e) => setLastTranslateData((prev) => ({ ...prev, fromLang: e.target.value }))}
-              name="fromLang"
-              title="From Language"
-              required
-            >
-              {Object.keys(LANGUAGES).map((lang) => (
-                <option key={lang} value={lang}>
-                  {LANGUAGES[lang as Language]}
-                </option>
-              ))}
-            </select>
-
-            <div className="flex justify-center w-2/12">
-              <button
-                type="button"
-                className="btn btn-ghost btn-circle"
-                onClick={onExchangeLanguageBtnClick}
-                title="Exchange"
+    <form method="post" onSubmit={handleTranslate} className="w-full">
+      <div className="container max-w-6xl mx-auto px-3 sm:px-6 py-4 space-y-4">
+        {/* Top Control Bar: Languages & Styles */}
+        <div className="card bg-base-100/90 border border-base-200/80 shadow-xs backdrop-blur-xs rounded-2xl p-3 sm:p-4 space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex-1 min-w-0">
+              <select
+                className="w-full select select-bordered select-sm md:select-md rounded-xl font-medium focus:select-primary transition-all"
+                value={lastTranslateData.fromLang}
+                onChange={(e) => setLastTranslateData((prev) => ({ ...prev, fromLang: e.target.value }))}
+                name="fromLang"
+                title="From Language"
+                required
               >
-                <CgArrowsExchange size={20} />
-              </button>
+                {Object.keys(LANGUAGES).map((lang) => (
+                  <option key={lang} value={lang}>
+                    {LANGUAGES[lang as Language]}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <select
-              className="w-5/12 select"
-              value={lastTranslateData.toLang}
-              onChange={(e) => setLastTranslateData((prev) => ({ ...prev, toLang: e.target.value }))}
-              name="toLang"
-              title="To language"
-              required
+            <button
+              type="button"
+              className="btn btn-ghost btn-circle btn-sm md:btn-md shrink-0 hover:btn-primary hover:text-primary-content transition-all duration-300"
+              onClick={onExchangeLanguageBtnClick}
+              title={t('Exchange')}
             >
-              {Object.keys(LANGUAGES).map((lang) => (
-                <option key={lang} value={lang}>
-                  {LANGUAGES[lang as Language]}
-                </option>
-              ))}
-            </select>
+              <CgArrowsExchange size={22} />
+            </button>
+
+            <div className="flex-1 min-w-0">
+              <select
+                className="w-full select select-bordered select-sm md:select-md rounded-xl font-medium focus:select-primary transition-all"
+                value={lastTranslateData.toLang}
+                onChange={(e) => setLastTranslateData((prev) => ({ ...prev, toLang: e.target.value }))}
+                name="toLang"
+                title="To language"
+                required
+              >
+                {Object.keys(LANGUAGES).map((lang) => (
+                  <option key={lang} value={lang}>
+                    {LANGUAGES[lang as Language]}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          <div className="form-control">
-            <div className="relative">
+          {/* Style Selector Pills */}
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-base-200">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-base-content/70">
+              <MdAutoAwesome size={15} className="text-primary" />
+              <span>{t('Translation Style')}:</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-1.5">
+              {TRANSLATE_STYLES.map((style) => {
+                const isActive = (lastTranslateData.style || DEFAULT_TRANSLATE_STYLE) === style;
+                return (
+                  <button
+                    key={style}
+                    type="button"
+                    onClick={() => setLastTranslateData((prev) => ({ ...prev, style }))}
+                    disabled={isTranslating}
+                    className={clsx(
+                      'badge badge-sm cursor-pointer transition-all duration-200 py-2.5 px-3 rounded-lg text-xs font-medium border',
+                      isActive
+                        ? 'badge-primary border-primary font-semibold shadow-xs'
+                        : 'badge-ghost border-transparent hover:border-base-300 text-base-content/75',
+                    )}
+                    title={t(`styleDesc_${style}`)}
+                  >
+                    {t(`style_${style}`)}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Translation Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch pb-16">
+          {/* Source Input Card */}
+          <div className="card bg-base-100 border border-base-200/90 shadow-xs hover:border-base-300 transition-all rounded-2xl md:rounded-3xl p-4 md:p-5 flex flex-col justify-between min-h-[280px] md:min-h-[400px]">
+            <div className="w-full flex-1">
               <TextareaAutoSize
                 ref={translateTextAreaRef}
                 name="translateText"
                 value={translateText}
-                className="w-full mb-2 whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-primary md:min-h-[120px] pb-10"
+                className="w-full border-none focus:outline-hidden p-0 text-base leading-relaxed bg-transparent resize-none min-h-[160px] md:min-h-[280px] placeholder:text-base-content/40"
                 placeholder={t('Please enter the text you want to translate here.')}
                 onChange={(e) => setTranslateText(e.target.value)}
                 disabled={isTranslating}
                 required
               />
-              <div className="absolute left-0 flex flex-row justify-between w-full px-2 bottom-5">
-                <div className="flex flex-row justify-start gap-2">
-                  <SpeechRecognitionButton
+            </div>
+
+            <div className="flex items-center justify-between pt-3 mt-3 border-t border-base-200/60">
+              <div className="flex items-center gap-1.5">
+                <SpeechRecognitionButton
+                  language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
+                  onChangeTranscript={onChangeTranscript}
+                  disabled={isTranslating}
+                />
+                {!!translateText && (
+                  <TTSButton
                     language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
-                    onChangeTranscript={onChangeTranscript}
-                    disabled={isTranslating}
+                    text={translateText}
                   />
-                  {!!translateText && (
-                    <TTSButton
-                      language={lastTranslateData.fromLang === 'auto' ? i18n.language : lastTranslateData.fromLang}
-                      text={translateText}
-                    />
-                  )}
-                </div>
+                )}
+                {charCount > 0 && (
+                  <span className="text-xs text-base-content/40 ml-1 font-mono tabular-nums">
+                    {charCount} {charCount === 1 ? 'char' : 'chars'}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
                 {!!translateText && (
                   <button
                     type="button"
-                    className="btn btn-circle btn-sm btn-ghost"
-                    title="Clear the input"
+                    className="btn btn-circle btn-sm btn-ghost text-base-content/60 hover:text-base-content"
+                    title={t('Clear the input')}
                     onClick={onClearBtnClick}
                   >
-                    <MdClose size="16" />
+                    <MdClose size={18} />
+                  </button>
+                )}
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-sm rounded-xl px-4 gap-1.5 font-semibold shadow-xs"
+                  disabled={isTranslating || !translateText}
+                >
+                  {isTranslating ? <span className="loading loading-spinner loading-xs" /> : <MdTranslate size={16} />}
+                  {isTranslating ? t('Translating...') : t('Translate')}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Target Output Card */}
+          <div className="card bg-base-200/40 dark:bg-base-200/20 border border-base-200/90 shadow-xs rounded-2xl md:rounded-3xl p-4 md:p-5 flex flex-col justify-between min-h-[280px] md:min-h-[400px]">
+            <div className="w-full flex-1 relative">
+              {isTranslating && !translatedText && (
+                <div className="flex flex-col items-center justify-center h-full min-h-[160px] md:min-h-[280px] text-base-content/50 space-y-2 animate-pulse">
+                  <span className="loading loading-dots loading-md text-primary" />
+                  <span className="text-sm">{t('Please wait...')}</span>
+                </div>
+              )}
+
+              <TextareaAutoSize
+                name="translatedText"
+                value={translatedText || ''}
+                className={clsx(
+                  'w-full border-none focus:outline-hidden p-0 text-base leading-relaxed bg-transparent resize-none min-h-[160px] md:min-h-[280px]',
+                  isTranslating && !translatedText && 'hidden',
+                )}
+                placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
+                readOnly
+              />
+            </div>
+
+            <div className="flex items-center justify-between pt-3 mt-3 border-t border-base-200/60">
+              <div className="flex items-center gap-1.5">
+                {!!translatedText && (
+                  <TTSButton
+                    language={lastTranslateData.toLang === 'auto' ? i18n.language : lastTranslateData.toLang}
+                    text={translatedText}
+                  />
+                )}
+                {translatedCharCount > 0 && (
+                  <span className="text-xs text-base-content/40 ml-1 font-mono tabular-nums">
+                    {translatedCharCount} {translatedCharCount === 1 ? 'char' : 'chars'}
+                  </span>
+                )}
+              </div>
+
+              <div>
+                {!!translatedText && !isTranslating && (
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-ghost rounded-xl gap-1.5 text-base-content/70 hover:text-base-content"
+                    title={t('Copy translated text')}
+                    onClick={onCopyBtnClick}
+                  >
+                    <MdContentCopy size={16} />
+                    <span>{t('Copy translation')}</span>
                   </button>
                 )}
               </div>
-            </div>
-            <button type="submit" className="btn btn-primary md:hidden w-full" disabled={isTranslating}>
-              {isTranslating && <span className="loading loading-spinner loading-sm" />}
-              {isTranslating ? t('Translating...') : t('Translate')}
-            </button>
-          </div>
-        </div>
-        <div className="p-4 m-0 pb-14 form-control">
-          <button type="submit" className="w-full btn btn-primary hidden mb-4 md:inline-flex" disabled={isTranslating}>
-            {isTranslating && <span className="loading loading-spinner loading-sm" />}
-            {isTranslating ? t('Translating...') : t('Translate')}
-          </button>
-          <div className="relative">
-            <TextareaAutoSize
-              name="translatedText"
-              value={translatedText || ''}
-              className={clsx(
-                'w-full mb-2 whitespace-pre-line break-words resize-none rounded-2xl textarea textarea-md textarea-ghost md:min-h-[120px]',
-                !!translatedText && !isTranslating && 'pb-10',
-              )}
-              placeholder={isTranslating ? t('Please wait...') : t('Translated text will appear here.')}
-              readOnly
-            />
-            <div className="absolute left-0 flex flex-row justify-between w-full px-2 bottom-5">
-              {!!translatedText && (
-                <TTSButton
-                  language={lastTranslateData.toLang === 'auto' ? i18n.language : lastTranslateData.toLang}
-                  text={translatedText || ''}
-                />
-              )}
-              {!!translatedText && !isTranslating && (
-                <button
-                  type="button"
-                  className="btn btn-circle btn-sm btn-ghost"
-                  title={t('Copy translated text')}
-                  onClick={onCopyBtnClick}
-                >
-                  <MdContentCopy size="16" />
-                </button>
-              )}
             </div>
           </div>
         </div>

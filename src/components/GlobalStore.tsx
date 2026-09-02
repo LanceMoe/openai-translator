@@ -24,6 +24,7 @@ export function GlobalProvider(props: Props) {
     defaultValue: {
       fromLang: 'auto',
       toLang: 'auto',
+      style: 'general',
     },
     getInitialValueInEffect: false,
   });
@@ -56,6 +57,7 @@ export function GlobalProvider(props: Props) {
   const activeTranslationRef = useRef<{
     fromLang: string;
     toLang: string;
+    style?: string;
     text: string;
   } | null>(null);
 
@@ -64,11 +66,12 @@ export function GlobalProvider(props: Props) {
       activeTranslationRef.current = {
         fromLang: lastTranslateData.fromLang,
         toLang: lastTranslateData.toLang,
+        style: lastTranslateData.style || 'general',
         text: data.queryText,
       };
       rawMutateTranslateText(data);
     },
-    [lastTranslateData.fromLang, lastTranslateData.toLang, rawMutateTranslateText],
+    [lastTranslateData.fromLang, lastTranslateData.toLang, lastTranslateData.style, rawMutateTranslateText],
   );
 
   useEffect(() => setApiBaseUrl(configValues.openaiApiUrl), [configValues.openaiApiUrl]);
@@ -80,6 +83,7 @@ export function GlobalProvider(props: Props) {
     const currentActive = activeTranslationRef.current;
     const fromLanguage = currentActive?.fromLang || lastTranslateData.fromLang;
     const toLanguage = currentActive?.toLang || lastTranslateData.toLang;
+    const style = currentActive?.style || lastTranslateData.style || 'general';
     const text = currentActive?.text ?? translateText;
 
     setHistoryRecords((prev) => [
@@ -87,6 +91,7 @@ export function GlobalProvider(props: Props) {
         id: self.crypto.randomUUID(),
         fromLanguage,
         toLanguage,
+        style,
         text,
         translation: translatedText,
         createdAt: Date.now(),
@@ -98,6 +103,7 @@ export function GlobalProvider(props: Props) {
     isTranslating,
     lastTranslateData.fromLang,
     lastTranslateData.toLang,
+    lastTranslateData.style,
     setHistoryRecords,
     translateText,
   ]);

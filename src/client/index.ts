@@ -21,8 +21,8 @@ export async function chatCompletions(
   prompt: string,
   query: string,
   model = DEFAULT_MODEL,
-  temperature = 0.7,
-  maxTokens = 1000,
+  temperature = 0.2,
+  maxTokens = 2000,
   topP = 1,
   frequencyPenalty = 0,
   presencePenalty = 0,
@@ -48,7 +48,6 @@ export async function chatCompletions(
     presence_penalty: presencePenalty,
     messages: [
       { role: 'system', content: prompt },
-      { role: 'system', content: 'Please note that your response should solely consist of the translation.' },
       { role: 'user', content: query },
     ],
   };
@@ -76,11 +75,11 @@ export async function chatCompletionsStream(
     prompt,
     query,
     model = DEFAULT_MODEL,
-    temperature = 0,
-    maxTokens = 1000,
+    temperature = 0.2,
+    maxTokens = 2000,
     topP = 1,
-    frequencyPenalty = 1,
-    presencePenalty = 1,
+    frequencyPenalty = 0,
+    presencePenalty = 0,
   } = params;
   const { url, headers } = endpoints.v1.chat.completions;
 
@@ -98,7 +97,6 @@ export async function chatCompletionsStream(
     stream: true,
     messages: [
       { role: 'system', content: prompt },
-      { role: 'system', content: 'Please note that your response should solely consist of the translation.' },
       { role: 'user', content: query },
     ],
   };

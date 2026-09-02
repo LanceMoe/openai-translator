@@ -56,5 +56,20 @@
   "Start speaking": "Start speaking",
   "Stop speaking": "Stop speaking",
   "Start reading": "Start reading",
-  "Stop reading": "Stop reading"
+  "Stop reading": "Stop reading",
+  "Translation Style": "Translation Style",
+  "Style": "Style",
+  "style_general": "General",
+  "style_academic": "Academic",
+  "style_technical": "Technical",
+  "style_business": "Business",
+  "style_colloquial": "Colloquial",
+  "style_literary": "Literary",
+  "styleDesc_general": "Balanced, accurate, and fluent translation",
+  "styleDesc_academic": "Formal, objective, and scholarly terminology",
+  "styleDesc_technical": "Preserves code, identifiers, and IT terminology",
+  "styleDesc_business": "Professional, courteous, and diplomatic tone",
+  "styleDesc_colloquial": "Authentic, everyday conversational phrasing",
+  "styleDesc_literary": "Evocative, expressive, and artistic wording",
+  "API Key is stored locally in your browser only.": "API Key is stored locally in your browser only."
 }

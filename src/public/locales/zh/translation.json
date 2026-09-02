@@ -56,5 +56,20 @@
   "Start speaking": "开始语音输入",
   "Stop speaking": "停止语音输入",
   "Start reading": "朗读文本",
-  "Stop reading": "停止朗读"
+  "Stop reading": "停止朗读",
+  "Translation Style": "翻译风格",
+  "Style": "风格",
+  "style_general": "通用精准",
+  "style_academic": "学术严谨",
+  "style_technical": "技术开发",
+  "style_business": "商务正式",
+  "style_colloquial": "日常口语",
+  "style_literary": "文学雅致",
+  "styleDesc_general": "信达雅，忠实准确且表达自然",
+  "styleDesc_academic": "学术用语规范严谨，适合学术论文与报告",
+  "styleDesc_technical": "保留代码与开发术语，适合技术文档与IT工程",
+  "styleDesc_business": "严谨得体、商务礼貌，适合商务邮件与公文",
+  "styleDesc_colloquial": "地道口语化，适合日常交流与对话",
+  "styleDesc_literary": "文笔优美、富有文采与意境，适合小说文学",
+  "API Key is stored locally in your browser only.": "API Key 仅保存在本地浏览器中，绝不上报服务器。"
 }

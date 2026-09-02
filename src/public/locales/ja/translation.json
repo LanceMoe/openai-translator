@@ -56,5 +56,20 @@
   "Start speaking": "音声入力を開始",
   "Stop speaking": "音声入力を停止",
   "Start reading": "テキストを読み上げる",
-  "Stop reading": "読み上げを停止"
+  "Stop reading": "読み上げを停止",
+  "Translation Style": "翻訳スタイル",
+  "Style": "スタイル",
+  "style_general": "標準・高精度",
+  "style_academic": "学術・厳密",
+  "style_technical": "技術・開発",
+  "style_business": "ビジネス",
+  "style_colloquial": "日常会話",
+  "style_literary": "文学・優雅",
+  "styleDesc_general": "正確で自然な表現（信・達・雅）",
+  "styleDesc_academic": "学術用語に準拠した厳密な表現",
+  "styleDesc_technical": "コードや開発用語を保持した技術文書向け",
+  "styleDesc_business": "礼儀正しく簡潔なビジネス文書向け",
+  "styleDesc_colloquial": "ネイティブらしい自然な会話表現",
+  "styleDesc_literary": "文彩と表現力に富んだ文学的表現",
+  "API Key is stored locally in your browser only.": "APIキーはブラウザのローカルにのみ保存されます。"
 }

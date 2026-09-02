@@ -3,28 +3,28 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaSortDown } from 'react-icons/fa';
-import { IoLanguage } from 'react-icons/io5';
+import { MdCheck, MdLanguage } from 'react-icons/md';
 
 const LANGUAGES = [
   {
     code: 'en',
     name: 'English',
-    icon: <span className="badge badge-sm badge-outline">EN</span>,
+    badge: 'EN',
   },
   {
     code: 'zh',
     name: '简体中文',
-    icon: <span className="badge badge-sm badge-outline">ZH</span>,
+    badge: '简',
   },
   {
     code: 'zh-TW',
     name: '正體中文',
-    icon: <span className="badge badge-sm badge-outline">ZH</span>,
+    badge: '繁',
   },
   {
     code: 'ja',
     name: '日本語',
-    icon: <span className="badge badge-sm badge-outline">JA</span>,
+    badge: '日',
   },
 ] as const;
 
@@ -39,6 +39,7 @@ export function SwitchLanguageButton() {
     defaultValue: 'zh',
     getInitialValueInEffect: false,
   });
+
   useEffect(() => {
     document.documentElement.setAttribute('lang', lang);
     i18n.changeLanguage(lang);
@@ -52,35 +53,56 @@ export function SwitchLanguageButton() {
   }, [isMenuOpen]);
 
   return (
-    <div title="Change Language" className={clsx('dropdown', 'dropdown-end', isMenuOpen && 'dropdown-open')} ref={ref}>
+    <div className={clsx('dropdown dropdown-end', isMenuOpen && 'dropdown-open')} ref={ref}>
       <button
         type="button"
         title={t('Change Language')}
-        tabIndex={0}
-        className="btn btn-ghost gap-1 normal-case"
+        aria-label={t('Change Language')}
+        className="btn btn-ghost btn-sm sm:btn-md rounded-xl gap-1.5 px-2.5 font-medium text-base-content/80 hover:text-base-content"
         onClick={() => setIsMenuOpen((prev) => !prev)}
       >
-        <IoLanguage size={20} />
-        <FaSortDown size={12} />
+        <MdLanguage size={19} />
+        <FaSortDown size={10} className="mb-0.5 text-base-content/50" />
       </button>
-      <div className="w-56 mt-16 overflow-y-auto shadow-2xl dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box top-px">
-        <ul className="gap-1 p-3 menu menu-sm" tabIndex={0}>
-          {LANGUAGES.map((language) => (
-            <li key={language.code}>
-              <a
-                className={clsx('flex', i18n.language === language.code && 'active')}
+
+      <ul
+        tabIndex={0}
+        className="dropdown-content menu z-50 mt-2 w-48 rounded-2xl border border-base-200 bg-base-100 p-1.5 shadow-xl backdrop-blur-md"
+      >
+        {LANGUAGES.map((language) => {
+          const isActive = i18n.language === language.code;
+          return (
+            <li key={language.code} className="w-full">
+              <button
+                type="button"
+                className={clsx(
+                  'flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs sm:text-sm font-medium transition-all',
+                  isActive
+                    ? 'active bg-primary text-primary-content font-semibold'
+                    : 'text-base-content/80 hover:bg-base-200 hover:text-base-content',
+                )}
                 onClick={() => {
                   setLang(language.code);
                   setIsMenuOpen(false);
                 }}
               >
-                {language.icon}
-                <span className="flex justify-between flex-1">{language.name}</span>
-              </a>
+                <div className="flex items-center gap-2">
+                  <span
+                    className={clsx(
+                      'badge badge-xs px-1.5 py-2 font-mono font-bold rounded-md',
+                      isActive ? 'badge-neutral bg-primary-content/20 text-primary-content border-none' : 'badge-ghost',
+                    )}
+                  >
+                    {language.badge}
+                  </span>
+                  <span>{language.name}</span>
+                </div>
+                {isActive && <MdCheck size={16} className="shrink-0" />}
+              </button>
             </li>
-          ))}
-        </ul>
-      </div>
+          );
+        })}
+      </ul>
     </div>
   );
 }

@@ -16,7 +16,9 @@ export function useChatGPTStream() {
         return;
       }
       setData('');
+      setError('');
       setLoading(true);
+
       if (!token) {
         setError('No API Key found!');
         setLoading(false);
@@ -33,6 +35,11 @@ export function useChatGPTStream() {
           ? +temperatureParam
           : 0.7;
 
+      const MAX_RETRIES = 5;
+      let retryCount = 0;
+      let isFatal = false;
+      let accumulatedText = '';
+
       OpenAIClient.chatCompletionsStream(
         {
           token,
@@ -43,18 +50,22 @@ export function useChatGPTStream() {
         },
         {
           async onopen(res) {
-            setData('');
-            setLoading(true);
             if (res.ok && res.status === 200) {
-              console.log('Connection made ', res.status);
+              console.log('Stream connection established (200 OK)');
               setError('');
-            } else if (res.status >= 400 && res.status < 500 && res.status !== 429) {
-              console.warn('Client side error ', res);
-              setError('Client side error ' + res.status);
+              accumulatedText = '';
+              setData('');
+              setLoading(true);
+            } else if (res.status === 401 || res.status === 403) {
+              // Non-retryable authentication error
+              isFatal = true;
+              setError(`Authentication failed (${res.status}). Please check your API Key.`);
               setLoading(false);
-            } else if (!res.ok) {
-              setError('HTTP error ' + res.status);
-              setLoading(false);
+              throw new Error(`Fatal auth error ${res.status}`);
+            } else {
+              // Retryable HTTP error (e.g. 429, 500, 502, 503, 504)
+              console.warn(`Stream received HTTP ${res.status}, will retry...`);
+              throw new Error(`HTTP error ${res.status}`);
             }
           },
           onmessage(event) {
@@ -66,23 +77,37 @@ export function useChatGPTStream() {
             try {
               const parsedData = JSON.parse(event.data) as ChatCompletionsResponse;
               const text = parsedData.choices?.map((choice) => choice.delta?.content || '').join('') || '';
-              setData((prev) => prev + text);
+              accumulatedText += text;
+              setData(accumulatedText);
             } catch (err) {
               console.warn('Failed to parse SSE event data', err);
             }
           },
           onclose() {
-            setError('');
             setLoading(false);
           },
           onerror(err) {
-            setError(err);
-            setLoading(false);
+            if (isFatal) {
+              throw err;
+            }
+            if (retryCount < MAX_RETRIES) {
+              retryCount++;
+              const delay = Math.min(1000 * Math.pow(1.5, retryCount - 1), 5000);
+              console.warn(`Stream error (retry ${retryCount}/${MAX_RETRIES}). Retrying in ${delay}ms...`, err);
+              return delay;
+            } else {
+              console.error(`Stream failed after ${MAX_RETRIES} retries.`, err);
+              setError(String(err?.message || err || 'Stream connection failed.'));
+              setLoading(false);
+              throw err;
+            }
           },
         },
       ).catch((err) => {
-        setError(err);
-        setLoading(false);
+        if (!isFatal) {
+          setError(String(err?.message || err || 'Request failed.'));
+          setLoading(false);
+        }
       });
     },
     [loading],

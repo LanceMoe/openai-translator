@@ -8,8 +8,7 @@ import { useChatGPTStream } from './useChatGPTStream';
 export function useQueryApi(streamEnabled = true) {
   const { data, mutate, isPending, isError } = useMutation({
     mutationFn: fetchTranslation,
-    retry: 5,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000),
+    retry: false, // Retry is handled internally in fetchTranslation with backoff
   });
   const {
     data: streamData,

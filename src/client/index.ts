@@ -4,16 +4,45 @@ import axios from 'axios';
 import apis from '@/client/apis';
 import { DEFAULT_MODEL } from '@/constants';
 
-const { endpoints, baseUrl } = apis;
+const { baseUrl } = apis;
 
-const client = axios.create({ baseURL: baseUrl });
-let apiBaseUrl = baseUrl;
+export function normalizeApiBaseUrl(rawUrl?: string): string {
+  let url = (rawUrl || '').trim();
+  if (!url) {
+    url = baseUrl || 'https://api.openai.com/v1';
+  }
+
+  // Prepend protocol if missing
+  if (!/^https?:\/\//i.test(url)) {
+    const isLocal = /^(localhost|127\.0\.0\.1|0\.0\.0\.0)(:\d+)?/i.test(url);
+    url = `${isLocal ? 'http://' : 'https://'}${url}`;
+  }
+
+  // Remove trailing slashes
+  url = url.replace(/\/+$/, '');
+
+  // Strip trailing /chat/completions if the user entered the full endpoint
+  url = url.replace(/\/chat\/completions\/?$/i, '');
+  url = url.replace(/\/+$/, '');
+
+  // If the URL does not already end with /v1, automatically append /v1
+  if (!/\/v1$/i.test(url)) {
+    url = `${url}/v1`;
+  }
+
+  return url;
+}
+
+let apiBaseUrl = normalizeApiBaseUrl(baseUrl);
+const client = axios.create();
 
 export function setApiBaseUrl(url: string) {
-  let cleaned = url.trim().replace(/\/+$/, '');
-  cleaned = cleaned.replace(/\/v1$/, '');
-  apiBaseUrl = cleaned || baseUrl;
-  client.defaults.baseURL = apiBaseUrl;
+  apiBaseUrl = normalizeApiBaseUrl(url);
+}
+
+export function getChatCompletionsUrl(customBaseUrl?: string): string {
+  const base = normalizeApiBaseUrl(customBaseUrl || apiBaseUrl);
+  return `${base}/chat/completions`;
 }
 
 export async function chatCompletions(
@@ -27,10 +56,10 @@ export async function chatCompletions(
   frequencyPenalty = 0,
   presencePenalty = 0,
 ) {
-  const { url, headers } = endpoints.v1.chat.completions;
+  const targetUrl = getChatCompletionsUrl();
   const config = {
     headers: {
-      ...headers,
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   };
@@ -52,7 +81,7 @@ export async function chatCompletions(
     ],
   };
 
-  const response = await client.post<ChatCompletionsResponse>(url, body, config);
+  const response = await client.post<ChatCompletionsResponse>(targetUrl, body, config);
   return response;
 }
 
@@ -81,7 +110,7 @@ export async function chatCompletionsStream(
     frequencyPenalty = 0,
     presencePenalty = 0,
   } = params;
-  const { url, headers } = endpoints.v1.chat.completions;
+  const targetUrl = getChatCompletionsUrl();
 
   const body = {
     model,
@@ -100,11 +129,11 @@ export async function chatCompletionsStream(
       { role: 'user', content: query },
     ],
   };
-  const response = await fetchEventSource(apiBaseUrl + url, {
+  const response = await fetchEventSource(targetUrl, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      ...headers,
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     openWhenHidden: true,
@@ -115,6 +144,7 @@ export async function chatCompletionsStream(
 
 export default {
   setApiBaseUrl,
+  getChatCompletionsUrl,
   chatCompletions,
   chatCompletionsStream,
 };

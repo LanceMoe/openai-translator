@@ -12,6 +12,17 @@ type Props = {
   size?: ButtonSize;
 } & Omit<React.ComponentPropsWithoutRef<'button'>, 'size'>;
 
+let activeUtterance: SpeechSynthesisUtterance | null = null;
+const cancelledUtterances = new WeakSet<SpeechSynthesisUtterance>();
+
+function stopActiveUtterance() {
+  if (activeUtterance) {
+    cancelledUtterances.add(activeUtterance);
+    activeUtterance = null;
+  }
+  window.speechSynthesis.cancel();
+}
+
 export function TTSButton(props: Props) {
   const { language, text, className, size = 'sm', ...restProps } = props;
   const { t } = useTranslation();
@@ -26,16 +37,26 @@ export function TTSButton(props: Props) {
     utterance.pitch = 1;
     utterance.text = text;
     utterance.onend = () => {
+      if (activeUtterance === utterance) {
+        activeUtterance = null;
+      }
+      cancelledUtterances.delete(utterance);
       setRecording(false);
-      window.speechSynthesis.cancel();
     };
     utterance.onerror = () => {
-      toast.error(t('Something went wrong, please try again later.'));
+      const wasCancelled = cancelledUtterances.delete(utterance);
+      if (activeUtterance === utterance) {
+        activeUtterance = null;
+      }
       setRecording(false);
-      window.speechSynthesis.cancel();
+      if (!wasCancelled) {
+        toast.error(t('Something went wrong, please try again later.'));
+      }
     };
     utterance.onstart = () => {
-      setRecording(true);
+      if (activeUtterance === utterance) {
+        setRecording(true);
+      }
     };
     utteranceRef.current = utterance;
 
@@ -47,18 +68,30 @@ export function TTSButton(props: Props) {
   }, [language, t, text]);
 
   const onClickTTSBtn = useCallback(() => {
-    if (recording) {
-      window.speechSynthesis.pause();
-      window.speechSynthesis.cancel();
-    } else {
-      const utterance = utteranceRef.current;
-      if (!utterance) {
-        return;
-      }
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
+    const utterance = utteranceRef.current;
+    if (!utterance) {
+      return;
     }
-  }, [recording]);
+
+    if (activeUtterance === utterance) {
+      stopActiveUtterance();
+      setRecording(false);
+      return;
+    }
+
+    stopActiveUtterance();
+    cancelledUtterances.delete(utterance);
+    activeUtterance = utterance;
+    try {
+      window.speechSynthesis.speak(utterance);
+    } catch {
+      if (activeUtterance === utterance) {
+        activeUtterance = null;
+      }
+      setRecording(false);
+      toast.error(t('Something went wrong, please try again later.'));
+    }
+  }, [t]);
 
   return (
     <button
